@@ -1,0 +1,2356 @@
+<!doctype html> <html lang="es"> <head> <script>(function(){try{var qp=new URLSearchParams(location.search).get('panel');if(qp){localStorage.setItem('ORBE_PANEL_BASE',qp);}var stored=localStorage.getItem('ORBE_PANEL_BASE');window.SOBERAI_PANEL=stored||"https://gods-survive-condo-batteries.trycloudflare.com";}catch(_){window.SOBERAI_PANEL="https://gods-survive-condo-batteries.trycloudflare.com";}})();</script> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>AetherLab — Landing Quantum Black</title> <!-- Google Fonts: Playfair Display & Inter --> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eee;
+    --gray-800: #222; /* hover para botones fijos */
+    --shadow-white: rgba(255,255,255,0.12);
+    --shadow-black: rgba(0,0,0,0.18);
+    --tertiary: #BAB669;
+  }
+
+  html, body { background: var(--white); color: var(--black); scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; }
+  h1, h2, h3, .display-1, .display-2 { font-family: 'Playfair Display', Georgia, serif; letter-spacing: .2px; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: inherit; }
+
+  /* HEADER */
+  .minimal-header { background: var(--black); transition: box-shadow .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; min-height: 120px; display: flex; align-items: center; }
+  .minimal-header.scrolled { box-shadow: 0 6px 18px var(--shadow-white); border-bottom-color: rgba(255,255,255,.08); backdrop-filter: blur(2px); }
+  .brand-logo { height: 100px; max-height: 100px; width: auto; object-fit: contain; filter: grayscale(1) brightness(1.05); }
+  main { padding-top: 150px; }
+
+  /* HERO */
+  .hero { min-height: 70vh; background: var(--white); display: flex; align-items: center; }
+  .hero-subtitle { color: #111; }
+  .btn-contrast { background: var(--tertiary); color: var(--black); border: 1px solid var(--tertiary); border-radius: 2px; padding: .75rem 1.25rem; transition: color .25s ease, background-color .25s ease, border-color .25s ease, transform .25s ease; }
+  .btn-contrast:hover, .btn-contrast:focus { background: var(--black); color: var(--white); border-color: var(--black); transform: translateY(-1px); }
+  .video-frame { border: 1px solid rgba(186,182,105,.6); background: var(--black); border-radius: 18px; box-shadow: 0 18px 40px rgba(0,0,0,.35); overflow: hidden; }
+  .video-frame video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .hero-video { width: min(420px, 92%); aspect-ratio: 9 / 16; margin-left: auto; }
+  @media (max-width: 991.98px) {
+    .hero-video { width: min(520px, 100%); margin: 0 auto; }
+  }
+
+  /* SECCIONES CLARAS/OSCURAS */
+  .section-dark { background: var(--black); color: var(--white); }
+  .section-light { background: var(--white); color: var(--black); }
+
+  /* CARRUSEL INFORMATIVO */
+  .carousel .carousel-indicators [data-bs-target] { background-color: var(--white); }
+  /* Bajar las tres rayitas (indicadores) del carrusel informativo */
+  #infoCarousel { padding-bottom: 3.75rem; }
+  #infoCarousel .carousel-indicators { bottom: -34px; }
+  @media (max-width: 991.98px) {
+    #infoCarousel { padding-bottom: 2.75rem; }
+    #infoCarousel .carousel-indicators { bottom: -22px; }
+  }
+  .carousel .carousel-control-next-icon, .carousel .carousel-control-prev-icon { filter: invert(1) grayscale(1); }
+  .carousel .carousel-item { transition: opacity .6s ease-in-out; }
+  .img-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 18px 30px var(--shadow-black); border: 1px solid var(--gray-200); }
+  .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Sección informativa (video + texto fijo) */
+  .info-static { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 3rem; }
+  .info-media { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 30px var(--shadow-black); border: 1px solid var(--gray-200); background: var(--black); }
+  .info-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Imágenes de fondo por slide (desactivadas) */
+  @media (max-width: 991.98px) {
+    .info-static { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* PRODUCTOS */
+  .product-card.card { border: 1px solid var(--tertiary); border-radius: 2px; transition: transform .25s ease, box-shadow .25s ease; background: var(--white); }
+  .product-card.card:hover { transform: translateY(-4px); box-shadow: 0 18px 30px var(--shadow-black); }
+  .card-title { font-family: 'Playfair Display', Georgia, serif; }
+  .feedback-flow__line { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; font-size: 0.95rem; color: #666; }
+  .feedback-flow__item { padding: 2px 8px; border: 1px solid var(--tertiary); border-radius: 999px; background: var(--white); }
+  .feedback-flow__arrow { color: #999; }
+
+  /* BARRA SOCIAL FIJA */
+  .social-bar { position: fixed; top: 78%; left: 16px; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1050; }
+  .social-bar a { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--tertiary); color: var(--black); border: 1px solid var(--tertiary); transition: background-color .25s ease, transform .25s ease, border-color .25s ease; }
+  .social-bar a:hover { background: var(--black); color: var(--white); border-color: var(--black); transform: translateY(-2px); }
+
+  /* CLIENTES (MARQUEE) */
+  .clients { overflow: hidden; position: relative; background: var(--tertiary); }
+  .marquee-track { display: flex; align-items: center; gap: 64px; will-change: transform; animation: marquee 50s linear infinite; animation-direction: reverse; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .client-logo { height: 110px; width: auto; filter: none; opacity: .95; transition: filter .3s ease, opacity .3s ease, transform .3s ease; }
+  .client-logo--sm { height: 72px; }
+  .client-logo--lg { height: 128px; }
+  .client-logo:hover { filter: saturate(1.1) brightness(1.05); opacity: 1; transform: translateY(-2px); }
+  @media (max-width: 991.98px) {
+    .social-bar { top: 88%; }
+    .client-logo { height: 76px; }
+    .client-logo--sm { height: 72px; }
+  }
+  @media (max-width: 767.98px) {
+    .client-logo { height: 68px; }
+    .client-logo--sm { height: 52px; }
+    .client-logo--lg { height: 82px; }
+  }
+
+  /* Levantar un poco el título del carrusel de clientes */
+  .clients.section-padding { padding-top: 40px; }
+  @media (max-width: 991.98px) {
+    .clients.section-padding { padding-top: 32px; }
+  }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--tertiary); }
+  .footer-logo { height: 64px; filter: none; }
+
+  /* REVEAL ON SCROLL */
+  .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .reveal-slow { transition-duration: 1s; }
+
+  /* CORE SECTION */
+  .core-section { /* hook dedicado; spacing con .section-padding */ }
+  .core-media { border-radius: 12px; overflow: hidden; border: 1px solid var(--gray-200); transition: transform .3s ease, box-shadow .3s ease, opacity .3s ease; background: var(--white); }
+  .core-media:hover { transform: translateY(-3px); box-shadow: 0 18px 30px var(--shadow-black); }
+  .core-media img, .core-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* CORE ORB WIDGET */
+  .core-widget { display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 1.25rem; width: 100%; height: 100%; background: var(--white); }
+   .core-orb {
+    width: clamp(140px, 42%, 240px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(120% 120% at 35% 35%, #ffffff 0%, #f2f2f2 28%, #cfcfcf 52%, #6b6b6b 76%, #000000 100%);
+    box-shadow: 0 10px 24px var(--shadow-black), inset 0 1px 2px rgba(255,255,255,.8);
+    animation: core-breathe 6s ease-in-out infinite;
+    overflow: hidden;
+  }
+
+    .core-orb {
+    width: clamp(140px, 42%, 240px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(120% 120% at 35% 35%, #ffffff 0%, #f2f2f2 28%, #cfcfcf 52%, #6b6b6b 76%, #000000 100%);
+    box-shadow: 0 10px 24px var(--shadow-black), inset 0 1px 2px rgba(255,255,255,.8);
+    animation: core-breathe 6s ease-in-out infinite;
+  }
+
+  .core-orb::after {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, rgba(255,255,255,.18), rgba(0,0,0,.12), rgba(255,255,255,.18));
+    filter: blur(14px);
+    mix-blend-mode: soft-light;
+    animation: core-swirl 14s linear infinite;
+    opacity: .75;
+  }
+
+  
+
+  .core-orb.active { animation-duration: 2.4s; box-shadow: 0 16px 36px var(--shadow-black), inset 0 2px 3px rgba(255,255,255,.85); }
+  .core-orb.active::after { animation-duration: 5s; opacity: .95; }
+  .core-orb.listening { animation-duration: 1.6s; outline: 2px solid var(--black); outline-offset: 6px; }
+  .core-orb.listening::after { opacity: 1; filter: blur(10px); }
+  .core-orb-logo { display: none; }
+  @keyframes core-breathe { 0%, 100% { transform: scale(.98); } 50% { transform: scale(1.03); } }
+  @keyframes core-swirl { to { transform: rotate(360deg); } }
+  /* Config botón/panel */
+  .core-config-btn { position: absolute; top: 10px; right: 10px; border: 1px solid var(--tertiary); background: var(--white); color: var(--black); padding: 4px 6px; font-size: 12px; border-radius: 2px; cursor: pointer; }
+  .core-config { position: absolute; top: 44px; right: 10px; width: 280px; background: #fff; border: 1px solid var(--tertiary); padding: 8px; border-radius: 4px; box-shadow: 0 8px 20px var(--shadow-black); display: none; z-index: 10; }
+  .core-config.open { display: block; }
+  .core-config label { font-size: 12px; margin-top: 6px; display:block; }
+  .core-config input[type="text"] { width: 100%; padding: 6px 8px; font-size: 12px; border:1px solid var(--tertiary); border-radius:2px; }
+  .core-config .row { display:flex; align-items:center; justify-content: space-between; gap: 8px; }
+  .core-config .actions { display:flex; gap:8px; margin-top:8px; }
+  .btn-xs { border:1px solid var(--tertiary); background: var(--white); color: var(--black); border-radius:2px; padding:4px 8px; font-size:12px; cursor:pointer; }
+  .core-form .form-control { border-color: var(--tertiary); border-radius: 2px; }
+  .core-form .form-control:focus { box-shadow: none; border-color: var(--black); }
+  .core-send { border-radius: 2px; }
+  .core-mic-btn { border-radius: 999px; background: var(--tertiary); color: var(--black); border: 1px solid var(--tertiary); width: 42px; min-width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; margin-left: 8px; padding: 0; }
+  .core-mic-btn:hover, .core-mic-btn:focus { background: var(--black); color: var(--white); border-color: var(--black); }
+  .core-mic-btn:disabled { background: #777; border-color: #777; color: var(--white); }
+    #core-response {
+    display: none;
+  }
+  .accent-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--tertiary); color: var(--black); font-weight: 600; letter-spacing: .2px; box-shadow: 0 8px 18px rgba(0,0,0,.12); }
+  .accent-strong { color: var(--black); background: rgba(186,182,105,.35); padding: 0 6px; border-radius: 6px; }
+
+
+  /* ESPACIADOS */
+  .section-padding { padding-top: 96px; padding-bottom: 96px; }
+  @media (max-width: 991.98px) { .section-padding { padding-top: 72px; padding-bottom: 72px; } }
+
+  /* Motion reduction */
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; } }
+</style>
+<script src="orbe_engine.js"></script>
+</head> <body> <!-- BOTONES FIJOS - REDES SOCIALES --> <div class="social-bar" aria-label="Redes sociales"> <a href="https://www.instagram.com/soberanolab/" target="_blank" rel="noopener" aria-label="Instagram"> <i class="bi bi-instagram"></i> </a> <a href="https://wa.me/3516519277" target="_blank" rel="noopener" aria-label="WhatsApp"> <i class="bi bi-whatsapp"></i> </a> </div>
+<!-- HEADER -->
+<nav class="navbar minimal-header fixed-top py-3">
+  <div class="container-xxl d-flex justify-content-center">
+    <a class="navbar-brand m-0" href="#" aria-label="SoberanoLab">
+      <img src="img/logo_sin_c.png" class="brand-logo" alt="SoberanoLab" />
+    </a>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section class="hero section-light">
+    <div class="container-xxl py-4">
+      <div class="row g-5 align-items-center">
+        <!-- Izquierda: Texto (debajo y centrado en mobile) -->
+        <div class="col-12 col-lg-6 reveal order-2 order-lg-1 text-center text-lg-start">
+          <h1 class="display-4 fw-semibold mb-3">Software soberano para crecer con datos reales</h1>
+          <p class="hero-subtitle fs-5 mb-4">Sistemas propios de IA para marketing, operacion y gestion comercial. Menos carga operativa, mas conversion y decisiones basadas en datos.</p>
+          <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+            <a href="#productos" class="btn btn-contrast">Ver propuesta</a>
+            <a href="https://wa.me/3516519277" target="_blank" rel="noopener" class="btn btn-outline-dark border-dark d-flex align-items-center justify-content-center">Contactar</a>
+          </div>
+        </div>
+        <!-- Derecha: Video -->
+        <div class="col-12 col-lg-6 reveal order-1 order-lg-2">
+          <div class="video-frame hero-video">
+            <video src="img/V1.2.mp4" autoplay muted loop playsinline aria-label="V1.2"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 1 – CARRUSEL INFORMATIVO -->
+  <section class="section-dark section-padding">
+    <div class="container-xxl">
+      <div class="info-static reveal">
+        <div class="info-media">
+          <video src="img/vvz.mov" autoplay muted loop playsinline aria-label="Problema del nicho"></video>
+        </div>
+        <div>
+          <h2 class="mb-3">El problema del nicho</h2>
+          <p class="lead">Leads desordenados, equipos saturados, campañas sin optimizacion real, herramientas sueltas y poca visibilidad. Resultado: mas costo operativo y menor conversion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRA IA PROPIA: AETHERLAB CORE -->
+  <section id="core" class="section-light section-padding core-section">
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12 text-center reveal reveal-slow">
+          <div class="mb-2">
+            <span class="accent-chip">IA propia</span>
+          </div>
+          <h2 class="mb-3">Nuestra propuesta de valor</h2>
+          <p class="lead mx-auto" style="max-width: 820px;">
+            SoberanoLab es una empresa de tecnologia que desarrolla software y sistemas con <span class="accent-strong">IA propia</span> para integrar marketing, operacion y gestion comercial. Privacidad de datos, independencia tecnologica y escalabilidad real.
+          </p>
+        </div>
+      </div>
+      <div class="row align-items-center g-5 mt-2">
+        <!-- Columna izquierda: texto descriptivo -->
+        <div class="col-12 col-lg-6 reveal">
+          <p class="mb-3">
+            Acompanamos startups, agencias y consultoras con sistemas digitales eficientes. El ecosistema Soberano funciona como un circuito integrado: contenido estrategico, ads, agentes de voz 24/7, software de control y retroalimentacion continua.
+          </p>
+          <p class="mb-0">
+            El sistema aprende, optimiza y escala junto al negocio, reduciendo carga operativa y mejorando la calidad de los leads.
+          </p>
+        </div>
+        <!-- Columna derecha: widget interactivo -->
+        <div class="col-12 col-lg-6 reveal">
+          <div class="core-media ratio ratio-16x9">
+              <div class="core-widget">
+              <button type="button" class="core-config-btn" id="core-cfg-btn">Config</button>
+              <div class="core-config" id="core-cfg">
+                <div class="row">
+                  <label for="cfg-mode">Modo</label>
+                  <select id="cfg-mode" class="form-select form-select-sm" style="max-width:120px">
+                    <option value="ollama">Ollama (local LLM)</option>
+                    <option value="remote">Remoto (usar Core)</option>
+                  </select>
+                </div>
+                <label for="cfg-endpoint">Endpoint Core</label>
+                <input type="text" id="cfg-endpoint" placeholder="http://127.0.0.1:8000/core/respond" />
+                <label for="cfg-token">Token (opcional)</label>
+                <input type="text" id="cfg-token" placeholder="Bearer token o API key" />
+                <label for="cfg-ollama-endpoint">Endpoint Ollama</label>
+                <input type="text" id="cfg-ollama-endpoint" placeholder="http://127.0.0.1:11434/api/generate" />
+                <label for="cfg-model">Modelo (Ollama)</label>
+                <input type="text" id="cfg-model" placeholder="llama3.2:latest" />
+                <label for="cfg-webhook">Webhook panel</label>
+                <input type="text" id="cfg-webhook" placeholder="http://127.0.0.1:4000/webhook/orbe" />
+                <div class="actions">
+                  <button class="btn-xs" id="cfg-save">Guardar</button>
+                  <button class="btn-xs" id="cfg-close">Cerrar</button>
+                </div>
+              </div>
+                <div class="core-orb" id="core-orb" aria-live="polite" aria-busy="false" role="status"></div>
+                <div class="core-response mt-3 text-center small text-muted" id="core-response"></div>
+                <form class="core-form mt-3 w-100" id="core-form">
+                <div class="input-group">
+                  <input type="text" class="form-control core-input" id="core-input" placeholder="Escribí tu mensaje..." aria-label="Mensaje para AetherLab Core" required />
+                  <button class="btn btn-contrast core-send" id="core-send" type="submit">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hueco para futuro botón de voz (Atención al cliente) -->
+      <div class="row mt-4 justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-center">
+          <div id="aetherlab-voice-button" class="voice-btn-placeholder w-100" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2 – NUESTROS PRODUCTOS -->
+  <section id="productos" class="section-light section-padding">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-8">
+        <h2 class="mb-2">Sistema completo</h2>
+        <p class="lead mb-0">
+          Marketing, operacion y gestion comercial integrados con IA propia. Todo en un sistema que se mide y se optimiza.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="card product-card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paso 1 — Diagnóstico</h5>
+            <p class="card-text flex-grow-1">
+              Relevamos tu proceso comercial, objetivos y fricciones para definir qué automatizar y medir.
+            </p>
+            <a href="#core" class="btn btn-contrast mt-3 w-100">Ver demo del orbe</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="card product-card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paso 2 — Estrategia y contenido</h5>
+            <p class="card-text flex-grow-1">
+              Definimos mensajes, formatos y campañas con IA propia, listos para escalar.
+            </p>
+            <a href="#core" class="btn btn-contrast mt-3 w-100">Ver demo del orbe</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="card product-card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paso 3 — Implementación</h5>
+            <p class="card-text flex-grow-1">
+              Activamos agentes 24/7, automatizacion, clasificacion de leads y panel de control.
+            </p>
+            <p class="small text-muted mb-0">Integraciones y puesta en marcha guiada.</p>
+            <a href="#core" class="btn btn-contrast mt-3 w-100">Ver demo del orbe</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="card product-card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paso 4 — Medición y optimización</h5>
+            <p class="card-text flex-grow-1">
+              Métricas claras, reportes quincenales y ajustes continuos para mejorar conversion y eficiencia.
+            </p>
+            <a href="#core" class="btn btn-outline-dark mt-3 w-100">Contactar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <div class="row mt-5">
+      <div class="col-lg-8 d-flex flex-wrap gap-3">
+        <a href="#core" class="btn btn-contrast">Ver demo del orbe</a>
+        <a href="#contacto" class="btn btn-outline-dark">Contactar</a>
+      </div>
+      <div class="col-12 mt-3">
+        <p class="text-muted mb-0">Software propio. Inteligencia real. Crecimiento sostenible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- CARRUSEL DE CLIENTES -->
+  <section class="section-dark section-padding clients">
+    <div class="container-xxl">
+      <div class="row mb-4 reveal">
+        <div class="col text-center">
+          <h2 class="mb-2">Confían en nosotros</h2>
+        </div>
+      </div>
+    </div>
+    <div class="py-2">
+      <div class="marquee-track">
+        <!-- Repetido dos veces para loop continuo -->
+        <img src="img/whint.png" alt="Whint" class="client-logo" />
+        <img src="img/Logomanguii.png" alt="Logomanguii" class="client-logo" />
+        <img src="img/logo_salvatierra.png.png" alt="Salvatierra" class="client-logo" />
+        <img src="img/lbb (2).png" alt="Luigi Bosca" class="client-logo client-logo--lg" />
+        <img src="img/111.png" alt="Cliente 111" class="client-logo" />
+        <img src="img/222.png" alt="Cliente 222" class="client-logo" />
+        <img src="img/333.png" alt="Cliente 333" class="client-logo" />
+
+        <img src="img/whint.png" alt="Whint" class="client-logo" />
+        <img src="img/Logomanguii.png" alt="Logomanguii" class="client-logo" />
+        <img src="img/logo_salvatierra.png.png" alt="Salvatierra" class="client-logo" />
+        <img src="img/lbb (2).png" alt="Luigi Bosca" class="client-logo client-logo--lg" />
+        <img src="img/111.png" alt="Cliente 111" class="client-logo" />
+        <img src="img/222.png" alt="Cliente 222" class="client-logo" />
+        <img src="img/333.png" alt="Cliente 333" class="client-logo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section-light py-5">
+    <div class="container-xxl">
+      <div class="row justify-content-center text-center">
+        <div class="col-12 col-md-8">
+          <img src="img/logo_negro.png" alt="SoberanoLab" class="footer-logo mb-3" />
+          <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
+            <a href="mailto:pedroalasino@gmail.com" class="link-dark text-decoration-none">
+              <i class="bi bi-envelope me-2"></i>pedroalasino@gmail.com
+            </a>
+            <a href="mailto:bautistabajoo@gmail.com" class="link-dark text-decoration-none">
+              <i class="bi bi-envelope me-2"></i>bautistabajoo@gmail.com
+            </a>
+            <a href="tel:3516519277" class="link-dark text-decoration-none">
+              <i class="bi bi-telephone me-2"></i>3516519277
+            </a>
+          </div>
+          <div class="text-muted small">© 2025 SoberanoLab. Todos los derechos reservados.</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script>
+  // Sombra del header al hacer scroll
+  const header = document.querySelector('.minimal-header');
+  const onScroll = () => { if (window.scrollY > 10) header.classList.add('scrolled'); else header.classList.remove('scrolled'); };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Efecto reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // AetherLab Core: orb + chat + micrófono
+  (function () {
+    const form = document.getElementById('core-form');
+    const input = document.getElementById('core-input');
+    const sendBtn = document.getElementById('core-send');
+    const micBtn = document.getElementById('core-mic');
+    const orb = document.getElementById('core-orb');
+    const responseEl = document.getElementById('core-response');
+    if (!form || !input || !sendBtn || !orb || !responseEl) return;
+        function setResponse(text) {
+      const t = (text || '').trim();
+      responseEl.textContent = t;
+      const show = t.startsWith('Pensando') || t.startsWith('Escuchando');
+      responseEl.style.display = show ? '' : 'none';
+    }
+
+
+    // Cargar configuración persistida ANTES de calcular modo/endpoint
+    try {
+      const panelBase = (window.SOBERAI_PANEL && String(window.SOBERAI_PANEL).trim().replace(/\/+$/, '')) || '';
+      const defaults = {
+        mode: 'ollama',
+        endpoint: '',
+        token: '',
+        ollamaEndpoint: panelBase ? `${panelBase}/ollama` : 'http://127.0.0.1:11434/api/generate',
+        model: 'qwen2.5:1.5b',
+        webhook: panelBase ? `${panelBase}/webhook/orbe` : ''
+      };
+      const saved = JSON.parse(localStorage.getItem('CORE_CFG')||'{}');
+      const cfg = { ...defaults, ...saved };
+      if (panelBase) {
+        cfg.mode = 'ollama';
+      }
+      window.CORE_MODE = cfg.mode;
+      window.CORE_ENDPOINT = cfg.endpoint;
+      window.CORE_TOKEN = cfg.token;
+      window.OLLAMA_ENDPOINT = cfg.ollamaEndpoint;
+      window.OLLAMA_MODEL = cfg.model;
+      window.ORBE_WEBHOOK = cfg.webhook;
+    } catch (_) {}
+
+    const isLocal = (() => { try { return ['localhost','127.0.0.1'].includes(location.hostname); } catch(_) { return true; } })();
+    // Forzar endpoint por defecto en desarrollo si no está definido
+    // No fijar endpoint Core por defecto: usamos Ollama salvo que el usuario configure uno.
+    if (!window.OLLAMA_ENDPOINT) {
+      window.OLLAMA_ENDPOINT = 'http://127.0.0.1:11434/api/generate';
+    }
+    if (!window.OLLAMA_MODEL) {
+      window.OLLAMA_MODEL = 'qwen2.5:1.5b';
+    }
+    const USER_ENDPOINT = (window.CORE_ENDPOINT && String(window.CORE_ENDPOINT)) || '';
+    const ORBE_WEBHOOK = (window.ORBE_WEBHOOK && String(window.ORBE_WEBHOOK)) || '';
+    const CORE_MODE = (window.CORE_MODE && String(window.CORE_MODE).toLowerCase()) || (USER_ENDPOINT ? 'remote' : 'ollama');
+    const CORE_CANDIDATES = USER_ENDPOINT ? [USER_ENDPOINT] : (isLocal
+      ? [
+          'http://127.0.0.1:8000/core/respond',
+          'http://127.0.0.1:8080/core/respond',
+          'http://127.0.0.1:8080/orbe',
+          '/core/respond',
+          '/orbe'
+        ]
+      : [
+          '/core/respond',
+          '/orbe'
+        ]);
+
+    // Prompt/persona base para respuestas locales (SoberanoLab / Orbe)
+    const CORE_PERSONA_PROMPT =
+  'Soy el Orbe de SoberanoLab, una IA propia diseñada para el primer contacto comercial. ' +
+  'No dependo de ChatGPT ni de servicios externos: SoberanoLab diseña y opera sus propios flujos y modelos. ' +
+  'Hablo en frases cortas y hago una pregunta por vez.';
+
+    const SOBERANOLAB_FACTS =
+      'SoberanoLab crea software y sistemas de IA propia para marketing, operación y ventas. ' +
+      'Ayuda a startups, agencias y consultoras: reduce carga operativa y mejora conversión con datos. ' +
+      'Incluye estrategia, contenido, ads, agente de voz, automatización y panel con métricas. ' +
+      'Modalidad: suscripción trimestral, mínimo 3 meses. Sitio web opcional.';
+
+    function limitWords(text, maxWords) {
+      const words = (text || '').trim().split(/\\s+/).filter(Boolean);
+      if (!words.length) return '';
+      return words.slice(0, maxWords).join(' ');
+    }
+
+    const CORE_FLOW_QUESTIONS = {
+      tipo_cliente: 'Para entender tu caso: a que tipo de clientes le vendes hoy (pymes, agencias, ecommerce)?',
+      volumen_leads: 'Aproximadamente, cuantas consultas nuevas recibis por semana?',
+      canales: 'Por que canales te llegan mas consultas: Instagram, WhatsApp, web u otro?',
+      problema: 'Que es lo que mas te duele hoy: tiempo, calidad de leads o seguimiento?',
+      objetivo: 'Si tuvieras que elegir un objetivo principal, cual seria: mas leads, mejor calificacion o menos trabajo operativo?'
+    };
+    const CORE_FLOW_NEXT = {
+      tipo_cliente: 'volumen_leads',
+      volumen_leads: 'canales',
+      canales: 'problema',
+      problema: 'objetivo',
+      objetivo: null
+    };
+    let coreState = { step: null, answers: {} };
+    const ORBE_CLIENT = 'soberanolab';
+    const ORBE_SESSION_ID = (() => {
+      try {
+        const key = `ORBE_SESSION_ID_${ORBE_CLIENT}`;
+        const existing = localStorage.getItem(key);
+        if (existing) return existing;
+        const id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : `sess_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+        const fullId = `${ORBE_CLIENT}_${id}`;
+        localStorage.setItem(key, fullId);
+        return fullId;
+      } catch (_) {
+        return `${ORBE_CLIENT}_sess_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+      }
+    })();
+
+    async function sendOrbeEvent(type, payload) {
+      if (!ORBE_WEBHOOK) return;
+      try {
+        const body = {
+          event_id: `evt_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+          type,
+          payload: {
+            session_id: ORBE_SESSION_ID,
+            ...payload
+          }
+        };
+        await fetch(ORBE_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+      } catch (_) {
+        // noop: no bloquear el flujo del orbe
+      }
+    }
+
+    sendOrbeEvent('session_started', {
+      page_url: location.href,
+      user_agent: navigator.userAgent
+    });
+
+    const SESSION_MEMORY = new Map();
+    const INTRO_OPTIONS = ['Bien. ', 'Dale. ', 'Perfecto. ', 'Ok. ', 'Te cuento. '];
+    const FALLBACK_OPTIONS = [
+      'Para ayudarte mejor, A¨tu consulta es sobre precios, implementaciA3n o cA3mo funciona?',
+      'Para orientarte rA­pido, A¨querAcs saber precios, tiempos de implementaciA3n o cA3mo funciona el orbe?',
+      'Para ubicarte mejor, A¨estA¡s buscando info de precios, integraciA3n o cA3mo funciona?'
+    ];
+    const HANDOFF_KEYWORDS = [
+      'descuento', 'negociar', 'negociacion', 'hablar con alguien', 'hablar con una persona',
+      'contacto', 'whatsapp', 'mail', 'telefono', 'llamada', 'comercial'
+    ];
+    const FRUSTRATION_KEYWORDS = [
+      'no entendiste', 'no entendes', 'no sirve', 'frustrado', 'molesto', 'pesimo', 'malisimo',
+      'no me ayudas', 'no ayudas', 'hablar con humano', 'humano', 'persona'
+    ];
+    const FOLLOWUP_MARKERS = ['y', 'y despues', 'y luego', 'eso', 'eso cuanto', 'y el otro', 'y el grande'];
+    let FAQ_INTENTS_CACHE = null;
+    let FAQ_TESTED = false;
+    const PANEL_API = (window.SOBERAI_PANEL && String(window.SOBERAI_PANEL)) || '';
+    let FAQ_DATA = [];
+    let FLOW_ENGINE = null;
+
+    function normalizeText(value) {
+      return (value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function slugify(value, fallback) {
+      const slug = normalizeText(value).replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+      return slug || fallback;
+    }
+
+    function splitAnswer(answer) {
+      const raw = (answer || '').trim();
+      if (!raw) {
+        return { base: [], expand: [], followups: [] };
+      }
+      const parts = raw.split(/(?<=[.!?])\s+/).map((p) => p.trim()).filter(Boolean);
+      const followups = parts.filter((p) => /\?$/.test(p));
+      const statements = parts.filter((p) => !/\?$/.test(p));
+      if (!statements.length) {
+        return { base: [raw], expand: [], followups };
+      }
+      const base = [statements[0]];
+      const expand = statements.slice(1);
+      return { base, expand, followups };
+    }
+
+    function mapPanelIntentId(tags) {
+      const normalized = (tags || []).map((tag) => normalizeText(tag));
+      const has = (needle) => normalized.some((tag) => tag.includes(needle));
+      if (has('precio') || has('precios') || has('costo') || has('costos') || has('inversion')) return 'precios';
+      if (has('implementacion') || has('implementar') || has('puesta en marcha') || has('tiempo de implementacion')) return 'implementacion';
+      if (has('como funciona') || has('como funciona en detalle') || has('que hace') || has('que es')) return 'como_funciona';
+      if (has('soporte') || has('contacto') || has('whatsapp') || has('mail') || has('hablar con alguien')) return 'contacto';
+      if (has('resultados') || has('metricas') || has('kpi') || has('casos') || has('testimonios')) return 'resultados';
+      if (has('repetitivas') || has('operativo') || has('pierdo tiempo')) return 'operativas';
+      return null;
+    }
+
+    function buildFlowIntents() {
+      return {
+        precios_paquetes: {
+          id: 'precios_paquetes',
+          label: 'Precios y paquetes',
+          priority: 6,
+          keywords: {
+            'precio': 5,
+            'precios': 5,
+            'cuanto cuesta': 6,
+            'costo': 4,
+            'costos': 4,
+            'inversion': 4,
+            'paquete': 3,
+            'plan': 3
+          },
+          threshold: 3,
+          panelIntentId: 'precios_paquetes',
+          responses: {
+            intros: ['Bien, te cuento.', 'Perfecto, vamos a eso.', 'Dale, lo vemos rapido.'],
+            base: [
+              'El valor depende del volumen de consultas y del nivel de personalizacion del flujo.',
+              'Para no tirarte un numero al aire, primero entiendo tu caso y te digo que paquete encaja.'
+            ],
+            expand: [
+              'Trabajamos con suscripcion trimestral para poder iterar y mejorar con datos reales.',
+              'La idea es que pagues por un sistema que ordena y califica, no por un bot que improvisa.'
+            ],
+            closings: []
+          },
+          flow: {
+            goal: 'calificar contexto minimo y llevar a demo/llamada',
+            slots: [
+              {
+                name: 'tipo_negocio',
+                required: true,
+                extractors: [
+                  { type: 'keyword_map', map: { 'startup': 'startup', 'agencia': 'agencia', 'consultora': 'consultora' } }
+                ],
+                ask: [
+                  'Antes: ¿sos startup, agencia o consultora?',
+                  '¿Que sos hoy: startup, agencia o consultora?',
+                  '¿En que perfil encajas mas: startup, agencia o consultora?'
+                ],
+                validate: { type: 'enum', values: ['startup', 'agencia', 'consultora'] }
+              },
+              {
+                name: 'volumen_consultas',
+                required: true,
+                extractors: [
+                  { type: 'regex', pattern: '(\\d{1,5})' },
+                  { type: 'keyword_map', map: { 'pocas': 'bajo', 'bajo': 'bajo', 'medio': 'medio', 'alto': 'alto', 'muchas': 'alto' } }
+                ],
+                ask: [
+                  'Aproximado: ¿cuantas consultas comerciales recibis por mes?',
+                  '¿Hablamos de pocas consultas al mes o de volumen alto?',
+                  '¿Tenes un numero aproximado de consultas mensuales?'
+                ]
+              },
+              {
+                name: 'objetivo',
+                required: true,
+                extractors: [
+                  { type: 'choice', map: { 'calidad': 'calidad', 'filtrar': 'calidad', 'rapido': 'velocidad', 'tiempo': 'velocidad', 'volumen': 'volumen', 'mas leads': 'volumen', 'cantidad': 'volumen' } }
+                ],
+                ask: [
+                  '¿Que te importa mas hoy: responder mas rapido, filtrar mejor, o generar mas volumen?',
+                  '¿Buscas mas calidad de leads, mas velocidad de respuesta, o mas cantidad?',
+                  'Para orientarlo bien: ¿cual es tu objetivo principal ahora?'
+                ],
+                validate: { type: 'enum', values: ['calidad', 'velocidad', 'volumen'] }
+              }
+            ],
+            on_complete: {
+              say: [
+                'Listo, con eso ya tengo el marco.',
+                'Con tu perfil y ese volumen, lo logico es armar un flujo que priorice {objetivo} desde el primer minuto.',
+                'Si te parece, te muestro una demo enfocada en tu caso y de ahi sale una propuesta trimestral cerrada.'
+              ],
+              cta: [
+                { type: 'book_call', text: '¿Querés coordinar una llamada corta o preferís que te mande una demo primero?' },
+                { type: 'collect_contact', text: 'Si querés, te tomo un contacto y te lo paso ordenado al equipo.' }
+              ]
+            }
+          },
+          behavior: { allow_repeat: false, handoff_if: HANDOFF_KEYWORDS }
+        },
+        implementacion_tiempos: {
+          id: 'implementacion_tiempos',
+          label: 'Implementacion y tiempos',
+          priority: 5,
+          keywords: {
+            'implementacion': 5,
+            'tiempo de implementacion': 6,
+            'puesta en marcha': 5,
+            'cuanto tarda': 5,
+            'tiempos': 4,
+            'onboarding': 3
+          },
+          threshold: 3,
+          panelIntentId: 'implementacion_tiempos',
+          responses: {
+            intros: ['Perfecto.', 'Dale, te explico como es.', 'Bien, te cuento el paso a paso.'],
+            base: [
+              'La puesta en marcha suele llevar entre 2 y 4 semanas, segun el flujo y las integraciones.',
+              'Arrancamos con diagnostico corto, diseño del flujo, y despues integracion en tu web.'
+            ],
+            expand: [
+              'Preferimos salir con un flujo solido y despues iterar con conversaciones reales.',
+              'La parte tecnica suele ser liviana: un widget en tu sitio y, si hace falta, conexion con tu CRM.'
+            ],
+            closings: []
+          },
+          flow: {
+            goal: 'entender stack, integraciones y urgencia',
+            slots: [
+              {
+                name: 'tecnologia_web',
+                required: true,
+                extractors: [
+                  { type: 'regex', pattern: '(wordpress|webflow|shopify|react|next|custom|a medida|propio|otro)' }
+                ],
+                ask: [
+                  '¿Tu web esta en WordPress, Webflow o es desarrollo propio?',
+                  '¿Que tecnologia usas hoy en la web?',
+                  '¿Es WordPress/Webflow o algo a medida?'
+                ]
+              },
+              {
+                name: 'integraciones',
+                required: true,
+                extractors: [
+                  { type: 'keyword_map', map: { 'crm': 'crm', 'hubspot': 'crm', 'pipedrive': 'crm', 'notion': 'crm', 'ninguno': 'none', 'nada': 'none' } }
+                ],
+                ask: [
+                  '¿Querés integrarlo con algun CRM o por ahora solo registrar las conversaciones?',
+                  '¿Hoy donde registras leads: CRM, planilla, Notion, o nada formal?',
+                  '¿Necesitas que las oportunidades entren a un sistema, o alcanza con el panel del orbe?'
+                ]
+              },
+              {
+                name: 'urgencia',
+                required: true,
+                extractors: [
+                  { type: 'keyword_map', map: { 'ya': 'alta', 'urgente': 'alta', 'este mes': 'media', 'tranquilo': 'baja', 'sin apuro': 'baja' } }
+                ],
+                ask: [
+                  '¿Esto lo necesitas para ya, para este mes, o mas tranquilo?',
+                  '¿Que tan urgente es para vos implementarlo?',
+                  '¿Tenes alguna fecha objetivo?'
+                ],
+                validate: { type: 'enum', values: ['alta', 'media', 'baja'] }
+              }
+            ],
+            on_complete: {
+              say: [
+                'Con esa tecnologia y esas integraciones, se puede planear una implementacion prolija.',
+                'Si queres, te propongo un plan en 3 etapas y lo vemos en una llamada corta.'
+              ],
+              cta: [
+                { type: 'book_call', text: '¿Te sirve coordinar una demo y vemos el alcance?' }
+              ]
+            }
+          },
+          behavior: { allow_repeat: false, handoff_if: HANDOFF_KEYWORDS }
+        },
+        integraciones_crm: {
+          id: 'integraciones_crm',
+          label: 'Integraciones',
+          priority: 5,
+          keywords: {
+            'integraciones': 5,
+            'integracion': 5,
+            'crm': 5,
+            'hubspot': 5,
+            'pipedrive': 5,
+            'notion': 4
+          },
+          threshold: 3,
+          panelIntentId: 'integraciones_crm',
+          responses: {
+            intros: ['Perfecto, integraciones.', 'Dale, veamos tu stack.', 'Bien, lo encuadro rapido.'],
+            base: [
+              'El orbe se puede integrar con CRMs como HubSpot, Pipedrive o Notion para que los leads lleguen ordenados y con contexto.',
+              'La clave es definir que campos queres capturar y a que etapa del pipeline los manda.'
+            ],
+            expand: [
+              'Lo bueno es que no llega un lead suelto: llega con intencion, resumen y señales.',
+              'Eso mejora el primer contacto del equipo y baja trabajo repetitivo.'
+            ],
+            closings: []
+          },
+          flow: {
+            goal: 'identificar CRM y objetivo',
+            slots: [
+              {
+                name: 'crm_actual',
+                required: true,
+                extractors: [
+                  { type: 'keyword_map', map: { 'hubspot': 'hubspot', 'pipedrive': 'pipedrive', 'notion': 'notion', 'otro': 'otro', 'ninguno': 'none' } }
+                ],
+                ask: [
+                  '¿Que usas hoy: HubSpot, Pipedrive, Notion u otra cosa?',
+                  '¿Donde registras hoy oportunidades?',
+                  '¿Tenes CRM o lo manejan mas a mano?'
+                ]
+              },
+              {
+                name: 'objetivo_integracion',
+                required: true,
+                extractors: [
+                  { type: 'choice', map: { 'lead': 'enviar_leads', 'pipeline': 'pipeline', 'deal': 'pipeline', 'nota': 'notas', 'resumen': 'notas' } }
+                ],
+                ask: [
+                  '¿Querés que cree contactos automaticamente, que cree deals en el pipeline, o solo dejar notas/resumen?',
+                  '¿Que te serviria mas: que abra un deal, que complete campos, o solo que te avise?',
+                  '¿Cual seria el resultado ideal de la integracion?'
+                ]
+              }
+            ],
+            on_complete: {
+              say: [
+                'Listo. Con {crm_actual} lo podemos dejar andando para que cada conversacion termine en una oportunidad ordenada.'
+              ],
+              cta: [
+                { type: 'book_call', text: '¿Querés que te muestre un ejemplo de cómo queda un lead dentro del CRM?' }
+              ]
+            }
+          },
+          behavior: { allow_repeat: false, handoff_if: HANDOFF_KEYWORDS }
+        },
+        demo: {
+          id: 'demo',
+          label: 'Demo',
+          priority: 6,
+          keywords: {
+            'demo': 6,
+            'probar': 5,
+            'ver demo': 6,
+            'quiero probar': 5
+          },
+          threshold: 3,
+          panelIntentId: 'demo',
+          responses: {
+            intros: ['Dale.', 'Perfecto, te muestro como se ve.', 'Genial, una demo es lo mejor para entenderlo.'],
+            base: [
+              'Podemos mostrar una demo donde el orbe simula conversaciones reales y deja el panel con metricas e insights.',
+              'La idea es que lo veas funcionando, no explicartelo en abstracto.'
+            ],
+            expand: [
+              'Despues de la demo, ajustamos el flujo a tu negocio y definimos propuesta trimestral.',
+              'En 10 minutos ya se entiende si encaja o no.'
+            ],
+            closings: []
+          },
+          flow: {
+            goal: 'definir enfoque de demo y rubro',
+            slots: [
+              {
+                name: 'enfoque_demo',
+                required: true,
+                extractors: [
+                  { type: 'choice', map: { 'volumen': 'volumen', 'calificacion': 'calificacion', 'filtrar': 'calificacion', 'operativa': 'volumen', 'comercial': 'calificacion' } }
+                ],
+                ask: [
+                  '¿Preferis una demo enfocada en volumen de leads o en calificacion mas profunda?',
+                  '¿Que te importa mas ver: como atiende muchas consultas o como filtra leads buenos?',
+                  '¿Querés demo mas operativa o mas comercial?'
+                ],
+                validate: { type: 'enum', values: ['volumen', 'calificacion'] }
+              },
+              {
+                name: 'rubro',
+                required: true,
+                extractors: [
+                  { type: 'regex', pattern: '([a-zA-Z]{3,}.*)' }
+                ],
+                ask: [
+                  '¿En que rubro estas: startup, agencia, consultoria u otro?',
+                  '¿Que vendes o que servicio ofreces, en una frase?',
+                  'Para adaptarla: ¿cual es tu negocio?'
+                ]
+              }
+            ],
+            on_complete: {
+              say: [
+                'Perfecto. Te armo una demo enfocada en {enfoque_demo} para tu contexto.'
+              ],
+              cta: [
+                { type: 'book_call', text: '¿Querés coordinar una llamada o te mando un link con demo grabada?' }
+              ]
+            }
+          },
+          behavior: { allow_repeat: false, handoff_if: HANDOFF_KEYWORDS }
+        },
+        privacidad_datos: {
+          id: 'privacidad_datos',
+          label: 'Privacidad y datos',
+          priority: 5,
+          keywords: {
+            'privacidad': 5,
+            'seguridad': 5,
+            'datos': 4,
+            'proteccion': 4
+          },
+          threshold: 3,
+          panelIntentId: 'privacidad_datos',
+          responses: {
+            intros: ['Bien, privacidad.', 'Perfecto, te explico como lo manejamos.', 'Dale, esto es importante.'],
+            base: [
+              'Las conversaciones se almacenan de forma controlada y se usan solo para mejorar el proceso comercial y la experiencia.',
+              'Se puede adaptar a politicas internas: retencion, acceso, exportacion y permisos.'
+            ],
+            expand: [
+              'La idea es que tengas visibilidad sin exponer informacion sensible.',
+              'Podemos limitar que se guarda y como se comparte con el equipo.'
+            ],
+            closings: []
+          },
+          flow: {
+            goal: 'detectar sensibilidad y politicas',
+            slots: [
+              {
+                name: 'datos_sensibles',
+                required: true,
+                extractors: [
+                  { type: 'keyword_map', map: { 'si': 'si', 'no': 'no', 'sensibles': 'si', 'salud': 'si', 'finanzas': 'si' } }
+                ],
+                ask: [
+                  '¿Manejas datos sensibles o son consultas comerciales generales?',
+                  '¿Hay informacion sensible involucrada, tipo salud/finanzas, o no?',
+                  '¿Tu caso requiere compliance fuerte o es comercial estandar?'
+                ],
+                validate: { type: 'enum', values: ['si', 'no'] }
+              },
+              {
+                name: 'requerimientos',
+                required: true,
+                extractors: [
+                  { type: 'choice', map: { 'simple': 'simple', 'estricto': 'estricto', 'permisos': 'estricto', 'retencion': 'estricto' } }
+                ],
+                ask: [
+                  '¿Necesitas algo simple o politicas mas estrictas de acceso y retencion?',
+                  '¿Querés permisos por rol y retencion corta, o alcanza con control estandar?',
+                  '¿Tenes alguna politica interna que debamos respetar si o si?'
+                ],
+                validate: { type: 'enum', values: ['simple', 'estricto'] }
+              }
+            ],
+            on_complete: {
+              say: [
+                'Perfecto. Con eso podemos definir un esquema de guardado y acceso que se ajuste a tu contexto.'
+              ],
+              cta: [
+                { type: 'book_call', text: 'Si querés, lo vemos en una llamada corta y te muestro cómo queda en el panel.' }
+              ]
+            }
+          },
+          behavior: { allow_repeat: false, handoff_if: HANDOFF_KEYWORDS }
+        }
+      };
+    }
+
+    function buildIntentsFromFaq(faqData) {
+      const seen = new Set();
+      const baseIntents = faqData.map((item, index) => {
+        const primaryTag = item.tags && item.tags.length ? item.tags[0] : `faq_${index + 1}`;
+        let id = slugify(primaryTag, `faq_${index + 1}`);
+        if (seen.has(id)) {
+          id = `${id}_${index + 1}`;
+        }
+        seen.add(id);
+        const keywords = {};
+        for (const tag of item.tags || []) {
+          const normalized = normalizeText(tag);
+          if (!normalized) continue;
+          const weightBase = 3 + Math.min(4, Math.floor(normalized.length / 8));
+          const weight = Math.max(2, weightBase + (normalized.includes(' ') ? 1 : 0));
+          keywords[normalized] = Math.min(8, weight);
+        }
+        const responses = splitAnswer(item.answer);
+        const panelIntentId = mapPanelIntentId(item.tags) || id;
+        return {
+          id,
+          label: id.replace(/_/g, ' '),
+          priority: 2,
+          threshold: 3,
+          panelIntentId,
+          keywords,
+          responses: {
+            intros: INTRO_OPTIONS.map((txt) => txt.trim()),
+            base: responses.base,
+            expand: responses.expand,
+            closings: [],
+            followups: responses.followups
+          },
+          flow: {
+            goal: 'resolver consulta',
+            slots: [],
+            on_complete: { say: [], cta: [] }
+          },
+          behavior: {
+            allow_repeat: false,
+            handoff_if: HANDOFF_KEYWORDS
+          }
+        };
+      });
+      const flowIntents = Object.values(buildFlowIntents());
+      const intentMap = new Map(baseIntents.map((intent) => [intent.id, intent]));
+      for (const flowIntent of flowIntents) {
+        intentMap.set(flowIntent.id, flowIntent);
+      }
+      return Array.from(intentMap.values());
+    }
+
+    function runLocalFaqTests(faqData, intents) {
+      if (FAQ_TESTED) return;
+      if (!/localhost|127\.0\.0\.1/i.test(location.hostname)) return;
+      FAQ_TESTED = true;
+      const samples = [
+        'precio',
+        'implementacion',
+        'demo',
+        'integraciones',
+        'quien sos'
+      ];
+      for (const text of samples) {
+        const detected = detectIntent(text, intents);
+        console.assert(detected, `FAQ test failed for: ${text}`);
+      }
+
+      const testSession = 'test_flow_precio';
+      const a1 = handleMessage(testSession, 'precio', faqData, intents);
+      const a2 = handleMessage(testSession, 'startup', faqData, intents);
+      const a3 = handleMessage(testSession, '200 consultas por mes', faqData, intents);
+      const a4 = handleMessage(testSession, 'mas calidad', faqData, intents);
+      console.assert(a1.intentId, 'Flow test: intent missing');
+      console.assert(a2.replyText, 'Flow test: step 2 failed');
+      console.assert(a3.replyText, 'Flow test: step 3 failed');
+      console.assert(a4.replyText, 'Flow test: completion failed');
+
+      const follow = handleMessage('test_follow', 'precio', faqData, intents);
+      const follow2 = handleMessage('test_follow', 'y el grande?', faqData, intents);
+      console.assert(follow2.intentId === follow.intentId, 'Follow-up test failed');
+
+      const vol = handleMessage('test_regex', 'tengo 450 por mes', faqData, intents);
+      console.assert(vol.replyText, 'Regex volume test failed');
+
+      const fallback = handleMessage('test_fallback', 'asdf qwerty', faqData, intents);
+      console.assert(fallback.intentId === null, 'Fallback test failed');
+
+      const hand = handleMessage('test_handoff', 'quiero hablar con alguien', faqData, intents);
+      console.assert(hand.needsHandoff, 'Handoff test failed');
+    }
+
+    function detectIntent(text, intents) {
+      const normalized = normalizeText(text);
+      if (!normalized) return null;
+      let best = null;
+      for (const intent of intents) {
+        let score = 0;
+        const matched = [];
+        for (const [keyword, weight] of Object.entries(intent.keywords)) {
+          if (normalized.includes(keyword)) {
+            score += weight;
+            matched.push(keyword);
+          }
+        }
+        if (score === 0) continue;
+        const candidate = { intentId: intent.id, score, matchedKeywords: matched };
+        if (!best) {
+          best = { ...candidate, priority: intent.priority, threshold: intent.threshold };
+          continue;
+        }
+        if (score > best.score || (score === best.score && intent.priority > best.priority)) {
+          best = { ...candidate, priority: intent.priority, threshold: intent.threshold };
+        }
+      }
+      if (!best || best.score < (best.threshold || 3)) return null;
+      return { intentId: best.intentId, score: best.score, matchedKeywords: best.matchedKeywords };
+    }
+
+    function pickVariant(options, memory) {
+      if (!options || !options.length) return '';
+      const choice = options[Math.floor(Math.random() * options.length)];
+      const hash = `${choice}:${options.length}`;
+      if (memory.lastResponseHash === hash && options.length > 1) {
+        return options[(options.indexOf(choice) + 1) % options.length];
+      }
+      memory.lastResponseHash = hash;
+      return choice;
+    }
+
+    function formatTemplate(text, slots) {
+      return (text || '').replace(/\{(\w+)\}/g, (_, key) => slots[key] || '');
+    }
+
+    function extractSlotValue(slot, text) {
+      const normalized = normalizeText(text);
+      for (const extractor of slot.extractors || []) {
+        if (extractor.type === 'regex' && extractor.pattern) {
+          const regex = new RegExp(extractor.pattern, 'i');
+          const match = normalized.match(regex);
+          if (match && match[1]) return match[1].toLowerCase();
+          if (match && match[0]) return match[0].toLowerCase();
+        }
+        if (extractor.type === 'keyword_map' && extractor.map) {
+          for (const [key, value] of Object.entries(extractor.map)) {
+            if (normalized.includes(normalizeText(key))) return value;
+          }
+        }
+        if (extractor.type === 'choice' && extractor.map) {
+          for (const [key, value] of Object.entries(extractor.map)) {
+            if (normalized.includes(normalizeText(key))) return value;
+          }
+        }
+      }
+      return null;
+    }
+
+    function validateSlotValue(slot, value) {
+      if (!slot.validate || !value) return true;
+      const normalized = normalizeText(String(value));
+      if (slot.validate.type === 'enum') {
+        return (slot.validate.values || []).includes(normalized);
+      }
+      if (slot.validate.type === 'regex' && slot.validate.pattern) {
+        return new RegExp(slot.validate.pattern, 'i').test(normalized);
+      }
+      if (slot.validate.type === 'minmax') {
+        const num = Number(value);
+        if (Number.isNaN(num)) return false;
+        if (typeof slot.validate.min === 'number' && num < slot.validate.min) return false;
+        if (typeof slot.validate.max === 'number' && num > slot.validate.max) return false;
+      }
+      return true;
+    }
+
+    function getNextRequiredSlot(flow, slots) {
+      return (flow.slots || []).find((slot) => slot.required && !slots[slot.name]);
+    }
+
+    function buildFlowReply(intent, memory, slotToAsk) {
+      const intro = pickVariant(intent.responses.intros || [], memory);
+      const base = pickVariant(intent.responses.base || [], memory);
+      const expand = Math.random() < 0.4 ? pickVariant(intent.responses.expand || [], memory) : '';
+      const ask = slotToAsk ? pickVariant(slotToAsk.ask || [], memory) : '';
+      const followup = !slotToAsk && intent.responses.followups && intent.responses.followups.length
+        ? pickVariant(intent.responses.followups, memory)
+        : '';
+      const parts = [intro, base, expand, ask, followup].filter(Boolean);
+      return parts.join(' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function shouldHandoff(text) {
+      const normalized = normalizeText(text);
+      if (!normalized) return false;
+      return HANDOFF_KEYWORDS.some((k) => normalized.includes(normalizeText(k))) ||
+        FRUSTRATION_KEYWORDS.some((k) => normalized.includes(normalizeText(k)));
+    }
+
+    function isFollowup(text) {
+      const normalized = normalizeText(text);
+      if (!normalized) return false;
+      return FOLLOWUP_MARKERS.some((marker) => normalized.startsWith(marker) || normalized.includes(marker));
+    }
+
+    function handleMessage(sessionId, text, faqData, intentsOverride) {
+      const original = (text || '').trim();
+      const normalized = normalizeText(original);
+      const memory = SESSION_MEMORY.get(sessionId) || {
+        lastIntentId: null,
+        activeFlow: null,
+        lastResponseHash: null,
+        turnCount: 0,
+        frustrationScore: 0
+      };
+      memory.turnCount += 1;
+
+      if (!normalized) {
+        return { replyText: 'Hola. Soy el Orbe de SoberanoLab. ¿En que te puedo ayudar?', intentId: null, score: 0, needsHandoff: false };
+      }
+
+      if (normalized.includes('reset') || normalized.includes('reiniciar') || normalized.includes('empezar de nuevo')) {
+        const resetMemory = { lastIntentId: null, activeFlow: null, lastResponseHash: null, turnCount: 0, frustrationScore: 0 };
+        SESSION_MEMORY.set(sessionId, resetMemory);
+        return { replyText: 'Listo. Reinicie la conversacion. Contame en una frase tu caso y arrancamos.', intentId: null, score: 0, needsHandoff: false };
+      }
+
+      if (FRUSTRATION_KEYWORDS.some((k) => normalized.includes(normalizeText(k)))) {
+        memory.frustrationScore += 1;
+      }
+
+      if (shouldHandoff(normalized) || memory.frustrationScore >= 2) {
+        return {
+          replyText: 'Si queres hablar con alguien del equipo, podes escribir a pedroalasino@gmail.com o por WhatsApp al +54 9 351 651 9277.',
+          intentId: null,
+          score: 0,
+          needsHandoff: true
+        };
+      }
+
+      const intents = intentsOverride || buildIntentsFromFaq(faqData);
+
+      if (memory.activeFlow && memory.activeFlow.pendingSlot) {
+        const activeIntent = intents.find((item) => item.id === memory.activeFlow.intentId);
+        if (activeIntent) {
+          const slot = activeIntent.flow.slots.find((item) => item.name === memory.activeFlow.pendingSlot);
+          if (slot) {
+            const extracted = extractSlotValue(slot, original);
+            if (extracted && validateSlotValue(slot, extracted)) {
+              memory.activeFlow.slots[slot.name] = extracted;
+              memory.activeFlow.pendingSlot = null;
+            } else {
+              const replyText = pickVariant(slot.ask, memory);
+              SESSION_MEMORY.set(sessionId, memory);
+              return { replyText, intentId: activeIntent.panelIntentId || activeIntent.id, score: 0.4, needsHandoff: false };
+            }
+          }
+        }
+      }
+
+      let detected = detectIntent(original, intents);
+      if (!detected && memory.lastIntentId && isFollowup(original)) {
+        detected = { intentId: memory.lastIntentId, score: 3, matchedKeywords: [] };
+      }
+
+      if (!detected) {
+        memory.frustrationScore += 1;
+        const replyText = FALLBACK_OPTIONS[Math.floor(Math.random() * FALLBACK_OPTIONS.length)];
+        SESSION_MEMORY.set(sessionId, memory);
+        return { replyText, intentId: null, score: 0.2, needsHandoff: false };
+      }
+
+      const intent = intents.find((item) => item.id === detected.intentId);
+      if (!intent) {
+        const replyText = FALLBACK_OPTIONS[Math.floor(Math.random() * FALLBACK_OPTIONS.length)];
+        SESSION_MEMORY.set(sessionId, memory);
+        return { replyText, intentId: null, score: 0.2, needsHandoff: false };
+      }
+
+      const flowSlots = intent.flow && intent.flow.slots ? intent.flow.slots : [];
+      if (flowSlots.length) {
+        const activeFlow = memory.activeFlow && memory.activeFlow.intentId === intent.id
+          ? memory.activeFlow
+          : { intentId: intent.id, state: 'collecting', slots: {}, pendingSlot: null };
+
+        for (const slot of flowSlots) {
+          if (!activeFlow.slots[slot.name]) {
+            const extracted = extractSlotValue(slot, original);
+            if (extracted && validateSlotValue(slot, extracted)) {
+              activeFlow.slots[slot.name] = extracted;
+            }
+          }
+        }
+
+        const nextSlot = getNextRequiredSlot(intent.flow, activeFlow.slots);
+        if (nextSlot) {
+          activeFlow.pendingSlot = nextSlot.name;
+          memory.activeFlow = activeFlow;
+          memory.lastIntentId = intent.id;
+          const replyText = buildFlowReply(intent, memory, nextSlot);
+          SESSION_MEMORY.set(sessionId, memory);
+          return {
+            replyText,
+            intentId: intent.panelIntentId || intent.id,
+            score: Math.min(1, detected.score / 10),
+            needsHandoff: false
+          };
+        }
+
+        activeFlow.state = 'complete';
+        activeFlow.pendingSlot = null;
+        memory.activeFlow = activeFlow;
+        memory.lastIntentId = intent.id;
+        const onComplete = intent.flow.on_complete || { say: [] };
+        const say = pickVariant(onComplete.say || [], memory);
+        const cta = pickVariant((onComplete.cta || []).map((item) => item.text), memory);
+        const replyText = [formatTemplate(say, activeFlow.slots), cta].filter(Boolean).join(' ').trim();
+        SESSION_MEMORY.set(sessionId, memory);
+        return {
+          replyText,
+          intentId: intent.panelIntentId || intent.id,
+          score: Math.min(1, detected.score / 10),
+          needsHandoff: false
+        };
+      }
+
+      const replyText = buildFlowReply(intent, memory, null);
+      memory.lastIntentId = intent.id;
+      SESSION_MEMORY.set(sessionId, memory);
+      return {
+        replyText,
+        intentId: intent.panelIntentId || intent.id,
+        score: Math.min(1, detected.score / 10),
+        needsHandoff: false
+      };
+    }
+
+    async function logPanelChat(payload) {
+      if (!PANEL_API) return;
+      try {
+        await fetch(`${PANEL_API}/chat/log`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (_) {
+        // noop
+      }
+    }
+
+    function buildLocalAnswer(userText, withMeta) {
+      if (window.OrbeEngine) {
+        if (!FLOW_ENGINE) {
+          const intents = window.OrbeEngine.buildIntentsFromFaq(FAQ_DATA);
+          FLOW_ENGINE = window.OrbeEngine.createFlowEngine(intents);
+        }
+        const res = FLOW_ENGINE.handleMessage(ORBE_SESSION_ID, userText || '');
+        const payload = {
+          replyText: res.replyText || '',
+          intentId: res.intentId || null,
+          score: res.score || 0,
+          matchedKeywords: res.matchedKeywords || [],
+          needsHandoff: false
+        };
+        return withMeta ? payload : payload.replyText;
+      }
+      if (false) {
+      const original = (userText || '').trim();
+      const t = original.toLowerCase();
+
+      if (!t) {
+        return 'Hola, soy AetherLab Core. ¿En qué te puedo ayudar?';
+      }
+
+            if (t.includes('reset') || t.includes('reiniciar') || t.includes('empezar de nuevo')) {
+        coreState = { step: null, answers: {} };
+        return 'Listo. Reinicie la conversacion. Contame en una frase tu caso y arrancamos.';
+      }
+
+      const shouldStartFlow = coreState.step ||
+        t.includes('startup') ||
+        t.includes('orbe') ||
+        t.includes('demo') ||
+        t.includes('probar') ||
+        t.includes('mi startup');
+
+      if (shouldStartFlow) {
+        if (!coreState.step) {
+          coreState.step = 'tipo_cliente';
+          return CORE_FLOW_QUESTIONS[coreState.step];
+        }
+
+        coreState.answers[coreState.step] = original;
+        const nextStep = CORE_FLOW_NEXT[coreState.step];
+
+        if (!nextStep) {
+          const a = coreState.answers;
+          coreState = { step: null, answers: {} };
+          return `Resumen: clientes ${a.tipo_cliente || 'no definido'}, volumen ${a.volumen_leads || 'no definido'}, canales ${a.canales || 'no definido'}, dolor ${a.problema || 'no definido'}, objetivo ${a.objetivo || 'no definido'}. Si queres, te muestro como seria el orbe en tu caso.`;
+        }
+
+        coreState.step = nextStep;
+        return CORE_FLOW_QUESTIONS[coreState.step];
+      }
+
+// Caso específico: si el usuario repite la pregunta base del Orbe
+      if (t.includes('con qué tipo de negocio') || t.includes('con que tipo de negocio') || t.includes('con qué tipo de proyecto')) {
+        return 'Suele trabajar mejor con startups, agencias y consultoras. En tu caso concreto, ¿con qué tipo de organización estás hoy?';
+      }
+
+      // Base de FAQs (podés seguir ampliando esta lista)
+      }
+      FAQ_DATA = [
+        {
+          tags: ['hola', 'buenas', 'qué tal', 'como andas', 'cómo andas'],
+          answer: 'Hola. Soy el Orbe de SoberanoLab. Te voy a hacer unas preguntas cortas para entender mejor tu caso.'
+        },
+        
+        {
+          tags: ['a que te dedicas', 'que haces', 'qué hacés', 'para que servis', 'cuál es tu función'],
+          answer: 'Soy un asistente conversacional por voz. Recibo a las personas en el sitio, ordeno su necesidad y ayudo a ver si tiene sentido que el equipo de SoberanoLab se involucre.'
+        },
+        {
+          tags: ['que es soberanolab', 'qué es soberanolab', 'quien sos', 'quién sos', 'que hacen en soberanolab', 'qué hacen en soberanolab'],
+          answer: 'SoberanoLab diseña y opera asistentes conversacionales por voz que se integran en sitios web para atender, filtrar y calificar consultas comerciales automáticamente.'
+        },
+        {
+          tags: ['24/7', '24 7', 'todo el dia', 'todo el día', 'siempre disponible'],
+          answer: 'Sí, puedo atender consultas 24/7. La idea es estar siempre disponible para tus clientes y, cuando hace falta, derivar a un humano del equipo.'
+        },
+        {
+          tags: ['modulos', 'módulos', 'servicios', 'productos'],
+          answer: 'SoberanoLab trabaja con orbes de voz para tres grandes perfiles: startups, agencias y consultoras. En todos los casos, el objetivo es entender el contexto, el problema principal y la intención antes de derivar a un humano.'
+        },
+        {
+          tags: ['startup', 'producto digital', 'sass', 'saas'],
+          answer: 'Cuando se trata de una startup o producto digital, mi foco es entender en qué etapa está el proyecto y cuál es el desafío principal con la captación o calificación de leads.'
+        },
+        {
+          tags: ['agencia', 'agency', 'marketing', 'servicios digitales'],
+          answer: 'Cuando hablo con agencias, busco entender qué tipo de clientes atienden, cómo llegan los leads hoy y dónde se está perdiendo tiempo o calidad en el primer contacto.'
+        },
+        
+        {
+          tags: ['consultora', 'consultor', 'consulting'],
+          answer: 'Con consultoras, mi objetivo es hacer un pequeño diagnóstico inicial: qué tipo de organizaciones atienden, qué servicios ofrecen y qué tan estructurado está hoy su proceso comercial.'
+        },
+        {
+          tags: ['que tipo de empresas', 'para quienes', 'para quiénes', 'tipos de negocios'],
+          answer: 'El Orbe está pensado para startups, agencias y consultoras que quieren mejorar su primer contacto comercial, filtrar mejor las oportunidades y ahorrar tiempo operativo.'
+        },
+        {
+          tags: ['integracion web', 'integrarte en mi web', 'widget web'],
+          answer: 'El orbe se integra como un widget en la web del cliente. Es un botón flotante que, al abrirse, permite hablar directamente con el asistente desde el navegador, sin apps ni instalaciones.'
+        },
+        {
+          tags: ['beneficios', 'ventajas', 'que gano', 'qué gano'],
+          answer: 'El orbe ayuda a reducir tiempos de respuesta, bajar la carga operativa del equipo y mejorar la experiencia del primer contacto, derivando solo las oportunidades reales a las personas.'
+        },
+        {
+          tags: ['ayuda', 'funciona', 'no anda', 'problema', 'error'],
+          answer: 'Puedo explicarte qué hace SoberanoLab y cómo podría encajar el orbe en tu negocio. Para temas técnicos o comerciales específicos, siempre deriva alguien del equipo.'
+        },
+        {
+  tags: ['precio', 'precios', 'cuanto cuesta', 'costo', 'costos', 'inversion'],
+  answer: 'El costo del orbe depende del volumen de consultas y del nivel de personalización del flujo. Primero entendemos tu contexto y recién ahí definimos una propuesta concreta.'
+},
+{
+  tags: ['implementacion', 'implementar', 'cuanto tarda', 'tiempo de puesta en marcha'],
+  answer: 'La implementación suele llevar entre 2 y 4 semanas, según la complejidad del flujo y las integraciones que necesitemos hacer con tus herramientas actuales.'
+},
+{
+  tags: ['idiomas', 'lenguajes', 'otros idiomas', 'ingles', 'portugues'],
+  answer: 'Podemos trabajar en varios idiomas. Lo más habitual es español e inglés, y según el caso se puede evaluar sumar otros idiomas para tu orbe.'
+},
+{
+  tags: ['privacidad', 'datos', 'seguridad', 'proteccion de datos'],
+  answer: 'Los datos de las conversaciones se manejan de forma privada y controlada por SoberanoLab y por tu organización. El objetivo es usar la información solo para mejorar el proceso comercial y la experiencia de tus clientes.'
+},
+{
+  tags: ['personalizacion', 'customizacion', 'adaptarse a mi negocio', 'flujo a medida'],
+  answer: 'Cada orbe se configura a medida del negocio: tono de voz, preguntas clave, condiciones de calificación y reglas de derivación al equipo humano.'
+},
+{
+  tags: ['entrenamiento', 'configuracion inicial', 'como lo entrenan'],
+  answer: 'El proceso de entrenamiento se hace con la info que ya tengas: sitio web, materiales comerciales y ejemplos de conversaciones. A partir de eso se diseñan los flujos y se iteran con tu equipo.'
+},
+{
+  tags: ['resultados', 'metricas', 'kpi', 'como miden', 'que se mide'],
+  answer: 'Medimos volumen de conversaciones, leads calificados, tiempos de respuesta y derivaciones a humanos. La idea es que puedas ver claramente el impacto del orbe en tu proceso comercial.'
+},
+{
+  tags: ['integraciones', 'crm', 'hubspot', 'pipedrive', 'notion'],
+  answer: 'Podemos integrar el orbe con CRMs y herramientas que ya uses, como HubSpot, Pipedrive o Notion, para que los leads lleguen ordenados y con contexto.'
+},
+{
+  tags: ['soporte', 'soporte tecnico', 'contacto tecnico', 'ayuda tecnica'],
+  answer: 'El soporte técnico lo maneja directamente el equipo de SoberanoLab. El orbe se encarga del primer filtro y, si hace falta, deriva el caso a una persona.'
+},
+{
+  tags: ['horarios', 'horario de atencion', 'cuando atienden'],
+  answer: 'El orbe puede atender 24/7. Cuando hace falta una persona, se define con tu equipo en qué horarios se toman las derivaciones.'
+},
+{
+  tags: ['prueba', 'demo', 'probar', 'quiero probar'],
+  answer: 'Podés pedir una demo donde veas el orbe funcionando con ejemplos cercanos a tu negocio. A partir de ahí definimos si tiene sentido avanzar.'
+},
+{
+  tags: ['contrato', 'forma de trabajo', 'como trabajan', 'metodologia'],
+  answer: 'Primero hacemos un diagnóstico corto, después diseñamos el flujo de conversación y finalmente lo integramos en tu sitio. Todo se ajusta con iteraciones cortas junto a tu equipo.'
+},
+{
+  tags: ['equipo', 'quien esta detras', 'quien lo hace'],
+  answer: 'Detrás del orbe hay un equipo de SoberanoLab que diseña la experiencia de conversación, entrena los modelos y mantiene las integraciones técnicas.'
+},
+{
+  tags: ['escalabilidad', 'muchos leads', 'alto volumen'],
+  answer: 'El orbe está pensado para manejar volumen alto de consultas sin perder calidad en las preguntas clave ni en la calificación de oportunidades.'
+},
+{
+  tags: ['cuanto cuesta', 'precio', 'precios', 'costo', 'costos', 'inversion'],
+  answer: 'El costo del orbe depende de tres cosas: el volumen de consultas, el nivel de personalización del flujo y las integraciones que necesitemos hacer. Suelo empezar con un diagnóstico corto y, si tiene sentido, se arma una propuesta concreta para tu caso. ¿Hoy cuántas consultas comerciales aproximadas recibís por mes?'
+},
+{
+  tags: ['cuanto tarda', 'tiempo de implementacion', 'tiempo de puesta en marcha'],
+  answer: 'La implementación suele llevar entre 2 y 4 semanas. Primero hacemos un diagnóstico, después diseñamos el flujo de conversación y, por último, lo integramos en tu sitio. En tu caso, ¿ya tenés claro qué tipo de consultas te gustaría que atienda primero el orbe?'
+},
+{
+  tags: ['idiomas', 'otros idiomas', 'ingles', 'portugues', 'varios idiomas'],
+  answer: 'El orbe puede trabajar en varios idiomas. Lo más habitual es español e inglés, y según el caso se puede sumar otro idioma. Lo importante es definir en qué idioma te hablan la mayoría de tus clientes hoy. ¿Tus clientes te escriben más en español, en inglés o está bastante mezclado?'
+},
+{
+  tags: ['privacidad', 'seguridad', 'proteccion de datos', 'datos clientes'],
+  answer: 'Las conversaciones se almacenan de forma controlada y se usan solo para mejorar tu proceso comercial y la experiencia de tus clientes. Podemos adaptar el manejo de datos a las políticas de tu organización. Para entender mejor tu contexto, ¿trabajás con datos sensibles o sobre todo con consultas comerciales generales?'
+},
+{
+  tags: ['integracion', 'integraciones', 'crm', 'hubspot', 'pipedrive', 'notion'],
+  answer: 'El orbe se puede integrar con CRMs y herramientas que ya uses, como HubSpot, Pipedrive o Notion, para que los leads lleguen ordenados y con contexto. Lo primero es ver qué estás usando hoy para registrar oportunidades. ¿Qué herramienta usás actualmente para seguir tus leads o clientes?'
+}, {
+  tags: ['demo', 'probar', 'ver demo', 'quiero probar'],
+  answer: 'Podés ver una demo donde el orbe simula conversaciones reales y muestra cómo califica los leads. A partir de ahí ajustamos el flujo a tu negocio. Para orientarte mejor, ¿preferís una demo enfocada en volumen de leads o en calificación más profunda de cada oportunidad?'
+},
+{
+  tags: ['forma de trabajo', 'metodologia', 'como trabajan', 'proceso de trabajo'],
+  answer: 'Trabajamos en tres etapas: diagnóstico corto, diseño del flujo de conversación y puesta en marcha en tu sitio. Después vienen iteraciones cortas para ajustar el orbe a lo que pasa en la práctica. Para empezar, ¿hoy tenés algún guion o estructura de preguntas que use tu equipo comercial?'
+},
+{
+  tags: ['personalizacion', 'customizacion', 'adaptarse a mi negocio', 'flujo a medida'],
+  answer: 'El orbe se personaliza con tu tono de voz, tus preguntas clave y tus criterios de calificación. No es un chatbot genérico, sino un flujo diseñado a medida. Me ayuda saber esto: cuando alguien te contacta por primera vez, ¿qué es lo primero que necesitás saber de esa persona o empresa?'
+},
+{
+  tags: ['resultados', 'metricas', 'kpi', 'que resultados puedo esperar'],
+  answer: 'Los resultados que solemos mirar son: volumen de conversaciones, leads calificados, tiempos de respuesta y derivaciones a humanos. La idea es que veas con datos dónde el orbe está agregando valor. ¿Qué métrica te preocupa más hoy: cantidad de leads, calidad o tiempo que pierde tu equipo?'
+},
+{
+  tags: ['soporte', 'soporte tecnico', 'ayuda tecnica', 'postventa'],
+  answer: 'El soporte lo da el equipo de SoberanoLab. El orbe se encarga del primer filtro y, cuando aparece algo técnico o muy específico, se deriva a una persona. Para entender qué necesitarías, ¿tu equipo prefiere que los ajustes sean puntuales cuando hay un problema o revisiones periódicas del flujo?'
+},
+{
+  tags: ['muchos leads', 'alto volumen', 'escalabilidad', 'picos de trafico'],
+  answer: 'El orbe está pensado para manejar picos de tráfico sin perder calidad en las preguntas clave ni en la calificación de leads. Me sirve saber algo: ¿hoy tenés momentos del mes o de la semana donde se te acumulan muchas consultas juntas?'
+},
+{
+  tags: ['tipo de clientes', 'para quienes sirve', 'que tipo de empresas'],
+  answer: 'Suele funcionar mejor con startups, agencias y consultoras que venden servicios o productos de ticket medio/alto. En tu caso, ¿a qué tipo de cliente le querés vender más con ayuda del orbe?'
+},
+{
+  tags: ['primer contacto', 'primer mensaje', 'primer llamada', 'primer filtro'],
+  answer: 'El orbe se encarga del primer contacto: entiende el contexto, hace un par de preguntas clave y decide si vale la pena derivar a una persona. ¿Hoy quién hace ese primer filtro en tu proceso comercial?'
+},
+{
+  tags: ['equipo comercial', 'vendedores', 'sales', 'area comercial'],
+  answer: 'La idea no es reemplazar al equipo comercial, sino que lleguen solo las oportunidades que valen la pena. Eso libera tiempo para conversaciones más profundas. ¿Cuántas personas tenés hoy en el equipo comercial, aunque sea de forma parcial?'
+},
+{
+  tags: ['inicio', 'como empezar', 'por donde empiezo', 'primer paso'],
+  answer: 'El primer paso suele ser una conversación corta para entender tu contexto y definir cuál sería el flujo mínimo del orbe. A partir de ahí te mostramos un esquema concreto. Para orientarme mejor, ¿qué problema puntual te gustaría atacar primero con el orbe?'
+}, 
+{
+  tags: ['landing', 'sitio web', 'web', 'pagina web'],
+  answer: 'El orbe suele funcionar muy bien en landings donde llega tráfico frío o templado y tu equipo no llega a responder todo. Me ayuda entender: ¿tu tráfico hoy viene más de anuncios, de contenidos orgánicos o de referencias?'
+},
+{
+  tags: ['leads frios', 'leads calientes', 'calificar leads', 'calificacion de leads'],
+  answer: 'El orbe puede distinguir entre leads fríos, templados y calientes según las respuestas que va recibiendo. Así tu equipo ve primero las mejores oportunidades. En tu caso, ¿qué señal usás hoy para decir “este lead vale la pena”?'
+},
+{
+  tags: ['ventas complejas', 'ciclo largo', 'venta consultiva'],
+  answer: 'En ventas más consultivas el orbe ayuda a ordenar contexto antes de la primera reunión: tamaño de la empresa, necesidad principal y urgencia. ¿Tus ventas suelen cerrarse en una llamada, o llevan varias reuniones y decisiones internas?'
+},
+{
+  tags: ['canales', 'whatsapp', 'mail', 'instagram', 'redes'],
+  answer: 'El orbe se concentra en la web, pero podemos alinearlo con lo que pase en otros canales como WhatsApp o redes, para que el mensaje sea coherente. Hoy, ¿por qué canal te entran más consultas comerciales?'
+},
+{
+  tags: ['no estoy seguro', 'no se si me sirve', 'dudas', 'tengo dudas'],
+
+  
+  answer: 'Es normal tener dudas al principio. El objetivo del orbe no es automatizar todo, sino mejorar el primer contacto donde hoy se pierde tiempo o calidad. Para ver si encaja, ¿qué parte puntual de tu proceso comercial te frustra más hoy?'
+},
+{
+  tags: ['retorno', 'roi', 'retorno de inversion', 'vale la pena'],
+  answer: 'El retorno suele verse en dos frentes: más oportunidades calificadas y menos tiempo operativo del equipo. No siempre es inmediato, pero se nota cuando hay volumen de consultas. En tu caso, ¿qué te interesaría más medir primero: ahorro de tiempo o aumento de oportunidades?'
+},
+{
+  tags: ['segmentar', 'segmentacion', 'tipos de servicios', 'varios servicios'],
+  answer: 'El orbe puede hacer preguntas para identificar en qué línea de servicio encaja mejor cada consulta y derivarla al equipo correcto. ¿Cuántas líneas de servicio principales manejás hoy en tu negocio?'
+},
+{
+  tags: ['onboarding', 'acompanamiento', 'acompañamiento inicial'],
+  answer: 'Durante las primeras semanas solemos mirar juntos las conversaciones, ajustar preguntas y mejorar la forma en que el orbe califica leads. No se deja “solo” de un día para el otro. ¿Te gustaría un acompañamiento más intenso al inicio o algo más ligero?'
+},
+{
+  tags: ['errores', 'se equivoca', 'fallos', 'mala respuesta'],
+  answer: 'Si el orbe se equivoca o no entiende algo, podemos ajustar el flujo y las reglas a partir de esas mismas conversaciones. Lo importante es revisar lo que pasa en la práctica. Cuando un bot se equivoca con vos, ¿qué es lo que más te molesta: que no entienda, que sea lento o que no deje hablar con un humano?'
+},
+{
+  tags: ['tamaño empresa', 'pyme', 'startup chica', 'empresa grande'],
+  answer: 'El orbe se puede adaptar tanto a equipos chicos como a organizaciones más grandes. Lo que cambia es la cantidad de flujos y las integraciones que armamos. ¿Hoy te considerás más cerca de una startup pequeña, una pyme consolidada o una empresa grande?'
+},
+{
+  tags: ['formulario', 'formularios largos', 'muchos campos', 'form muy largo'],
+  answer: 'En muchos casos el orbe reemplaza o acompaña formularios largos, haciendo preguntas en voz y completando la info por detrás. Eso suele subir la tasa de respuesta. ¿Hoy sentís que tus formularios espantan a la gente o funcionan razonablemente bien?'
+},
+{
+  tags: ['educar cliente', 'cliente no entiende', 'explicar servicio'],
+  answer: 'El orbe también sirve para educar al cliente antes de que hable con tu equipo: aclara dudas básicas y alinea expectativas. ¿Tus clientes suelen llegar bien informados o tenés que explicar siempre lo mismo desde cero?'
+},
+{
+  tags: ['internacional', 'otros paises', 'clientes de otros paises'],
+  answer: 'Si trabajás con otros países, el orbe puede adaptar idioma y ejemplos al contexto local. Lo importante es definir en qué mercados querés enfocarte primero. ¿Hoy tus clientes están más en tu país o repartidos en varios mercados?'
+},
+{
+  tags: ['equipos chicos', 'unipersonal', 'freelancer', 'soy solo'],
+  answer: 'Para equipos muy chicos o personas que venden solas, el orbe ayuda a no perder oportunidades cuando estás ocupado o fuera de horario. ¿Hoy sentís que se te escapan consultas porque no llegás a responder a tiempo?'
+},
+{
+  tags: ['clientes actuales', 'cartera', 'post venta', 'clientes existentes'],
+  answer: 'Además de nuevos leads, el orbe puede ayudar con clientes actuales: dudas frecuentes, pedidos de info o derivaciones al área adecuada. ¿Te interesa más usarlo para nuevos clientes o también para los que ya tienen relación con vos?'
+}, 
+{
+  tags: ['sin equipo comercial', 'no tengo vendedor', 'no tengo equipo'],
+  answer: 'Si no tenés equipo comercial, el orbe puede hacer el primer filtrado y dejarte solo las oportunidades que valen la pena revisar. Así no tenés que estar pendiente todo el día. ¿Hoy quién responde las consultas comerciales cuando entran?'
+},
+{
+  tags: ['mucho tiempo', 'pierdo tiempo', 'trabajo operativo', 'tareas repetitivas'],
+  answer: 'El orbe está pensado para reducir trabajo repetitivo en el primer contacto: responder siempre las mismas preguntas y pedir los mismos datos. ¿Qué parte de tu día sentís que es más repetitiva cuando se trata de atender consultas?'
+},
+{
+  tags: ['calidad leads', 'leads malos', 'pocos calificados'],
+  answer: 'Podemos configurar el orbe para que haga preguntas clave y descarte leads que claramente no encajan. Eso mejora la calidad de las conversaciones que llegan a tu equipo. ¿Qué tipo de lead querés evitar que te llegue?'
+},
+{
+  tags: ['horario oficina', 'fuera de horario', 'fin de semana'],
+  answer: 'Fuera de horario, el orbe puede seguir atendiendo y dejando las consultas ordenadas para el día siguiente. Incluso puede avisar cuando aparece algo muy urgente. ¿Tus leads suelen escribirte más en horario de oficina o fuera de horario?'
+},
+{
+  tags: ['idioma tono', 'tono de voz', 'formal', 'informal'],
+  answer: 'El orbe puede hablar en un tono más formal o más relajado, según tu marca y tu cliente ideal. ¿Preferís un tono cercano y directo o algo más formal y corporativo?'
+},
+{
+  tags: ['reuniones', 'agenda', 'agendar llamada', 'coordinar reunion'],
+  answer: 'Podemos hacer que el orbe proponga agendar una llamada cuando ve una oportunidad fuerte, y deje los datos listos para coordinarla. ¿Hoy cómo coordinás las reuniones: a mano, con links de agenda o por mail?'
+},
+{
+  tags: ['productos distintos', 'varios productos', 'lineas de producto'],
+  answer: 'Si tenés varios productos o servicios, el orbe puede guiar la conversación para entender en cuál encaja cada persona y derivarla al flujo correcto. ¿Cuántos productos o líneas principales querés que pueda distinguir?'
+},
+{
+  tags: ['ticket alto', 'ticket bajo', 'precio alto', 'precio bajo'],
+  answer: 'En tickets más altos, el orbe ayuda a calificar mejor antes de que entre una persona; en tickets más bajos, ayuda a automatizar más parte de la conversación. ¿Tus precios están más del lado “servicio premium” o más cerca de volumen y tickets bajos?'
+},
+{
+  tags: ['funnels', 'embudo', 'etapas de venta'],
+  answer: 'El orbe se puede alinear con tu embudo: descubrimiento, evaluación, cierre. Lo importante es definir qué información necesitamos en cada etapa. ¿Tenés ya definido tu embudo de ventas o está más armado “de hecho” que en un documento?'
+},
+{
+  tags: ['contenido', 'articulos', 'blog', 'casos de exito'],
+  answer: 'El orbe puede apoyarse en tu contenido: notas, casos de éxito y recursos que ya tengas, para compartir algo útil durante la conversación. ¿Tenés hoy casos de éxito o materiales que te gustaría que el orbe pueda mencionar?'
+},
+{
+  tags: ['errores frecuentes clientes', 'malas expectativas', 'malos entendidos'],
+  answer: 'Una parte del trabajo del orbe es alinear expectativas desde el principio para evitar malos entendidos después. ¿Qué confusión típica te gustaría que el orbe pueda aclarar antes de que llegue a tu equipo?'
+},
+{
+  tags: ['prueba gratis', 'trial', 'periodo de prueba'],
+  answer: 'Si ofrecés trial o prueba, el orbe puede calificar primero y luego ofrecer ese acceso a quienes encajan mejor. Así no se llena de cuentas que no tienen sentido. ¿Manejás algún tipo de prueba gratis o demo extendida hoy?'
+},
+{
+  tags: ['implementacion tecnica', 'requisitos tecnicos', 'requisitos'],
+  answer: 'A nivel técnico, la integración suele ser liviana: un script en tu sitio y, si hace falta, conexión con tus herramientas. Lo ajustamos a tu stack actual. ¿Con qué tecnología está hecha tu web hoy (WordPress, Webflow, propio, otro)?'
+},
+{
+  tags: ['version beta', 'empezar en chico', 'piloto'],
+  answer: 'Podemos empezar con un piloto chico en una sola landing o campaña para ver impacto antes de escalar al resto del sitio. ¿Tenés alguna página en particular donde te gustaría probar primero el orbe?'
+},
+{
+  tags: ['adaptacion', 'aprendizaje', 'mejora continua'],
+  answer: 'El orbe no se queda quieto: vamos mirando conversaciones reales y ajustando preguntas y reglas. Esa mejora continua es la que lo vuelve cada vez más fino. ¿Cada cuánto te gustaría revisar lo que está pasando: semanal, quincenal o mensual?'
+},
+{
+  tags: ['industria', 'rubro', 'sector'],
+  answer: 'Hay rubros donde el tipo de pregunta cambia mucho, por ejemplo salud, educación o servicios profesionales. Por eso ajustamos el flujo a tu industria. ¿En qué rubro principal estás hoy operando?'
+},
+{
+  tags: ['idioma clientes', 'clientes bilingues', 'cambiar de idioma'],
+  answer: 'Si tu audiencia es bilingüe, el orbe puede detectar el idioma por la entrada o preguntarlo al inicio y seguir la conversación en esa lengua. ¿Notás que tus clientes suelen mezclar idiomas o se quedan en uno solo?'
+},
+{
+  tags: ['objetivo principal', 'meta principal', 'que quiero lograr'],
+  answer: 'Antes de configurar nada, definimos un objetivo principal: más leads, mejor calificación, menos tiempo operativo, o una mezcla. Eso guía todo el diseño del orbe. ¿Cuál de esos objetivos te hace más ruido ahora mismo?'
+},
+{
+  tags: ['equipo chico saturado', 'no damos abasto', 'muchas consultas'],
+  answer: 'Cuando el equipo está saturado, el orbe ayuda a priorizar y a no perder oportunidades valiosas en medio del ruido. ¿Sentís hoy que se te escapan mensajes sin responder o llegan con mucho retraso?'
+},
+{
+  tags: ['preguntas frecuentes', 'faq', 'mismas preguntas siempre'],
+  answer: 'Si tus clientes repiten siempre las mismas 5 o 10 preguntas, el orbe puede cubrirlas y dejar a tu equipo solo las conversaciones que realmente requieren criterio humano. ¿Tenés ya una lista de esas preguntas frecuentes o te ayudaría armarlas?'
+},
+{
+  tags: ['sin equipo comercial', 'no tengo vendedor', 'no tengo equipo'],
+  answer: 'Si no tenés equipo comercial, el orbe puede hacer el primer filtrado y dejarte solo las oportunidades que valen la pena revisar. Así no tenés que estar pendiente todo el día. ¿Hoy quién responde las consultas comerciales cuando entran?'
+},
+{
+  tags: ['mucho tiempo', 'pierdo tiempo', 'trabajo operativo', 'tareas repetitivas'],
+  answer: 'El orbe está pensado para reducir trabajo repetitivo en el primer contacto: responder siempre las mismas preguntas y pedir los mismos datos. ¿Qué parte de tu día sentís que es más repetitiva cuando se trata de atender consultas?'
+},
+{
+  tags: ['calidad leads', 'leads malos', 'pocos calificados'],
+  answer: 'Podemos configurar el orbe para que haga preguntas clave y descarte leads que claramente no encajan. Eso mejora la calidad de las conversaciones que llegan a tu equipo. ¿Qué tipo de lead querés evitar que te llegue?'
+},
+{
+  tags: ['horario oficina', 'fuera de horario', 'fin de semana'],
+  answer: 'Fuera de horario, el orbe puede seguir atendiendo y dejando las consultas ordenadas para el día siguiente. Incluso puede avisar cuando aparece algo muy urgente. ¿Tus leads suelen escribirte más en horario de oficina o fuera de horario?'
+},
+{
+  tags: ['idioma tono', 'tono de voz', 'formal', 'informal'],
+  answer: 'El orbe puede hablar en un tono más formal o más relajado, según tu marca y tu cliente ideal. ¿Preferís un tono cercano y directo o algo más formal y corporativo?'
+},
+{
+  tags: ['reuniones', 'agenda', 'agendar llamada', 'coordinar reunion'],
+  answer: 'Podemos hacer que el orbe proponga agendar una llamada cuando ve una oportunidad fuerte, y deje los datos listos para coordinarla. ¿Hoy cómo coordinás las reuniones: a mano, con links de agenda o por mail?'
+},
+{
+  tags: ['productos distintos', 'varios productos', 'lineas de producto'],
+  answer: 'Si tenés varios productos o servicios, el orbe puede guiar la conversación para entender en cuál encaja cada persona y derivarla al flujo correcto. ¿Cuántos productos o líneas principales querés que pueda distinguir?'
+},
+{
+  tags: ['ticket alto', 'ticket bajo', 'precio alto', 'precio bajo'],
+  answer: 'En tickets más altos, el orbe ayuda a calificar mejor antes de que entre una persona; en tickets más bajos, ayuda a automatizar más parte de la conversación. ¿Tus precios están más del lado “servicio premium” o más cerca de volumen y tickets bajos?'
+},
+{
+  tags: ['funnels', 'embudo', 'etapas de venta'],
+  answer: 'El orbe se puede alinear con tu embudo: descubrimiento, evaluación, cierre. Lo importante es definir qué información necesitamos en cada etapa. ¿Tenés ya definido tu embudo de ventas o está más armado “de hecho” que en un documento?'
+},
+{
+  tags: ['contenido', 'articulos', 'blog', 'casos de exito'],
+  answer: 'El orbe puede apoyarse en tu contenido: notas, casos de éxito y recursos que ya tengas, para compartir algo útil durante la conversación. ¿Tenés hoy casos de éxito o materiales que te gustaría que el orbe pueda mencionar?'
+},
+{
+  tags: ['errores frecuentes clientes', 'malas expectativas', 'malos entendidos'],
+  answer: 'Una parte del trabajo del orbe es alinear expectativas desde el principio para evitar malos entendidos después. ¿Qué confusión típica te gustaría que el orbe pueda aclarar antes de que llegue a tu equipo?'
+},
+{
+  tags: ['prueba gratis', 'trial', 'periodo de prueba'],
+  answer: 'Si ofrecés trial o prueba, el orbe puede calificar primero y luego ofrecer ese acceso a quienes encajan mejor. Así no se llena de cuentas que no tienen sentido. ¿Manejás algún tipo de prueba gratis o demo extendida hoy?'
+},
+{
+  tags: ['implementacion tecnica', 'requisitos tecnicos', 'requisitos'],
+  answer: 'A nivel técnico, la integración suele ser liviana: un script en tu sitio y, si hace falta, conexión con tus herramientas. Lo ajustamos a tu stack actual. ¿Con qué tecnología está hecha tu web hoy (WordPress, Webflow, propio, otro)?'
+},
+{
+  tags: ['version beta', 'empezar en chico', 'piloto'],
+  answer: 'Podemos empezar con un piloto chico en una sola landing o campaña para ver impacto antes de escalar al resto del sitio. ¿Tenés alguna página en particular donde te gustaría probar primero el orbe?'
+},
+{
+  tags: ['adaptacion', 'aprendizaje', 'mejora continua'],
+  answer: 'El orbe no se queda quieto: vamos mirando conversaciones reales y ajustando preguntas y reglas. Esa mejora continua es la que lo vuelve cada vez más fino. ¿Cada cuánto te gustaría revisar lo que está pasando: semanal, quincenal o mensual?'
+},
+{
+  tags: ['industria', 'rubro', 'sector'],
+  answer: 'Hay rubros donde el tipo de pregunta cambia mucho, por ejemplo salud, educación o servicios profesionales. Por eso ajustamos el flujo a tu industria. ¿En qué rubro principal estás hoy operando?'
+},
+{
+  tags: ['idioma clientes', 'clientes bilingues', 'cambiar de idioma'],
+  answer: 'Si tu audiencia es bilingüe, el orbe puede detectar el idioma por la entrada o preguntarlo al inicio y seguir la conversación en esa lengua. ¿Notás que tus clientes suelen mezclar idiomas o se quedan en uno solo?'
+},
+{
+  tags: ['objetivo principal', 'meta principal', 'que quiero lograr'],
+  answer: 'Antes de configurar nada, definimos un objetivo principal: más leads, mejor calificación, menos tiempo operativo, o una mezcla. Eso guía todo el diseño del orbe. ¿Cuál de esos objetivos te hace más ruido ahora mismo?'
+},
+{
+  tags: ['equipo chico saturado', 'no damos abasto', 'muchas consultas'],
+  answer: 'Cuando el equipo está saturado, el orbe ayuda a priorizar y a no perder oportunidades valiosas en medio del ruido. ¿Sentís hoy que se te escapan mensajes sin responder o llegan con mucho retraso?'
+},
+{
+  tags: ['preguntas frecuentes', 'faq', 'mismas preguntas siempre'],
+  answer: 'Si tus clientes repiten siempre las mismas 5 o 10 preguntas, el orbe puede cubrirlas y dejar a tu equipo solo las conversaciones que realmente requieren criterio humano. ¿Tenés ya una lista de esas preguntas frecuentes o te ayudaría armarlas?'
+},
+{
+  tags: ['retorno', 'roi', 'retorno de inversion', 'vale la pena'],
+  answer: 'El retorno suele verse en dos frentes: más oportunidades calificadas y menos tiempo operativo del equipo. No siempre es inmediato, pero se nota cuando hay volumen de consultas. ¿Qué te interesa medir primero: ahorro de tiempo o aumento de oportunidades?'
+},
+{
+  tags: ['segmentar', 'segmentacion', 'tipos de clientes', 'tipos de servicios'],
+  answer: 'El orbe puede segmentar según tipo de cliente, servicio o rango de presupuesto, y derivar cada caso al flujo correcto. ¿En qué dimensión te interesa segmentar más: tipo de empresa, servicio o presupuesto?'
+},
+{
+  tags: ['educar cliente', 'cliente no entiende', 'explicar servicio'],
+  answer: 'El orbe puede explicar de forma sencilla qué hacés, qué no hacés y para quién está pensado tu servicio, antes de que entre tu equipo. ¿Qué cosa te cansa más tener que explicar una y otra vez?'
+},
+{
+  tags: ['landing', 'pagina de ventas', 'pagina principal'],
+  answer: 'Podemos poner el orbe primero en una landing clave y medir cómo cambia el comportamiento ahí antes de llevarlo a todo el sitio. ¿Tenés alguna página que hoy sea la principal entrada de leads?'
+},
+{
+  tags: ['canales', 'whatsapp', 'instagram', 'redes sociales'],
+  answer: 'Aunque el orbe viva en la web, podemos alinearlo con lo que pasa en WhatsApp o redes, para que el mensaje sea consistente. ¿Desde qué canal llegan más personas a tu sitio: anuncios, redes, correo, otro?'
+},
+{
+  tags: ['ventas complejas', 'ciclo de venta largo', 'venta consultiva'],
+  answer: 'En ventas más consultivas el orbe ayuda sobre todo a ordenar contexto y alinear expectativas antes de la primera reunión. ¿Tus ventas suelen cerrarse rápido o llevan varias conversaciones y decisiones internas?'
+},
+{
+  tags: ['clientes actuales', 'post venta', 'soporte clientes existentes'],
+  answer: 'Además de nuevos leads, el orbe puede ayudar a clientes actuales con dudas frecuentes o derivaciones internas. ¿Te interesa más enfocarlo primero en nuevos clientes o en los que ya trabajan con vos?'
+},
+{
+  tags: ['no estoy seguro', 'tengo dudas', 'no se si me sirve'],
+  answer: 'Es normal no estar seguro al principio. Lo más útil suele ser probar en chico, en un punto concreto del proceso, y ver qué pasa con datos. ¿En qué parte de tu proceso te gustaría hacer esa prueba piloto?'
+},
+{
+  tags: ['casos de uso', 'ejemplos', 'que se puede hacer'],
+  answer: 'Los casos de uso más comunes son: filtro de leads, precalificación antes de una reunión y respuesta a dudas frecuentes. ¿Cuál de esos tres casos se parece más a lo que querés resolver hoy?'
+},
+{
+  tags: ['capacitacion equipo', 'equipo comercial y orbe', 'uso interno'],
+  answer: 'También podemos alinear al equipo comercial para que sepa cómo leer las conversaciones del orbe y aprovechar mejor la info que deja. ¿Tu equipo está acostumbrado a usar herramientas digitales o habría que acompañarlos bastante al principio?'
+},
+{
+  tags: ['como funcionaria en mi negocio', 'aplicado a mi negocio', 'en mi caso'],
+  answer: 'En la práctica, el orbe se convierte en el primer punto de contacto: recibe a la persona en tu sitio, le hace 2 o 3 preguntas clave para entender contexto y urgencia, y con eso decide si la deriva a tu equipo o si solo deja la consulta registrada. La idea es que todo lo que hoy hacés manualmente en los primeros minutos de conversación quede resuelto de forma consistente. Para aterrizarlo en tu caso, lo que me importa es: qué vendés, a quién y en qué parte exacta del proceso sentís que se pierde más tiempo o se caen oportunidades. A partir de eso se arma un flujo a medida.'
+},
+{
+  tags: ['que pasa despues', 'siguiente paso', 'despues del orbe', 'que pasa luego'],
+  answer: 'Después de la conversación con el orbe, pasan dos cosas importantes: por un lado, la persona se va con una idea más clara de qué hacés, qué no hacés y qué puede esperar de trabajar con vos; por otro, tu equipo recibe un resumen ordenado con la información relevante que el orbe fue recopilando: quién es, qué busca, qué tamaño de problema tiene y qué tan urgente es. Eso significa que cuando alguien de tu equipo toma la posta, ya no arranca desde cero ni tiene que repetir las mismas preguntas. En lugar de gastar energía en descubrir lo básico, puede ir directo a una conversación de decisión. La pregunta clave acá es: ¿qué información sí o sí te gustaría que el orbe tenga antes de derivar a una persona?'
+},
+{
+  tags: ['implementacion completa', 'como seria el proyecto', 'pasos del proyecto'],
+  answer: 'Un proyecto completo suele seguir cuatro etapas. Primero, un diagnóstico corto donde entendemos tu negocio, tu proceso comercial actual y dónde se están perdiendo oportunidades. Segundo, el diseño del flujo de conversación: definimos cómo recibe el orbe a la persona, qué le pregunta, qué respuestas considera “buen lead” y en qué punto deriva a un humano. Tercero, la implementación técnica: se integra el orbe a tu sitio, se conectan las herramientas que uses (como CRM) y se prueban los caminos principales. Cuarto, las iteraciones: revisamos conversaciones reales, ajustamos preguntas, afinamos el tono y vamos cerrando fugas del proceso. El objetivo no es lanzar algo perfecto desde el día uno, sino salir con un flujo sólido y después mejorarlo con lo que pasa en la vida real. Para ver si este camino encaja con vos, me interesa saber: ¿en qué etapa sentís que necesitarías más acompañamiento, en el diseño del flujo, en la parte técnica o en las iteraciones?'
+}, {
+  tags: ['explicame bien que hace el orbe', 'que hace exactamente', 'como funciona en detalle'],
+  answer: 'El orbe funciona como un primer asistente comercial que vive en tu sitio y se encarga de la parte más pesada y repetitiva del primer contacto. En lugar de que cada persona de tu equipo tenga que hacer siempre las mismas preguntas iniciales, el orbe abre la conversación, entiende quién está del otro lado, qué problema trae y qué tan urgente es. A partir de eso, puede seguir dos caminos: si ve que la oportunidad encaja bien con tu negocio, recopila la información clave y la deja ordenada para que una persona de tu equipo retome la charla con mucho más contexto; si ve que no encaja, puede explicar de forma amable por qué no es un buen fit y evitarte una reunión que no tenía sentido. Todo esto pasa en voz o texto, dentro de tu web, sin que la persona tenga que descargar nada. Lo importante es que el orbe no inventa un “modo de vender” nuevo: toma la lógica que hoy ya tenés en tu cabeza o en tu equipo, la traduce a un flujo ordenado y la aplica de forma consistente en cada conversación. Desde ahí, lo que vamos haciendo es mirar juntos las conversaciones reales y ajustar el comportamiento del orbe como si fuera un miembro nuevo del equipo al que vas entrenando con el tiempo. A partir de lo que me contaste, me interesa saber: ¿en el primer contacto hoy te preocupa más filtrar mejor, educar mejor al cliente o responder más rápido?'
+},
+{
+  tags: ['quiero entender el valor concreto', 'que gano en la practica', 'beneficios concretos'],
+  answer: 'En la práctica, el valor del orbe aparece en tres capas. La primera es el tiempo: deja de depender todo del calendario y la energía de tu equipo para que el primer contacto salga bien. El orbe atiende siempre igual, a cualquier hora, sin cansarse ni tener días malos. Eso libera horas que hoy se van en explicar lo mismo una y otra vez o en responder consultas que no llegan a nada. La segunda capa es la calidad: como hace siempre las mismas preguntas clave, la información que llega a tu equipo está mucho más completa y ordenada. Eso hace que las reuniones empiecen en un nivel de profundidad más interesante, con menos “¿cómo te llamás?, ¿a qué te dedicás?, ¿cómo llegaste hasta acá?” y más conversación sobre la decisión. La tercera capa es la visibilidad: al quedar todo registrado, podés ver patrones que antes estaban dispersos en mails, chats y notas sueltas. Ves qué tipo de personas llegan, qué problemas se repiten, dónde se traban y qué frases aparecen cuando un lead tiene más intención real. Con esos datos se pueden ajustar tanto el orbe como tu oferta y tu comunicación. No es magia ni una promesa vacía: es ordenar, automatizar y medir una parte del proceso que suele estar muy improvisada. Para ver si tiene sentido para vos, me sirve entender qué duele más hoy: llegar tarde a las consultas, tener muchas conversaciones que no van a ningún lado, o no tener claridad de qué está pasando en tu embudo.'
+},
+{
+  tags: ['contame el paso a paso completo', 'detalle del proceso completo', 'como seria trabajar juntos'],
+  answer: 'Trabajar con el orbe suele seguir un paso a paso bastante claro. Primero hacemos un diagnóstico corto, donde te pido que me cuentes cómo llega hoy un lead a tu negocio, qué pasos sigue hasta convertirse en cliente y en qué puntos sentís que se pierde tiempo o calidad. No buscamos un diagnóstico perfecto, sino una foto honesta de cómo pasan las cosas en la realidad. Con eso, definimos un objetivo concreto para el orbe: por ejemplo, filtrar mejor leads, reducir tiempo de respuesta, ordenar información antes de una reunión o una mezcla de varios. En la segunda etapa, traducimos tu forma de vender a un flujo conversacional. Eso implica decidir cómo saluda el orbe, qué preguntas hace primero, qué señales toma para decir “esto es un buen lead”, qué hace cuando algo no encaja y en qué momento ofrece pasar la posta a una persona. No se trata de inventar un personaje artificial, sino de ponerle forma y estructura a la forma en que te gusta que sean tus primeras conversaciones comerciales. En la tercera etapa viene la implementación técnica: se integra el orbe a tu web, se ajusta el diseño para que encaje con tu marca, se conectan las herramientas que uses (como CRM o sistemas internos) y se hacen pruebas con casos reales. Esta parte es más técnica, pero tratamos de que para vos sea lo más liviana posible. Finalmente, en la cuarta etapa se abre un período de iteraciones: miramos conversaciones reales, vemos dónde el orbe se queda corto, dónde repite de más, dónde responde algo que podría ser mejor, y lo vamos corrigiendo. Es muy parecido a incorporar una persona nueva al equipo: al principio hay más acompañamiento y feedback, y con el tiempo va necesitando menos correcciones porque ya entendió tu estilo y tus criterios. A lo largo de todo el proceso, la idea es que no tengas que volverte experto en IA ni en flujos de conversación, sino que uses tu conocimiento del negocio y de tus clientes, mientras nosotros nos encargamos de traducir eso en lógica y en tecnología. Para dimensionar si encaja con tu momento, me sirve que me digas: ¿te imaginás participando más activamente en la parte de diseño del flujo, revisando ejemplos de conversaciones, o preferís que te llevemos una propuesta casi cerrada para que solo la ajustes?'
+}, 
+{
+  tags: ['contacto', 'hablar con alguien', 'mail', 'whatsapp', 'comercial'],
+  answer: 'Si preferís hablar directo con alguien del equipo, podés escribir a pedroalasino@gmail.com o por WhatsApp al +54 9 351 651 9277. Contame rápido en una frase qué estás buscando y te respondemos con una propuesta concreta.'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        // 👉 Agregá más entradas con { tags: [...], answer: '...' } para ampliar el FAQ
+        
+      ];
+
+      // Coincidencia simple por inclusión de tags
+      if (!FAQ_INTENTS_CACHE) {
+        FAQ_INTENTS_CACHE = buildIntentsFromFaq(FAQ_DATA);
+        runLocalFaqTests(FAQ_DATA, FAQ_INTENTS_CACHE);
+      }
+      if (window.OrbeEngine && !FLOW_ENGINE) {
+        const intents = window.OrbeEngine.buildIntentsFromFaq(FAQ_DATA);
+        FLOW_ENGINE = window.OrbeEngine.createFlowEngine(intents);
+      }
+      const result = handleMessage(ORBE_SESSION_ID, userText, FAQ_DATA, FAQ_INTENTS_CACHE);
+      return withMeta ? result : result.replyText;
+      for (const item of FAQ) {
+        for (const tag of item.tags) {
+          if (t.includes(tag.toLowerCase())) {
+            return item.answer;
+          }
+        }
+      }
+
+      // Fallback genérico pero humano usando el prompt base
+      return `Te escuché decir: "${original}". ${CORE_PERSONA_PROMPT}`;
+    }
+
+    function setBusy(busy) {
+      orb.classList.toggle('active', busy);
+      orb.setAttribute('aria-busy', String(busy));
+      input.disabled = busy;
+      sendBtn.disabled = busy;
+      if (micBtn) micBtn.disabled = busy;
+    }
+
+    function extractReplyText(raw) {
+      const text = (raw || '').trim();
+      if (!text) return '';
+      // Strip code fences like ```json ... ```
+      const fenced = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+      const candidate = fenced ? fenced[1].trim() : text;
+      // Try to parse JSON and use replyText
+      try {
+        const parsed = JSON.parse(candidate);
+        if (parsed && typeof parsed.replyText === 'string') {
+          return parsed.replyText.trim();
+        }
+      } catch (_) {}
+      return candidate;
+    }
+
+    // Envía el mensaje al Core. Devuelve { text, data }
+        // Envía el mensaje al Core. Devuelve { text, data }
+    // Envía el mensaje al Core. Versión sólo FAQ/local.
+    const FIXED_OLLAMA_ENDPOINT = (window.SOBERAI_PANEL && String(window.SOBERAI_PANEL).trim().replace(/\/+$/, ''))
+      ? `${String(window.SOBERAI_PANEL).trim().replace(/\/+$/, '')}/ollama`
+      : 'http://127.0.0.1:11434/api/generate';
+    const FIXED_OLLAMA_MODEL = 'qwen2.5:1.5b';
+
+    async function sendToOllama(message) {
+      const faqHint = buildLocalAnswer(message, true);
+      const faqText = faqHint && faqHint.replyText ? String(faqHint.replyText).trim() : '';
+      try {
+        const res = await fetch(FIXED_OLLAMA_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: FIXED_OLLAMA_MODEL,
+            prompt: [
+              'Responde SOLO en español. No saludes ni inventes.',
+              'Usa los datos provistos como base, pero respondé la pregunta sin fallback fijo.',
+              'Respuesta clara en 1-2 frases y una sola pregunta.',
+              `Datos: ${SOBERANOLAB_FACTS}`,
+              `Pregunta: ${message}`
+            ].filter(Boolean).join(' '),
+            stream: false,
+            options: { num_predict: 256, num_ctx: 512, temperature: 0.0, top_p: 0.7, repeat_penalty: 1.1 },
+            keep_alive: '10m',
+            stop: []
+          })
+        });
+        if (!res.ok) throw new Error(`OLLAMA ${res.status}`);
+        const data = await res.json();
+        const out = (data && data.response) ? String(data.response) : '';
+        return out.trim();
+      } catch (_) {
+        try { console.warn('[ollama] error', _); } catch (_) {}
+        return '';
+      }
+    }
+
+    // Warm-up: reduce cold-start latency
+    (async function warmupOllama() {
+      try {
+        await fetch(window.OLLAMA_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: window.OLLAMA_MODEL,
+            prompt: 'warmup',
+            stream: false,
+            options: { num_predict: 1, num_ctx: 64, temperature: 0.0 },
+            keep_alive: '10m'
+          })
+        });
+      } catch (_) {}
+    })();
+
+    async function sendToPanelChat(message) {
+      if (!PANEL_API) return null;
+      const url = `${String(PANEL_API).replace(/\/+$/, '')}/chat`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: ORBE_SESSION_ID,
+          text: message,
+          context: {
+            page_url: location.href
+          }
+        })
+      });
+      if (!res.ok) throw new Error(`PANEL ${res.status}`);
+      const data = await res.json();
+      const replyText = data && (data.replyText || data.text) ? String(data.replyText || data.text) : '';
+      return replyText.trim();
+    }
+
+    async function sendToCore(message) {
+      try {
+        const panelText = await sendToPanelChat(message);
+        if (panelText) {
+          return { text: panelText, data: { mode: 'panel' } };
+        }
+      } catch (_) {}
+      if (CORE_MODE === 'ollama') {
+        const ollamaText = await sendToOllama(message);
+        if (ollamaText) {
+          return { text: ollamaText, data: { mode: 'ollama' } };
+        }
+        return { text: 'No pude conectar con el LLM. Probemos de nuevo en unos segundos.', data: { mode: 'ollama' } };
+      }
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 120000);
+      const headers = { 'Content-Type': 'application/json' };
+      if (window.CORE_TOKEN) {
+        headers['Authorization'] = /^Bearer /i.test(window.CORE_TOKEN)
+          ? window.CORE_TOKEN
+          : `Bearer ${window.CORE_TOKEN}`;
+      }
+
+      let lastErr = null;
+      for (const url of CORE_CANDIDATES) {
+        try { console.info('[Core] intentando:', url); } catch (_) {}
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ text: message, voice: false, prompt: message }),
+            signal: controller.signal
+          });
+          if (!res.ok) {
+            lastErr = new Error(`HTTP ${res.status}`);
+            continue;
+          }
+          const data = await res.json();
+          const text = data.response || data.text || '';
+          if (text) return { text, data };
+          lastErr = new Error('Respuesta vacia');
+        } catch (e) {
+          lastErr = e;
+        }
+      }
+      clearTimeout(timeout);
+
+      const fallback = buildLocalAnswer(message, true);
+      return {
+        text: fallback.replyText,
+        data: {
+          demo: true,
+          mode: 'local',
+          error: String(lastErr || 'error'),
+          intentId: fallback.intentId,
+          intentScore: fallback.score,
+          needsHandoff: fallback.needsHandoff
+        }
+      };
+    }
+
+
+           
+
+    let cachedVoices = [];
+    function loadVoices() {
+      try { cachedVoices = window.speechSynthesis.getVoices() || []; } catch (_) {}
+    }
+    function pickVoice() {
+      if (!cachedVoices.length) loadVoices();
+      if (!cachedVoices.length) return null;
+      const prefer = cachedVoices.find(v => /es(-|_)?(AR|ES)/i.test(v.lang) && /male|masc|hombre/i.test(v.name));
+      if (prefer) return prefer;
+      const spanish = cachedVoices.find(v => /es(-|_)?(AR|ES)/i.test(v.lang));
+      return spanish || cachedVoices[0];
+    }
+    if ('speechSynthesis' in window) {
+      loadVoices();
+      try { window.speechSynthesis.onvoiceschanged = loadVoices; } catch (_) {}
+    }
+
+    // Reproduce voz (siempre que el usuario 
+    // haya interactuado)
+    function speak(text) {
+      try {
+        if (!('speechSynthesis' in window)) return;
+        const u = new SpeechSynthesisUtterance(text);
+        const voice = pickVoice();
+        if (voice) u.voice = voice;
+        u.lang = 'es-AR';
+        u.rate = 1.0;
+        u.pitch = 1.0;
+        try { window.speechSynthesis.cancel(); window.speechSynthesis.resume(); } catch (_) {}
+        window.speechSynthesis.speak(u);
+      } catch (_) { /* noop */ }
+    }
+
+    // Desbloquear autoplay de TTS en el primer gesto del usuario
+    document.addEventListener('pointerdown', () => { try { window.speechSynthesis.resume(); } catch(_){} }, { once: true });
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const msg = (input.value || '').trim();
+      if (!msg) return;
+      setBusy(true);
+      setResponse('Pensando...');
+      const startedAt = Date.now();
+      sendOrbeEvent('message_received', { text: msg });
+      try {
+        const reply = await sendToCore(msg);
+        const text = extractReplyText(reply.text) || 'Sin respuesta.';
+        const intentId = reply.data && (reply.data.intentId || reply.data.intent) ? (reply.data.intentId || reply.data.intent) : undefined;
+        const intentScore = reply.data && typeof reply.data.intentScore === 'number'
+          ? reply.data.intentScore
+          : (reply.data && typeof reply.data.confidence === 'number' ? reply.data.confidence : undefined);
+        const needsHandoff = reply.data && reply.data.needsHandoff ? true : undefined;
+        setResponse(text);
+        speak(text);
+        sendOrbeEvent('reply_sent', { text, latency_ms: Date.now() - startedAt });
+        logPanelChat({
+          sessionId: ORBE_SESSION_ID,
+          text: msg,
+          replyText: text,
+          intentId,
+          intentScore,
+          needsHandoff,
+          context: { page_url: location.href }
+        });
+      } catch (e) {
+        console.error('Core respond error:', e);
+        setResponse('Error al conectar con el Core.');
+      } finally {
+        setBusy(false);
+        input.focus();
+      }
+    });
+
+    // Reconocimiento de voz (Web Speech API)
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let listening = false;
+    if (SR) {
+      recognition = new SR();
+      recognition.lang = 'es-ES';
+      recognition.interimResults = true;
+      recognition.continuous = false; // capturar una frase
+
+      recognition.onstart = () => {
+        listening = true;
+        orb.classList.add('listening');
+        setResponse('Escuchando…');
+      };
+      recognition.onresult = (event) => {
+        let interim = '';
+        let finalTxt = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const t = event.results[i][0].transcript;
+          if (event.results[i].isFinal) finalTxt += t;
+          else interim += t;
+        }
+        setResponse((finalTxt || interim || '').trim());
+      };
+      recognition.onerror = (e) => {
+        console.warn('SpeechRecognition error:', e);
+        setResponse('Micrófono no disponible');
+      };
+      recognition.onend = async () => {
+        orb.classList.remove('listening');
+        if (!listening) return;
+        listening = false;
+        const finalText = (responseEl.textContent || '').trim();
+        if (!finalText) return;
+        setBusy(true);
+        setResponse('Pensando…');
+        try {
+        const reply = await sendToCore(finalText);
+        const text = extractReplyText(reply.text) || 'Sin respuesta.';
+        const intentId = reply.data && (reply.data.intentId || reply.data.intent) ? (reply.data.intentId || reply.data.intent) : undefined;
+        const intentScore = reply.data && typeof reply.data.intentScore === 'number'
+          ? reply.data.intentScore
+          : (reply.data && typeof reply.data.confidence === 'number' ? reply.data.confidence : undefined);
+          const needsHandoff = reply.data && reply.data.needsHandoff ? true : undefined;
+          setResponse(text);
+          speak(text);
+        sendOrbeEvent('reply_sent', { text, latency_ms: Date.now() - startedAt });
+        logPanelChat({
+          sessionId: ORBE_SESSION_ID,
+          text: finalText,
+          replyText: text,
+          intentId,
+          intentScore,
+          needsHandoff,
+          context: { page_url: location.href }
+        });
+        } catch (e) {
+          console.error('Core respond error:', e);
+          setResponse('Error al conectar con el Core.');
+        } finally {
+          setBusy(false);
+        }
+      };
+    } else if (micBtn) {
+      micBtn.addEventListener('click', () => {
+        setResponse('Micrófono no disponible');
+      });
+      micBtn.title = 'Micrófono no disponible';
+    }
+
+    if (micBtn && recognition) {
+      micBtn.addEventListener('click', () => {
+        try {
+          if (!listening) {
+            listening = true;
+            recognition.start();
+          } else {
+            listening = false;
+            recognition.stop();
+          }
+        } catch (e) {
+          console.warn('Mic click error:', e);
+          setResponse('Micrófono no disponible');
+        }
+      });
+    }
+  })();
+</script>
+<script>
+  // TTS en navegador para reproducir respuestas del Core
+  (function () {
+    const orb = document.getElementById('core-orb');
+    const responseEl = document.getElementById('core-response');
+    if (!orb || !responseEl) return;
+
+    function speakBrowser(text) {
+      if (!('speechSynthesis' in window)) return;
+      try { window.speechSynthesis.cancel(); } catch (_) {}
+      const u = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices() || [];
+      const prefer = voices.find(v => /es(-|_)?(AR|ES)/i.test(v.lang) && /male|masc|hombre/i.test(v.name));
+      const spanish = voices.find(v => /es(-|_)?(AR|ES)/i.test(v.lang));
+      if (prefer) u.voice = prefer;
+      else if (spanish) u.voice = spanish;
+      u.lang = 'es-ES';
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      window.speechSynthesis.speak(u);
+    }
+
+    let last = '';
+    const BLOCKED = new Set(['Pensando…', 'Pensando...', 'Escuchando…', 'Escuchando...']);
+    const obs = new MutationObserver(() => {
+      const t = (responseEl.textContent || '').trim();
+      const busy = orb.classList.contains('active') || orb.classList.contains('listening');
+      if (!t || t === last || BLOCKED.has(t) || busy) return;
+      last = t;
+      speakBrowser(t);
+    });
+    obs.observe(responseEl, { characterData: true, childList: true, subtree: true });
+  })();
+</script>
+<script>
+  // Config panel logic (save to localStorage and reload)
+  (function(){
+    const btn = document.getElementById('core-cfg-btn');
+    const panel = document.getElementById('core-cfg');
+    const modeSel = document.getElementById('cfg-mode');
+    const ep = document.getElementById('cfg-endpoint');
+    const tokenEl = document.getElementById('cfg-token');
+    const save = document.getElementById('cfg-save');
+    const webhook = document.getElementById('cfg-webhook');
+    const close = document.getElementById('cfg-close');
+    const modelEl = document.getElementById('cfg-model');
+    const ollamaEndpointEl = document.getElementById('cfg-ollama-endpoint');
+    if (!btn || !panel || !modeSel || !ep || !save || !close) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('CORE_CFG')||'{}');
+      if (saved.mode) modeSel.value = saved.mode;
+      if (saved.endpoint) ep.value = saved.endpoint;
+      if (saved.token && tokenEl) tokenEl.value = saved.token;
+      if (saved.ollamaEndpoint && ollamaEndpointEl) ollamaEndpointEl.value = saved.ollamaEndpoint;
+      if (saved.model && modelEl) modelEl.value = saved.model;
+      if (saved.webhook && webhook) webhook.value = saved.webhook;
+    } catch(_) {}
+    btn.addEventListener('click', ()=> panel.classList.toggle('open'));
+    close.addEventListener('click', ()=> panel.classList.remove('open'));
+    save.addEventListener('click', ()=>{
+      try {
+        const cfg = {
+          mode: modeSel.value,
+          endpoint: (ep.value || '').trim(),
+          token: (tokenEl && tokenEl.value || '').trim(),
+          ollamaEndpoint: (ollamaEndpointEl && ollamaEndpointEl.value || '').trim(),
+          model: (modelEl && modelEl.value || '').trim(),
+          webhook: (webhook && webhook.value || '').trim()
+        };
+        localStorage.setItem('CORE_CFG', JSON.stringify(cfg));
+        // apply immediately for this session too
+        window.CORE_MODE = cfg.mode;
+        window.CORE_ENDPOINT = cfg.endpoint;
+        window.CORE_TOKEN = cfg.token;
+        window.OLLAMA_ENDPOINT = cfg.ollamaEndpoint;
+        window.OLLAMA_MODEL = cfg.model;
+        window.ORBE_WEBHOOK = cfg.webhook;
+        panel.classList.remove('open');
+        location.reload();
+      } catch(e) { console.warn('cfg save error', e); }
+    });
+  })();
+</script>
+</body> </html>

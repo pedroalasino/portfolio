@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Start-Process \"c:\\\\Users\\\\Usuario\\\\Desktop\\\\Soberano\\\\index.html\")"
+    ]
+  }
+}

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SoberanoLab — Agentes de IA propios, corriendo en tu infraestructura</title>
+<meta name="description" content="Catálogo de agentes de IA ya construidos. Probá la demo en vivo y comprá directo. Todo corre en servidores propios con Ollama — sin nube de terceros." />
+<link rel="icon" href="img/logo_sin_c.png" />
+
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="fx.css" />
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- BOOT LOADER -->
+<div id="boot-loader" data-done="false" role="status" aria-live="polite">
+  <span class="boot-loader__logo-wrap">
+    <img class="boot-loader__logo boot-loader__logo--dim" src="img/logo_negro.png" alt="" aria-hidden="true" />
+    <img class="boot-loader__logo boot-loader__logo--fill" src="img/logo_negro.png" alt="" aria-hidden="true" />
+  </span>
+  <span class="boot-loader__label">inicializando sistema</span>
+  <span class="boot-loader__count">0%</span>
+  <div class="boot-loader__bar"><div class="boot-loader__bar-fill"></div></div>
+</div>
+
+<!-- REDES SOCIALES -->
+<div class="social-bar" aria-label="Redes sociales">
+  <a href="https://linkedin.com/in/pedro-alasino-a5739423a" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+  </a>
+  <!-- TODO: reemplazar por tu URL real de GitHub -->
+  <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.21c0 4.51 2.87 8.33 6.84 9.68.5.1.68-.22.68-.49 0-.24-.01-.89-.01-1.74-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.2 9.2 0 0 1 2.5-.35c.85 0 1.71.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49C19.14 20.53 22 16.71 22 12.21 22 6.58 17.52 2 12 2z"/></svg>
+  </a>
+</div>
+
+<!-- HEADER -->
+<header class="site-header glass-nav glass--medium">
+  <div class="site-header__inner">
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="15" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="15" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/><circle cx="15" cy="15" r="1.6"/></svg>
+    </button>
+    <a class="brand" href="#robot">
+      <img src="img/logo_sin_c.png" alt="SoberanoLab" />
+    </a>
+    <!-- TODO: poner el PDF real en cv.pdf (raíz del proyecto) -->
+    <a href="cv.pdf" download="Pedro-Alasino-CV.pdf" class="cv-btn" aria-label="Descargar CV">CV ↓</a>
+    <nav class="nav-links" id="nav-links" aria-label="Navegación principal">
+      <a href="#quienes-somos">Quién soy</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- ROBOT — CTA hacia el catálogo -->
+  <section class="hero" id="robot">
+    <div class="hero__bg" id="hero-spline-wrap">
+      <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" class="hero__spline" background="transparent" aria-hidden="true"></spline-viewer>
+      <div class="hero__spline-mask" aria-hidden="true"></div>
+    </div>
+    <div class="container hero__content">
+      <h1 class="hero__headline reveal">Pedro Alasino</h1>
+      <p class="hero__subtitle reveal">AI Engineer &amp; Software Developer</p>
+      <div class="hero__actions reveal">
+        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+        <a href="#contacto" class="btn btn-ghost">Contacto</a>
+      </div>
+    </div>
+
+    <div class="agent-panel" id="agent-panel">
+      <div class="agent-panel__header">
+        <span class="agent-panel__dot" aria-hidden="true"></span>
+        <span class="agent-panel__title">Agente de Pedro</span>
+      </div>
+
+      <div class="agent-orb" id="agent-orb" aria-hidden="true"></div>
+      <p class="agent-panel__status" id="agent-status">Tocá el micrófono o escribí</p>
+
+      <div class="agent-panel__messages" id="agent-messages" aria-live="polite"></div>
+
+      <form class="agent-panel__form" id="agent-form">
+        <label class="visually-hidden" for="agent-input">Escribí tu pregunta</label>
+        <input type="text" id="agent-input" placeholder="Escribí tu pregunta…" autocomplete="off" />
+        <button type="button" class="agent-panel__mic" id="agent-mic" aria-label="Hablar" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+        <button type="submit" class="agent-panel__send" aria-label="Enviar">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- QUIÉNES SOMOS — servicios + por qué elegirnos + galería orbital 3D -->
+  <section class="about-hero" id="quienes-somos">
+    <div class="about-hero__particles" id="about-particles" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="quien-soy__layout" id="quien-soy-layout">
+
+        <h2 class="quien-soy__title" id="quien-soy-title" data-reveal-title>Quién soy</h2>
+
+        <div class="quien-soy__video-wrap" id="quien-soy-video-wrap">
+          <video class="quien-soy__video" id="quien-soy-video" src="img/quien-soy-video.mp4" autoplay muted loop playsinline></video>
+        </div>
+
+        <div class="quien-soy__col quien-soy__col--left" data-col="left">
+          <div class="quien-soy__head" data-reveal>
+            <span class="quien-soy__num">01</span>
+            <h3>Sobre mí</h3>
+          </div>
+          <div class="quien-soy__bio-card" data-reveal>
+            <p>AI Engineer y Software Developer. Desarrollo aplicaciones con inteligencia artificial: agentes con LLMs, RAG y memoria vectorial, voz (STT/TTS) y software full stack con Python, FastAPI y React.</p>
+          </div>
+          <div class="quien-soy__data-card" data-reveal>
+            <span class="quien-soy__data-label">Base</span>
+            <span class="quien-soy__data-value">Villa Carlos Paz, Córdoba</span>
+          </div>
+          <div class="quien-soy__data-card" data-reveal>
+            <span class="quien-soy__data-label">Modalidad</span>
+            <span class="quien-soy__data-value">Remoto · Híbrido</span>
+          </div>
+          <div class="quien-soy__data-card" data-reveal>
+            <span class="quien-soy__data-label">Idiomas</span>
+            <span class="quien-soy__data-value">Español · Inglés</span>
+          </div>
+        </div>
+
+        <div class="quien-soy__col quien-soy__col--right" data-col="right">
+          <div class="quien-soy__tabs" id="quien-soy-tabs" data-reveal>
+            <button type="button" class="quien-soy__tab is-active" data-tab="experiencia"><span class="quien-soy__num">02</span> Experiencia</button>
+            <button type="button" class="quien-soy__tab" data-tab="educacion"><span class="quien-soy__num">03</span> Educación</button>
+          </div>
+
+          <div class="quien-soy__panels" id="quien-soy-panels">
+            <div class="quien-soy__panel is-active" data-panel="experiencia">
+              <div class="quien-soy__head quien-soy__head--static"><span class="quien-soy__num">02</span><h3>Experiencia</h3></div>
+              <div class="quien-soy__rows">
+                <a class="quien-soy__row" data-reveal data-project-link="SoberanoLab" href="#proyectos">
+                  <span class="quien-soy__row-logo"><img src="img/sb.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Founder &amp; AI Engineer</span>
+                    <span class="quien-soy__row-place">SoberanoLab</span>
+                  </span>
+                  <span class="quien-soy__row-date">2025 — HOY</span>
+                  <span class="quien-soy__row-arrow">↗</span>
+                </a>
+                <a class="quien-soy__row" data-reveal data-project-link="Luigi Bosca" href="#proyectos">
+                  <span class="quien-soy__row-logo"><img src="img/luigi-white.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Capacitación de IA aplicada</span>
+                    <span class="quien-soy__row-place">Luigi Bosca · Miraiico</span>
+                  </span>
+                  <span class="quien-soy__row-date">2025</span>
+                  <span class="quien-soy__row-arrow">↗</span>
+                </a>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/whint.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Analista de Datos &amp; Web</span>
+                    <span class="quien-soy__row-place">INTBIZ</span>
+                  </span>
+                  <span class="quien-soy__row-date">2022 — 2025</span>
+                </div>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/mutualart.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Data Moderator</span>
+                    <span class="quien-soy__row-place">MutualArt · Nueva York</span>
+                  </span>
+                  <span class="quien-soy__row-date">2024</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quien-soy__panel" data-panel="educacion">
+              <div class="quien-soy__head quien-soy__head--static"><span class="quien-soy__num">03</span><h3>Educación</h3></div>
+              <div class="quien-soy__rows">
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/icaro.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">AI Engineering</span>
+                    <span class="quien-soy__row-place">Ícaro</span>
+                  </span>
+                  <span class="quien-soy__row-date">EN CURSO</span>
+                </div>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/henry.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Full Stack Developer</span>
+                    <span class="quien-soy__row-place">Henry</span>
+                  </span>
+                  <span class="quien-soy__row-date">EN CURSO</span>
+                </div>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/santodomingo.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Desarrollo de Software</span>
+                    <span class="quien-soy__row-place">Instituto Santo Domingo</span>
+                  </span>
+                  <span class="quien-soy__row-date">EN CURSO</span>
+                </div>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/nlp_transparente.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Coach Profesional (ICF)</span>
+                    <span class="quien-soy__row-place">NLP Coaching Evolution School</span>
+                  </span>
+                </div>
+                <div class="quien-soy__row" data-reveal>
+                  <span class="quien-soy__row-logo"><img src="img/sanpedro.png" alt="" /></span>
+                  <span class="quien-soy__row-body">
+                    <span class="quien-soy__row-title">Bachiller en Cs. Económicas</span>
+                    <span class="quien-soy__row-place">Colegio San Pedro Apóstol</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quien-soy__progress" id="quien-soy-progress">
+          <span class="quien-soy__seg"><i></i></span>
+          <span class="quien-soy__seg"><i></i></span>
+          <span class="quien-soy__seg"><i></i></span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTROS PROYECTOS — lista + vista previa -->
+  <section class="proyectos section-padding" id="proyectos">
+    <div class="section-particles" id="proyectos-particles" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="proyectos__head reveal">
+        <div class="proyectos__head-text">
+          <span class="proyectos__tag">Portfolio</span>
+          <h2 class="proyectos__title">Proyectos</h2>
+        </div>
+        <div class="proyectos__tabs" id="proyectos-tabs" role="tablist">
+          <button type="button" class="proyectos__tab is-active" role="tab" aria-selected="true" data-category="ai">AI Engineer <span class="proyectos__tab-count">4</span></button>
+          <button type="button" class="proyectos__tab" role="tab" aria-selected="false" data-category="fullstack">Full Stack <span class="proyectos__tab-count">3</span></button>
+        </div>
+      </div>
+
+      <div class="proyectos__layout reveal">
+        <div class="proyectos__col">
+          <ul class="proyectos__list" id="proyectos-list"></ul>
+          <p class="proyectos__cat-desc" id="proyectos-cat-desc"></p>
+          <div class="proyectos__stack">
+            <span class="proyectos__stack-label">Stack</span>
+            <div class="proyectos__stack-pills" id="proyectos-stack-pills"></div>
+          </div>
+        </div>
+
+        <div class="proyectos__preview" id="proyectos-preview">
+          <img class="proyectos__preview-img" id="proyectos-preview-img" alt="" />
+          <img class="proyectos__preview-img proyectos__preview-img--alt" id="proyectos-preview-img-alt" alt="" />
+          <video class="proyectos__preview-img proyectos__preview-video" id="proyectos-preview-video" muted loop playsinline autoplay></video>
+          <div class="proyectos__preview-placeholder" id="proyectos-preview-placeholder" aria-hidden="true"></div>
+          <div class="proyectos__preview-logo" id="proyectos-preview-logo"><img id="proyectos-preview-logo-img" src="" alt="" /></div>
+          <div class="proyectos__preview-info">
+            <h3 id="proyectos-preview-title"></h3>
+            <p id="proyectos-preview-desc"></p>
+          </div>
+          <div class="proyectos__preview-ctas" id="proyectos-preview-ctas"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- STACK (CONOCIMIENTOS Y HABILIDADES) — bento grid con órbita 3D -->
+  <section class="stack-section" id="habilidades">
+    <div class="stack-section__inner">
+      <div class="stack-section__head">
+        <span class="stack-section__eyebrow">Conocimientos y habilidades</span>
+        <h2 class="stack-section__title" id="stack-title">Stack</h2>
+      </div>
+      <div class="stack-grid" id="stack-grid"></div>
+    </div>
+  </section>
+
+  <!-- CLIENTES — carrusel de cierre -->
+  <section class="clients-banner">
+    <span class="clients-banner__label">Trusted by</span>
+    <div class="marquee">
+      <div class="marquee-track">
+        <img src="img/whint.png" alt="Whint" class="client-logo" />
+        <img src="img/logomanguii.png" alt="Logomanguii" class="client-logo client-logo--sm" />
+        <img src="img/logo_salvatierra.png.png" alt="Salvatierra" class="client-logo" />
+        <img src="img/luigi-white.png" alt="Luigi Bosca" class="client-logo" />
+        <img src="img/111.png" alt="Academia de Traffickers" class="client-logo" />
+        <img src="img/222 (1).png" alt="AI Infra-Growth" class="client-logo" />
+        <img src="img/333.png" alt="Totem Life" class="client-logo" />
+        <img src="img/expo.png" alt="Expolajas" class="client-logo" />
+
+        <img src="img/whint.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/logomanguii.png" alt="" class="client-logo client-logo--sm" aria-hidden="true" />
+        <img src="img/logo_salvatierra.png.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/luigi-white.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/111.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/222 (1).png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/333.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/expo.png" alt="" class="client-logo" aria-hidden="true" />
+
+        <img src="img/whint.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/logomanguii.png" alt="" class="client-logo client-logo--sm" aria-hidden="true" />
+        <img src="img/logo_salvatierra.png.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/luigi-white.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/111.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/222 (1).png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/333.png" alt="" class="client-logo" aria-hidden="true" />
+        <img src="img/expo.png" alt="" class="client-logo" aria-hidden="true" />
+      </div>
+    </div>
+  </section>
+
+  <!-- INVITACIÓN FINAL / CONTACTO -->
+  <section class="work-together section-padding" id="contacto">
+    <div class="container">
+      <div class="work-together__inner reveal">
+        <h2 class="work-together__title">¿Trabajamos juntos?</h2>
+        <p class="work-together__text">Siempre estoy abierto a nuevos proyectos y desafíos. Si tenés una idea, un equipo o un problema para resolver con IA, hablemos.</p>
+        <a href="https://wa.me/3516519277" target="_blank" rel="noopener" class="btn btn-primary">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+
+<script type="module" src="hero-particles.js"></script>
+<script type="module">
+  var loadSpline = function () {
+    import('https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js');
+  };
+  if (document.readyState === 'complete') {
+    loadSpline();
+  } else {
+    window.addEventListener('load', loadSpline);
+  }
+</script>
+<script src="app.js" defer></script>
+<script src="fx.js" defer></script>
+<script src="agent-panel.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
+<script src="quien-soy.js" defer></script>
+<script src="proyectos-list.js" defer></script>
+<script src="stack-section.js" defer></script></body>
+</html>
