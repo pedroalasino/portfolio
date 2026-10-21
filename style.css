@@ -38,7 +38,7 @@
 }
 
 :root {
-  --bg: #DDDDDA;
+  --bg: #D5D3D1; /* mismo gris que el fondo del video de Quién soy */
   --panel: #F1F1EE;
   --panel-border: #C7C7C1;
   --fg: #0A0A0A;
@@ -639,7 +639,7 @@ section { position: relative; }
 .problema,
 .contact,
 footer.site-footer {
-  --bg: #DDDDDA;
+  --bg: #D5D3D1; /* mismo gris que el fondo del video de Quién soy */
   --panel: #F4F4F1;
   --panel-border: #E0E0DA;
   --fg: #0A0A0A;
@@ -682,7 +682,7 @@ footer.site-footer {
   margin-top: 0;
   margin-bottom: 0;
   background: var(--bg);
-  --bg: #D4D2D0; /* = fondo real del video de Quién soy */
+  --bg: #D5D3D1; /* = fondo real del video de Quién soy */
   --fg: #0D0D0D;
   --fg-dim: #5C5C57;
   --amber: #4A4A45;
@@ -695,7 +695,7 @@ footer.site-footer {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 120px;
-  background: linear-gradient(to bottom, #DDDDDA 0%, #D4D2D0 100%);
+  background: transparent; /* ya no hace falta degradé: todo el sitio usa el mismo gris */
   z-index: -1;
   pointer-events: none;
 }
