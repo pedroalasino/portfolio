@@ -98,7 +98,6 @@
 
   <!-- QUIÉNES SOMOS — servicios + por qué elegirnos + galería orbital 3D -->
   <section class="about-hero" id="quienes-somos">
-    <div class="about-hero__particles" id="about-particles" aria-hidden="true"></div>
 
     <div class="container">
       <div class="quien-soy__layout" id="quien-soy-layout">
@@ -106,7 +105,7 @@
         <h2 class="quien-soy__title" id="quien-soy-title" data-reveal-title>Quién soy</h2>
 
         <div class="quien-soy__video-wrap" id="quien-soy-video-wrap">
-          <video class="quien-soy__video" id="quien-soy-video" src="img/quien-soy-video.mp4" autoplay muted loop playsinline></video>
+          <video class="quien-soy__video" id="quien-soy-video" autoplay muted loop playsinline preload="metadata"><source src="img/quien-soy-video.webm" type="video/webm" /><source src="img/quien-soy-video.mp4" type="video/mp4" /></video>
         </div>
 
         <div class="quien-soy__col quien-soy__col--left" data-col="left">
@@ -236,7 +235,6 @@
 
   <!-- NUESTROS PROYECTOS — lista + vista previa -->
   <section class="proyectos section-padding" id="proyectos">
-    <div class="section-particles" id="proyectos-particles" aria-hidden="true"></div>
 
     <div class="container">
       <div class="proyectos__head reveal">
@@ -338,7 +336,6 @@
 </main>
 
 
-<script type="module" src="hero-particles.js"></script>
 <script type="module">
   var loadSpline = function () {
     import('https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js');
@@ -352,9 +349,9 @@
 <script src="app.js" defer></script>
 <script src="fx.js" defer></script>
 <script src="agent-panel.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js" defer></script>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/Flip.min.js" defer></script>
 <script src="quien-soy.js" defer></script>
 <script src="proyectos-list.js" defer></script>
 <script src="stack-section.js" defer></script></body>

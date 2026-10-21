@@ -3,7 +3,7 @@
    (GSAP Flip) y visualización de órbita 3D por categoría.
    ============================================================ */
 (function () {
-  var ICON_BASE = 'https://cdn.jsdelivr.net/npm/simple-icons@13/icons/';
+  var ICON_BASE = 'img/icons/'; /* logos self-hosted (simple-icons 13.21) */
   var FORCE_WHITE = { nextdotjs: 1, express: 1, vercel: 1, github: 1, ollama: 1, railway: 1 };
 
   var CATS = [
@@ -99,7 +99,7 @@
         { slug: 'github', name: 'GitHub', color: '#fff' },
         { slug: 'vercel', name: 'Vercel', color: '#fff' },
         { slug: 'railway', name: 'Railway', color: '#fff' },
-        { slug: 'amazonaws', name: 'AWS Amplify', color: '#FF9900' },
+        { slug: 'awsamplify', name: 'AWS Amplify', color: '#FF9900' },
         { slug: 'netlify', name: 'Netlify', color: '#00C7B7' }
       ]
     }

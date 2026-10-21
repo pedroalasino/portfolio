@@ -682,7 +682,7 @@ footer.site-footer {
   margin-top: 0;
   margin-bottom: 0;
   background: var(--bg);
-  --bg: #D7D5D3;
+  --bg: #D4D2D0; /* = fondo real del video de Quién soy */
   --fg: #0D0D0D;
   --fg-dim: #5C5C57;
   --amber: #4A4A45;
@@ -695,7 +695,7 @@ footer.site-footer {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 120px;
-  background: linear-gradient(to bottom, #DDDDDA 0%, #D7D5D3 100%);
+  background: linear-gradient(to bottom, #DDDDDA 0%, #D4D2D0 100%);
   z-index: -1;
   pointer-events: none;
 }
@@ -970,6 +970,9 @@ footer.site-footer {
 .quien-soy__video {
   display: block;
   height: 100%;
+  /* bordes difuminados: el video se funde con el fondo de la sección */
+  -webkit-mask-image: radial-gradient(ellipse 72% 72% at center, #000 62%, transparent 100%);
+          mask-image: radial-gradient(ellipse 72% 72% at center, #000 62%, transparent 100%);
   width: auto;
   max-width: 100%;
   object-fit: contain;
