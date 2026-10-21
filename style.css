@@ -1795,7 +1795,8 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 /* ---- desktop: sección fija mientras el scroll abre cada tarjeta ---- */
 .stack-section.is-pinned .stack-section__inner { padding-top: 120px; padding-bottom: 32px; }
 .stack-section.is-pinned .stack-section__head { margin-bottom: 24px; }
-.stack-section.is-pinned .stack-grid { grid-auto-rows: max(220px, calc((100vh - 300px) / 2)); }
+.stack-section.is-pinned .stack-grid { grid-auto-rows: max(220px, calc((100vh - 300px) / 2)); perspective: 1600px; }
+.stack-section.is-pinned .stack-card.is-in { transition: none; } /* el scroll maneja el despliegue */
 .stack-progress { display: flex; gap: 6px; margin-top: 18px; }
 .stack-progress__seg {
   width: 44px; height: 3px;

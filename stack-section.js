@@ -134,6 +134,7 @@
     var activeIndex = 0;
     var cardEls = [];
     var scrollTrig = null; /* desktop: la sección queda fija y el scroll abre cada tarjeta */
+    var afterFlip = null;  /* Flip restaura los estilos inline al terminar: se reaplica el despliegue */
 
     /* ---------------- título: entrada palabra por palabra ---------------- */
     (function setupTitle() {
@@ -306,7 +307,8 @@
           ease: 'power2.inOut',
           absolute: true,
           onEnter: function (els) { return gsap.fromTo(els, { opacity: 0 }, { opacity: 1, duration: 0.25, delay: 0.5 }); },
-          onLeave: function (els) { return gsap.to(els, { opacity: 0, duration: 0.15 }); }
+          onLeave: function (els) { return gsap.to(els, { opacity: 0, duration: 0.15 }); },
+          onComplete: function () { if (afterFlip) afterFlip(); }
         });
       }
     }
@@ -346,7 +348,9 @@
 
     layoutCards(0, false);
 
-    /* ---------------- scroll: sección fija + una tarjeta por tramo (desktop) ---------------- */
+    /* ---------------- scroll: sección fija + una tarjeta por tramo (desktop) ----------------
+       Las tarjetas aparecen de a una: cada tramo despliega la siguiente
+       (bisagra arriba, sigue al scroll) y la abre en grande. */
     if (hasGsap && window.ScrollTrigger && window.innerWidth >= 1200 && !reduced) {
       gsap.registerPlugin(ScrollTrigger);
       section.classList.add('is-pinned');
@@ -364,23 +368,57 @@
       });
       titleEl.parentNode.appendChild(progress);
 
+      /* r: 0 = plegada e invisible, 1 = desplegada */
+      function unfold(card, r) {
+        var e = 1 - Math.pow(1 - clamp(r, 0, 1), 3);
+        card.style.opacity = e;
+        card.style.rotate = 'x ' + ((1 - e) * -80) + 'deg';
+        card.style.translate = '0 ' + ((1 - e) * 40) + 'px';
+        card.style.pointerEvents = e > 0.6 ? '' : 'none';
+      }
+      cardEls.forEach(function (card) {
+        card.classList.add('is-in');
+        card.style.transformOrigin = '50% 0';
+        unfold(card, 0);
+      });
+
+      /* la primera se despliega mientras la sección entra en pantalla */
+      var enterTrig = ScrollTrigger.create({
+        trigger: section,
+        start: 'top 85%',
+        end: 'top top',
+        onUpdate: function (self) { unfold(cardEls[0], self.progress); }
+      });
+
+      var lastStage = 0;
+      function unfoldAll() {
+        unfold(cardEls[0], enterTrig.progress);
+        for (var i = 1; i < CATS.length; i++) unfold(cardEls[i], (lastStage - i) / 0.6);
+      }
+      afterFlip = unfoldAll;
+
+      function applyProgress(p) {
+        var n = CATS.length;
+        var stage = lastStage = p * n;
+        openCategory(Math.min(n - 1, Math.floor(stage)));
+        unfoldAll();
+        segFills.forEach(function (fill, i) {
+          fill.style.transform = 'scaleX(' + clamp(stage - i, 0, 1) + ')';
+        });
+      }
+
       scrollTrig = ScrollTrigger.create({
         trigger: section,
         start: 'top top',
-        end: function () { return '+=' + Math.round(window.innerHeight * (CATS.length - 1) * 0.9); },
+        end: function () { return '+=' + Math.round(window.innerHeight * CATS.length * 0.8); },
         pin: true,
         invalidateOnRefresh: true,
-        onUpdate: function (self) {
-          var n = CATS.length;
-          openCategory(Math.min(n - 1, Math.floor(self.progress * n)));
-          segFills.forEach(function (fill, i) {
-            fill.style.transform = 'scaleX(' + clamp(self.progress * n - i, 0, 1) + ')';
-          });
-        }
+        onUpdate: function (self) { applyProgress(self.progress); }
       });
+      applyProgress(scrollTrig.progress);
     }
 
-    /* entrada en cascada de tarjetas */
+    /* entrada en cascada de tarjetas (sin sección fija) */
     var cascadeObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -391,7 +429,7 @@
         cascadeObserver.disconnect();
       });
     }, { threshold: 0.15 });
-    cascadeObserver.observe(grid);
+    if (!scrollTrig) cascadeObserver.observe(grid);
 
     /* ---------------- spotlight (cursor sobre el borde/fondo) ---------------- */
     grid.addEventListener('pointermove', function (e) {
