@@ -1,15 +1,15 @@
 /* ============================================================
    STACK (CONOCIMIENTOS Y HABILIDADES) — bento grid con FLIP
-   (GSAP Flip) y visualización de órbita 3D por categoría.
+   (GSAP Flip) y un video por categoría en la tarjeta abierta.
    ============================================================ */
 (function () {
   var ICON_BASE = 'img/icons/'; /* logos self-hosted (simple-icons 13.21) */
   var FORCE_WHITE = { nextdotjs: 1, express: 1, vercel: 1, github: 1, ollama: 1, railway: 1 };
+  var VIDEO_BASE = 'img/stack/'; /* <video>.webm / .mp4 / .jpg (poster) */
 
   var CATS = [
     {
-      num: '01', smallTitle: 'Inteligencia artificial', largeTitle: 'Inteligencia<br>artificial',
-      orbitLabel: 'Agentes',
+      num: '01', video: '01_ia', smallTitle: 'Inteligencia artificial', largeTitle: 'Inteligencia<br>artificial',
       summary: 'Agentes y asistentes que razonan, recuerdan y responden con datos propios.',
       list: [
         { text: 'Agentes autónomos y multi-agente', tag: 'AGENTS' },
@@ -27,8 +27,7 @@
       ]
     },
     {
-      num: '02', smallTitle: 'Backend', largeTitle: 'Backend',
-      orbitLabel: 'API',
+      num: '02', video: '02_backend', smallTitle: 'Backend', largeTitle: 'Backend',
       summary: 'APIs REST, validación, testing, auth e integraciones.',
       list: [
         { text: 'APIs REST con Node.js, Express y FastAPI', tag: 'REST' },
@@ -46,8 +45,7 @@
       ]
     },
     {
-      num: '03', smallTitle: 'Frontend', largeTitle: 'Frontend',
-      orbitLabel: 'UI',
+      num: '03', video: '03_frontend', smallTitle: 'Frontend', largeTitle: 'Frontend',
       summary: 'React + TypeScript, e-commerce, 3D y realidad aumentada.',
       list: [
         { text: 'Aplicaciones en React con TypeScript', tag: 'REACT' },
@@ -66,8 +64,7 @@
       ]
     },
     {
-      num: '04', smallTitle: 'Datos', largeTitle: 'Datos',
-      orbitLabel: 'Data',
+      num: '04', video: '04_datos', smallTitle: 'Datos', largeTitle: 'Datos',
       summary: 'SQL, NoSQL y bases vectoriales para IA.',
       list: [
         { text: 'Bases relacionales: diseño, SQL y CRUD', tag: 'SQL' },
@@ -85,8 +82,7 @@
       ]
     },
     {
-      num: '05', smallTitle: 'Deploy', largeTitle: 'Deploy y<br>herramientas',
-      orbitLabel: 'Ship',
+      num: '05', video: '05_deploy', smallTitle: 'Deploy', largeTitle: 'Deploy y<br>herramientas',
       summary: 'Git, cloud, serverless y desarrollo asistido por IA.',
       list: [
         { text: 'Git y GitHub', tag: 'GIT' },
@@ -106,7 +102,6 @@
   ];
 
   function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-  function lerp(a, b, t) { return a + (b - a) * t; }
 
   function makeIcon(logo, size) {
     if (logo.text) {
@@ -138,7 +133,6 @@
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var activeIndex = 0;
     var cardEls = [];
-    var orbitState = null; /* { cat, nodeEls, lineEls, angles, raf-managed via global ticker } */
 
     /* ---------------- título: entrada palabra por palabra ---------------- */
     (function setupTitle() {
@@ -221,35 +215,34 @@
       });
       left.appendChild(rowList);
 
-      var orbitWrap = document.createElement('div');
-      orbitWrap.className = 'stack-orbit';
-      orbitWrap.innerHTML =
-        '<div class="stack-orbit__ring"></div>' +
-        '<div class="stack-orbit__core">' + cat.orbitLabel + '</div>';
+      var logoRow = document.createElement('div');
+      logoRow.className = 'stack-card__icon-row stack-card__icon-row--inline';
+      cat.logos.forEach(function (logo) {
+        if (logo.text) {
+          logoRow.appendChild(makeIcon(logo, 19));
+        } else {
+          var sq = document.createElement('span');
+          sq.className = 'stack-icon-sq';
+          sq.appendChild(makeIcon(logo, 19));
+          logoRow.appendChild(sq);
+        }
+      });
+      left.appendChild(logoRow);
+
+      var media = document.createElement('div');
+      media.className = 'stack-media';
+      media.innerHTML =
+        '<video class="stack-media__video" autoplay muted loop playsinline preload="metadata" poster="' + VIDEO_BASE + cat.video + '.jpg">' +
+          '<source src="' + VIDEO_BASE + cat.video + '.webm" type="video/webm" />' +
+          '<source src="' + VIDEO_BASE + cat.video + '.mp4" type="video/mp4" />' +
+        '</video>';
 
       large.appendChild(left);
-      large.appendChild(orbitWrap);
+      large.appendChild(media);
       card.appendChild(large);
 
-      /* líneas + nodos */
-      var nodeEls = [];
-      var lineEls = [];
-      cat.logos.filter(function (l) { return !l.text; }).forEach(function (logo) {
-        var line = document.createElement('div');
-        line.className = 'stack-orbit__line';
-        orbitWrap.appendChild(line);
-        lineEls.push(line);
-
-        var node = document.createElement('div');
-        node.className = 'stack-orbit__node';
-        node.appendChild(makeIcon(logo, 24));
-        var tip = document.createElement('span');
-        tip.className = 'stack-orbit__tooltip';
-        tip.textContent = logo.name;
-        node.appendChild(tip);
-        orbitWrap.appendChild(node);
-        nodeEls.push(node);
-      });
+      var video = media.querySelector('video');
+      if (reduced) { video.removeAttribute('autoplay'); video.pause(); }
 
       /* entrada escalonada de filas */
       var rows = rowList.querySelectorAll('.stack-row');
@@ -257,15 +250,7 @@
         setTimeout(function () { row.classList.add('is-in'); }, reduced ? 0 : i * 80);
       });
 
-      orbitState = {
-        cat: cat, wrap: orbitWrap, nodeEls: nodeEls, lineEls: lineEls,
-        tilt: 0.42, tiltTarget: 0.42, spin: 1, spinTarget: 1,
-        angle: 0, openStart: performance.now(), openDur: reduced ? 0 : 900,
-        hoverTilt: null, hoverSpin: null,
-        mouseX: null, mouseY: null
-      };
-      requestAnimationFrame(function () { orbitWrap.classList.add('is-in'); });
-      attachOrbitInteraction(orbitWrap);
+      requestAnimationFrame(function () { media.classList.add('is-in'); });
     }
 
     function computeOrderedSmallSlots(activeIdx) {
@@ -413,105 +398,13 @@
       grid.querySelectorAll('.stack-card__plus').forEach(function (btn) { btn.style.transform = ''; });
     }, true);
 
-    /* ---------------- órbita: interacción + loop ---------------- */
-    function attachOrbitInteraction(orbitWrap) {
-      if (reduced) return;
-      orbitWrap.addEventListener('pointermove', function (e) {
-        if (!orbitState) return;
-        var r = orbitWrap.getBoundingClientRect();
-        var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        var px = clamp((e.clientX - cx) / (r.width / 2), -1, 1);
-        var py = clamp((e.clientY - cy) / (r.height / 2), -1, 1);
-        orbitState.tiltTarget = 0.42 + py * -0.6;
-        orbitState.spinTarget = px * 4.5 || 0.01;
-        orbitState.mouseX = e.clientX;
-        orbitState.mouseY = e.clientY;
-      });
-      orbitWrap.addEventListener('pointerleave', function () {
-        if (!orbitState) return;
-        orbitState.tiltTarget = 0.42;
-        orbitState.spinTarget = 1;
-        orbitState.mouseX = null;
-        orbitState.mouseY = null;
-      });
-    }
-
-    var R = 175;
-    function tickOrbit(dt) {
-      if (!orbitState) return;
-      var st = orbitState;
-      st.tilt = lerp(st.tilt, st.tiltTarget, 0.18);
-      st.spin = lerp(st.spin, st.spinTarget, 0.15);
-      st.angle += 0.0012 * st.spin * dt;
-
-      var elapsed = performance.now() - st.openStart;
-      var openT = st.openDur ? clamp(elapsed / st.openDur, 0, 1) : 1;
-      var openEase = 1 - Math.pow(1 - openT, 3);
-      var radius = R * openEase;
-      var squash = Math.sin(st.tilt);
-
-      var r = st.wrap.getBoundingClientRect();
-      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-
-      var n = st.nodeEls.length;
-      for (var i = 0; i < n; i++) {
-        var ang = st.angle + (i * (Math.PI * 2 / n));
-        var bx = Math.cos(ang) * radius;
-        var by = Math.sin(ang) * radius * squash;
-        var depth = Math.sin(ang);
-        var depthT = (depth + 1) / 2;
-        var scale = lerp(0.55, lerp(0.8, 1.2, depthT), openEase);
-        var opacity = lerp(0.55, 1, depthT);
-        var zIndex = Math.round(depthT * 50) + 10;
-
-        var fx = bx, fy = by, fScale = scale, fOpacity = opacity, fZ = zIndex, border = '';
-        if (st.mouseX != null) {
-          var nodeX = cx + bx, nodeY = cy + by;
-          var dx = st.mouseX - nodeX, dy = st.mouseY - nodeY;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 110) {
-            var closeness = 1 - dist / 110;
-            fx = bx + dx * 0.35 * closeness;
-            fy = by + dy * 0.35 * closeness;
-            fScale = lerp(scale, 1.45, closeness);
-            fOpacity = 1;
-            fZ = 999;
-            border = '#666';
-          }
-        }
-
-        var node = st.nodeEls[i];
-        node.style.transform = 'translate3d(' + fx + 'px,' + fy + 'px,0) scale(' + fScale + ')';
-        node.style.opacity = fOpacity;
-        node.style.zIndex = fZ;
-        node.style.borderColor = border || '#2a2a2a';
-
-        var line = st.lineEls[i];
-        var length = Math.sqrt(bx * bx + by * by);
-        var lineAngle = Math.atan2(by, bx);
-        line.style.width = length + 'px';
-        line.style.transform = 'rotate(' + lineAngle + 'rad)';
-        line.style.opacity = lerp(0.06, 0.16, depthT);
-      }
-    }
-
-    /* ---------------- loop único + pausa fuera de pantalla ---------------- */
-    var rafId = null;
-    var lastTs = 0;
-    function loop(ts) {
-      var dt = lastTs ? Math.min(50, ts - lastTs) : 16;
-      lastTs = ts;
-      if (!reduced) tickOrbit(dt);
-      rafId = requestAnimationFrame(loop);
-    }
+    /* ---------------- video: pausa fuera de pantalla ---------------- */
     var visObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          if (!rafId) { lastTs = 0; rafId = requestAnimationFrame(loop); }
-        } else if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
+        var video = section.querySelector('.stack-media__video');
+        if (!video || reduced) return;
+        if (entry.isIntersecting) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else video.pause();
       });
     }, { threshold: 0.05 });
     visObserver.observe(section);
