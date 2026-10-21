@@ -133,6 +133,7 @@
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var activeIndex = 0;
     var cardEls = [];
+    var scrollTrig = null; /* desktop: la sección queda fija y el scroll abre cada tarjeta */
 
     /* ---------------- título: entrada palabra por palabra ---------------- */
     (function setupTitle() {
@@ -316,6 +317,13 @@
       layoutCards(activeIndex, true);
     }
 
+    /* con la sección fija, el clic baja hasta el tramo de esa tarjeta */
+    function goToCategory(idx) {
+      if (!scrollTrig) { openCategory(idx); return; }
+      var y = scrollTrig.start + (scrollTrig.end - scrollTrig.start) * ((idx + 0.5) / CATS.length);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
     /* ---------------- construir tarjetas (DOM inicial) ---------------- */
     CATS.forEach(function (cat, i) {
       var card = document.createElement('div');
@@ -325,9 +333,9 @@
       card.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
       card.dataset.index = i;
 
-      card.addEventListener('click', function () { openCategory(i); });
+      card.addEventListener('click', function () { goToCategory(i); });
       card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCategory(i); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToCategory(i); }
       });
 
       if (!reduced) attachCardTilt(card, i === 0);
@@ -337,6 +345,40 @@
     });
 
     layoutCards(0, false);
+
+    /* ---------------- scroll: sección fija + una tarjeta por tramo (desktop) ---------------- */
+    if (hasGsap && window.ScrollTrigger && window.innerWidth >= 1200 && !reduced) {
+      gsap.registerPlugin(ScrollTrigger);
+      section.classList.add('is-pinned');
+
+      var progress = document.createElement('div');
+      progress.className = 'stack-progress';
+      var segFills = CATS.map(function () {
+        var seg = document.createElement('span');
+        seg.className = 'stack-progress__seg';
+        var fill = document.createElement('span');
+        fill.className = 'stack-progress__fill';
+        seg.appendChild(fill);
+        progress.appendChild(seg);
+        return fill;
+      });
+      titleEl.parentNode.appendChild(progress);
+
+      scrollTrig = ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: function () { return '+=' + Math.round(window.innerHeight * (CATS.length - 1) * 0.9); },
+        pin: true,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          var n = CATS.length;
+          openCategory(Math.min(n - 1, Math.floor(self.progress * n)));
+          segFills.forEach(function (fill, i) {
+            fill.style.transform = 'scaleX(' + clamp(self.progress * n - i, 0, 1) + ')';
+          });
+        }
+      });
+    }
 
     /* entrada en cascada de tarjetas */
     var cascadeObserver = new IntersectionObserver(function (entries) {
