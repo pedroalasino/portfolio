@@ -30,7 +30,6 @@
       panelExperiencia && panelEducacion && progressEls.length === 3;
 
     /* ---------------- entrada pinned + scrub (solo desktop) ---------------- */
-    var mergedProj = null; /* Proyectos montado dentro de esta sección (desktop) */
     if (canAnimate) {
       gsap.registerPlugin(ScrollTrigger);
       layout.classList.add('js-pinned');
@@ -69,17 +68,40 @@
       /* el Stack se monta adentro: Quién soy (QS) + transición (TR) + Stack (ST),
          medidos en pantallas de scroll, todo en un solo pin */
       var stack = window.StackStage ? window.StackStage.mountMerged(layout, videoWrap) : null;
-      /* Proyectos sigue después del Stack: zoom al monitor (PZ) + un tramo por proyecto (PR) */
-      var proj = stack && window.ProyectosStage ? window.ProyectosStage.mountMerged(layout, videoWrap) : null;
+      /* al final, la cámara entra a la pantalla del monitor (PZ) y la pantalla
+         llena todo con el gris del sitio: de ahí sigue la sección Proyectos */
       var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
-      var PZ = proj ? 1.4 : 0, PR = proj ? proj.count * 0.85 : 0;
-      var TOTAL = QS + TR + ST + PZ + PR;
-      if (proj) {
-        var standaloneProj = document.getElementById('proyectos');
-        if (standaloneProj) standaloneProj.parentNode.removeChild(standaloneProj);
+      var PZ = stack && stack.video ? 1.6 : 0;
+      /* Proyectos sube encima del final del zoom: sin pantalla gris vacía en el medio */
+      var projSection = document.getElementById('proyectos');
+      if (PZ && projSection) projSection.classList.add('proyectos--after-zoom');
+      var TOTAL = QS + TR + ST + PZ;
+      var screenEl = null;
+      if (PZ) {
+        screenEl = document.createElement('div');
+        screenEl.className = 'monitor-zoom';
+        screenEl.innerHTML = '<span class="monitor-zoom__fill"></span>';
+        layout.appendChild(screenEl);
       }
       var zoomed = false;
-      mergedProj = proj;
+      /* pantalla del monitor dentro del video (fracciones del cuadro) */
+      var MON = { x: 0.4906, y: 0.114, w: 0.117, h: 0.205 };
+      function placeScreen(e) {
+        var lr = layout.getBoundingClientRect();
+        var vr = videoWrap.getBoundingClientRect();
+        var grow = 1 + e * 6;
+        var mw = vr.width * MON.w * grow, mh = vr.height * MON.h * grow;
+        var cx = vr.left - lr.left + vr.width * (MON.x + MON.w / 2);
+        var cy = vr.top - lr.top + vr.height * (MON.y + MON.h / 2);
+        var f = Math.max(0, Math.min(1, (e - 0.35) / 0.65)); /* la pantalla termina de ocupar todo */
+        screenEl.style.left = (cx - mw / 2) * (1 - f) + 'px';
+        screenEl.style.top = (cy - mh / 2) * (1 - f) + 'px';
+        screenEl.style.width = mw + (lr.width - mw) * f + 'px';
+        screenEl.style.height = mh + (lr.height - mh) * f + 'px';
+        screenEl.style.borderRadius = (4 * (1 - f)) + 'px';
+        screenEl.style.opacity = Math.min(1, e * 4);
+        screenEl.firstChild.style.opacity = Math.max(0, Math.min(1, (e - 0.2) / 0.6));
+      }
 
       var tl = gsap.timeline({
         scrollTrigger: {
@@ -95,9 +117,10 @@
             syncTabs(qsProgress);
             if (qsProgress >= 0.995) forceEndState();
             var z = 0;
-            if (proj) {
+            if (screenEl) {
               z = Math.max(0, Math.min(1, (screens - QS - TR - ST) / PZ));
-              var e = proj.apply(z, (screens - QS - TR - ST - PZ) / PR * proj.count);
+              var e = z < 0.5 ? 4 * z * z * z : 1 - Math.pow(-2 * z + 2, 3) / 2;
+              placeScreen(e);
               /* la cámara entra a la pantalla del monitor */
               if (stack.video && z > 0) {
                 stack.video.style.transform = 'scale(' + (1 + e * 6) + ')';
@@ -118,10 +141,7 @@
               stack.layer.style.pointerEvents = screens > QS + TR * 0.6 && z < 0.2 ? 'auto' : 'none';
             }
           },
-          onLeave: function () {
-            forceEndState();
-            if (proj) proj.hide();
-          }
+          onLeave: forceEndState
         }
       });
 
@@ -159,17 +179,6 @@
         /* el timeline tiene que durar lo mismo que el scroll total */
         tl.to({}, { duration: 0.01 }, TOTAL / QS - 0.01);
 
-        if (proj) {
-          proj.goTo = function (i) {
-            var st = tl.scrollTrigger;
-            var screens = QS + TR + ST + PZ + (i + 0.5) / proj.count * PR;
-            window.scrollTo({ top: st.start + (st.end - st.start) * (screens / TOTAL), behavior: 'smooth' });
-          };
-          /* links a #proyectos (menú, botón del hero) van al primer proyecto */
-          document.querySelectorAll('a[href="#proyectos"]:not([data-project-link])').forEach(function (a) {
-            a.addEventListener('click', function (e) { e.preventDefault(); proj.goTo(0); });
-          });
-        }
         stack.goTo = function (i) {
           var st = tl.scrollTrigger;
           var screens = QS + TR + (i + 0.85) / stack.count * ST;
@@ -238,7 +247,6 @@
     layout.querySelectorAll('[data-project-link]').forEach(function (row) {
       row.addEventListener('click', function (e) {
         e.preventDefault();
-        if (mergedProj) { mergedProj.goTo(mergedProj.indexOf(row.getAttribute('data-project-link'))); return; }
         var target = document.getElementById('proyectos');
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 

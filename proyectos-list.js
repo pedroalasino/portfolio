@@ -11,19 +11,19 @@
       stack: ['Python', 'FastAPI', 'APIs REST', 'LLaMA 3', 'Ollama', 'RAG', 'Multi-agente', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n'],
       projects: [
         {
-          num: '01', name: 'SoberanoLab', year: '2025',
+          num: '01', name: 'Luigi Bosca', year: '2025',
+          logo: 'img/luigi-white.png',
+          title: 'Capacitación de IA aplicada a empresas',
+          desc: 'Plataforma con motor de IA propio y seis agentes configurables, implementada en vivo para los equipos de Luigi Bosca en Buenos Aires y Mendoza.',
+          images: ['img/proyectos/luigi-bosca.mp4'], /* cliente estrella: va primero */
+          ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
+        },
+        {
+          num: '02', name: 'SoberanoLab', year: '2025',
           logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Motor de IA soberano',
           desc: 'SOBERAI: motor de IA que corre en tu propio equipo. Backend en FastAPI con API REST, agentes con RAG, memoria vectorial y voz.',
           images: ['img/V2.mp4'],
-          ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
-        },
-        {
-          num: '02', name: 'Luigi Bosca', year: '2025',
-          logo: 'img/luigi-white.png',
-          title: 'Capacitación de IA aplicada a empresas',
-          desc: 'Plataforma con motor de IA propio y seis agentes configurables, implementada en vivo para los equipos de Luigi Bosca en Buenos Aires y Mendoza.',
-          images: ['img/video luigi bosca.MP4'],
           ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
         },
         {
@@ -157,7 +157,12 @@
       }
 
       if (isVideo(images[0])) {
-        videoEl.src = images[0];
+        var src = images[0];
+        /* los videos comprimidos en img/proyectos/ tienen versión webm (Chrome/Firefox) */
+        if (/^img\/proyectos\/.*\.mp4$/.test(src) && videoEl.canPlayType('video/webm; codecs="vp9"')) {
+          src = src.replace(/\.mp4$/, '.webm');
+        }
+        videoEl.src = src;
         videoEl.classList.add('is-visible');
         videoEl.play().catch(function () {});
         return;
@@ -303,6 +308,27 @@
     });
 
     renderList('ai');
+
+    /* desktop: la sección se va armando con el scroll, pieza por pieza */
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.gsap && window.ScrollTrigger && window.innerWidth >= 1200 && !reduced) {
+      gsap.registerPlugin(ScrollTrigger);
+      var section = document.getElementById('proyectos');
+      section.querySelectorAll('.reveal').forEach(function (el) { el.classList.remove('reveal'); });
+      var pieces = [].concat(
+        [section.querySelector('.proyectos__tag'), section.querySelector('.proyectos__title'), tabsWrap],
+        [].slice.call(list.children),
+        [catDesc, section.querySelector('.proyectos__stack')]
+      ).filter(Boolean);
+      var preview = document.getElementById('proyectos-preview');
+      var tl = gsap.timeline({
+        scrollTrigger: { trigger: section, start: 'top 90%', end: 'top 10%', scrub: 0.6 }
+      });
+      tl.fromTo(pieces, { opacity: 0, y: 50, rotateX: -25 },
+        { opacity: 1, y: 0, rotateX: 0, duration: 0.3, stagger: 0.06, ease: 'none' }, 0);
+      tl.fromTo(preview, { opacity: 0, scale: 0.88, y: 60 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'none' }, 0.15);
+    }
   }
 
   if (document.readyState === 'loading') {
