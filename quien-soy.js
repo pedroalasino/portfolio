@@ -68,26 +68,16 @@
       /* el Stack se monta adentro: Quién soy (QS) + transición (TR) + Stack (ST),
          medidos en pantallas de scroll, todo en un solo pin */
       var stack = window.StackStage ? window.StackStage.mountMerged(layout, videoWrap) : null;
-      /* al final, la cámara entra a la pantalla del monitor (PZ) y la pantalla
-         llena todo con el gris del sitio: de ahí sigue la sección Proyectos */
+      /* cierre: la cámara viaja a una toma sobre el hombro (XF), en el monitor se
+         arma Proyectos (PS) y la cámara entra a la pantalla (PZ) */
       var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
-      var PZ = stack && stack.video ? 1.6 : 0;
+      var monitor = stack && window.MonitorStage ? window.MonitorStage.mount(layout, videoWrap) : null;
+      var XF = monitor ? 1.6 : 0, PS = monitor ? 2 : 0, PZ = monitor ? 1.6 : 0;
       /* Proyectos sube encima del final del zoom: sin pantalla gris vacía en el medio */
       var projSection = document.getElementById('proyectos');
       if (PZ && projSection) projSection.classList.add('proyectos--after-zoom');
-      var TOTAL = QS + TR + ST + PZ;
-      var screenEl = null;
-      if (PZ) {
-        screenEl = document.createElement('div');
-        screenEl.className = 'monitor-zoom';
-        layout.appendChild(screenEl);
-      }
-      var zoomed = false;
-      /* zoom directo: la cámara entra a la pantalla del monitor hasta llenarla;
-         al final todo se funde con el gris del sitio */
-      function placeScreen(e) {
-        screenEl.style.opacity = Math.max(0, Math.min(1, (e - 0.65) / 0.25));
-      }
+      var TOTAL = QS + TR + ST + XF + PS + PZ;
+      function part(screens, from, len) { return len ? Math.max(0, Math.min(1, (screens - from) / len)) : 0; }
 
       var tl = gsap.timeline({
         scrollTrigger: {
@@ -102,28 +92,22 @@
             var qsProgress = Math.min(1, screens / QS);
             syncTabs(qsProgress);
             if (qsProgress >= 0.995) forceEndState();
-            var z = 0;
-            if (screenEl) {
-              z = Math.max(0, Math.min(1, (screens - QS - TR - ST) / PZ));
-              var e = z < 0.5 ? 4 * z * z * z : 1 - Math.pow(-2 * z + 2, 3) / 2;
-              placeScreen(e);
-              /* la cámara entra a la pantalla del monitor */
-              if (stack.video && z > 0) {
-                stack.video.style.transform = 'scale(' + (1 + e * 13) + ')';
-                zoomed = true;
-              } else if (stack.video && zoomed) {
-                stack.video.style.transform = 'scale(1)';
-                stack.video.style.opacity = 1;
-                zoomed = false;
-              }
-              stack.layer.style.setProperty('--sfade', 1 - Math.min(1, e * 3));
+            var xf = 0;
+            if (monitor) {
+              var end = QS + TR + ST;
+              xf = part(screens, end, XF);
+              monitor.apply(xf, part(screens, end + XF, PS), part(screens, end + XF + PS, PZ));
+              /* el video del escritorio pasa la posta al de la transición */
+              if (stack.video) stack.video.style.visibility = xf > 0 ? 'hidden' : '';
+              var fade = Math.min(1, xf * 4);
+              stack.layer.style.setProperty('--sfade', 1 - fade);
               /* el título tiene opacidad propia (lo anima la transición): se apaga aparte */
-              if (z > 0) stack.title.style.opacity = 1 - Math.min(1, e * 3);
+              if (xf > 0) stack.title.style.opacity = 1 - fade;
               else if (stack.title.style.opacity !== '' && screens > QS + TR) stack.title.style.opacity = 1;
             }
             if (stack) {
               stack.apply((screens - QS - TR) / ST * stack.count);
-              stack.layer.style.pointerEvents = screens > QS + TR * 0.6 && z < 0.2 ? 'auto' : 'none';
+              stack.layer.style.pointerEvents = screens > QS + TR * 0.6 && xf < 0.2 ? 'auto' : 'none';
             }
           },
           onLeave: forceEndState

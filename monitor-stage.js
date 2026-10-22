@@ -1,0 +1,148 @@
+/* ============================================================
+   MONITOR (desktop) — cierre de la sección fija Quién soy + Stack.
+   1) Transición: un video lleva la cámara del escritorio a una toma
+      sobre el hombro; el scroll lo avanza cuadro por cuadro.
+   2) Pantalla: en el monitor encendido se va armando Proyectos
+      (versión oscura, dibujada en código con la perspectiva real).
+   3) Zoom: la cámara entra a la pantalla, la pone de frente y todo
+      se funde con el gris del sitio; ahí sube la sección Proyectos.
+   quien-soy.js lo monta (MonitorStage.mount) y le pasa el avance.
+   ============================================================ */
+(function () {
+  var SRC = 'img/monitor-xfer';
+  /* esquinas de la pantalla en el último cuadro del video (1920×1080) */
+  var QUAD = [[792, 175], [1567, 199], [1552, 724], [794, 638]];
+  var FW = 1920, FH = 1080;
+  var SW = 1600, SH = 900; /* tamaño base del contenido de la pantalla */
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+  /* matrix3d que lleva el rectángulo (0,0)-(SW,SH) al cuadrilátero q */
+  function homography(q) {
+    var x0 = q[0][0], y0 = q[0][1], x1 = q[1][0], y1 = q[1][1];
+    var x2 = q[2][0], y2 = q[2][1], x3 = q[3][0], y3 = q[3][1];
+    var dx1 = x1 - x2, dx2 = x3 - x2, dy1 = y1 - y2, dy2 = y3 - y2;
+    var sx = x0 - x1 + x2 - x3, sy = y0 - y1 + y2 - y3;
+    var den = dx1 * dy2 - dx2 * dy1;
+    var g = (sx * dy2 - dx2 * sy) / den, h = (dx1 * sy - sx * dy1) / den;
+    var a = x1 - x0 + g * x1, b = x3 - x0 + h * x3;
+    var d = y1 - y0 + g * y1, e = y3 - y0 + h * y3;
+    return [a / SW, d / SW, 0, g / SW, b / SH, e / SH, 0, h / SH, 0, 0, 1, 0, x0, y0, 0, 1];
+  }
+
+  var SCREEN_HTML =
+    '<div class="mon-screen__head">' +
+      '<div><span class="mon-screen__tag" data-p>PORTFOLIO</span><h2 class="mon-screen__title" data-p>Proyectos</h2></div>' +
+      '<div class="mon-screen__tabs" data-p><span class="is-on">AI Engineer 4</span><span>Full Stack 3</span></div>' +
+    '</div>' +
+    '<div class="mon-screen__body">' +
+      '<div>' +
+        '<div class="mon-screen__item is-on" data-p><img src="img/luigi-white.png" alt="" />01&nbsp; Luigi Bosca ↗<span>2025</span></div>' +
+        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/soberanolab.png" alt="" />02&nbsp; SoberanoLab<span>2025</span></div>' +
+        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/expolajas.png" alt="" />03&nbsp; Expolajas<span>2026</span></div>' +
+        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/salvatierra.png" alt="" />04&nbsp; Salvatierra<span>2025</span></div>' +
+        '<p class="mon-screen__desc" data-p>Agentes, asistentes y sistemas con IA, con backend propio en Python y FastAPI.</p>' +
+      '</div>' +
+      '<div class="mon-screen__card" data-p>' +
+        '<video muted loop playsinline preload="none" poster="img/proyectos/luigi-bosca.jpg">' +
+          '<source src="img/proyectos/luigi-bosca.webm" type="video/webm" /><source src="img/proyectos/luigi-bosca.mp4" type="video/mp4" />' +
+        '</video>' +
+        '<div class="mon-screen__info"><h3>Capacitación de IA<br>aplicada a empresas</h3><p>Seis agentes configurables en vivo para los equipos de Luigi Bosca.</p></div>' +
+      '</div>' +
+    '</div>' +
+    '<span class="mon-screen__glow"></span>';
+
+  function mount(layout, videoWrap) {
+    var xfer = document.createElement('video');
+    xfer.className = 'quien-soy__video mon-xfer';
+    xfer.muted = true;
+    xfer.playsInline = true;
+    xfer.preload = 'auto';
+    xfer.setAttribute('muted', '');
+    xfer.setAttribute('playsinline', '');
+    xfer.innerHTML = '<source src="' + SRC + '.mp4" type="video/mp4" /><source src="' + SRC + '.webm" type="video/webm" />';
+    /* caja 16:9 centrada: el video y la pantalla comparten coordenadas */
+    var box = document.createElement('div');
+    box.className = 'mon-box';
+    box.appendChild(xfer);
+    videoWrap.appendChild(box);
+
+    var screen = document.createElement('div');
+    screen.className = 'mon-screen';
+    screen.innerHTML = SCREEN_HTML;
+    box.appendChild(screen);
+    var pieces = [].slice.call(screen.querySelectorAll('[data-p]'));
+    var cardVideo = screen.querySelector('video');
+
+    var veil = document.createElement('div');
+    veil.className = 'monitor-zoom';
+    layout.appendChild(veil);
+
+    var lastSeek = -1;
+    var active = false;
+    /* xf: 0..1 viaje de cámara. ps: 0..1 la pantalla se arma. pz: 0..1 zoom final. */
+    function apply(xf, ps, pz) {
+      var on = xf > 0;
+      if (on !== active) {
+        active = on;
+        box.style.opacity = on ? 1 : 0;
+        if (!on) { videoWrap.style.transform = ''; screen.style.opacity = 0; veil.style.opacity = 0; }
+      }
+      if (!on) return;
+
+      /* 1) el scroll avanza el video */
+      var duration = xfer.duration || 0;
+      if (duration) {
+        var t = Math.min(duration - 0.05, xf * duration);
+        if (Math.abs(t - lastSeek) > 0.02) { xfer.currentTime = t; lastSeek = t; }
+      }
+
+      /* 2) contenido de la pantalla con la perspectiva del monitor */
+      var w = videoWrap.offsetWidth;
+      var bw = box.offsetWidth, bh = box.offsetHeight, bx = (w - bw) / 2;
+      var kx = bw / FW, ky = bh / FH;
+      var z = ease(pz);
+      var S = 1 + z * 1.9; /* el monitor ya ocupa ~40% del cuadro */
+      var cx = (QUAD[0][0] + QUAD[2][0]) / 2 * kx, cy = (QUAD[0][1] + QUAD[2][1]) / 2 * ky; /* en la caja */
+      var tw = window.innerWidth / S, th = tw * 9 / 16;
+      var flat = [[cx - tw / 2, cy - th / 2], [cx + tw / 2, cy - th / 2], [cx + tw / 2, cy + th / 2], [cx - tw / 2, cy + th / 2]];
+      var straighten = clamp((z - 0.15) / 0.85, 0, 1);
+      var q = QUAD.map(function (p, i) {
+        return [lerp(p[0] * kx, flat[i][0], straighten), lerp(p[1] * ky, flat[i][1], straighten)];
+      });
+      screen.style.transform = 'matrix3d(' + homography(q).join(',') + ')';
+      screen.style.opacity = xf >= 0.999 ? clamp(ps * 4, 0, 1) : 0;
+      pieces.forEach(function (el, i) {
+        var r = ease(clamp((ps - 0.1 - i * 0.07) / 0.15, 0, 1));
+        el.style.opacity = r;
+        el.style.transform = 'translateY(' + (1 - r) * 40 + 'px)';
+      });
+      if (cardVideo) {
+        var showCard = ps > 0.5 && pz < 1;
+        if (showCard && cardVideo.paused) { var pr = cardVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else if (!showCard && !cardVideo.paused) cardVideo.pause();
+      }
+
+      /* 3) zoom: la pantalla viene al centro y ocupa toda la vista */
+      /* posición del cuadro sin transformar (left 50% + translateX(-50%)) */
+      var lr = layout.getBoundingClientRect();
+      var baseLeft = lr.left + videoWrap.offsetLeft - w / 2, baseTop = lr.top + videoWrap.offsetTop;
+      var dx = (window.innerWidth / 2 - (baseLeft + bx + cx)) * z;
+      var dy = (window.innerHeight / 2 - (baseTop + cy)) * z;
+      if (z > 0) {
+        videoWrap.style.transformOrigin = (bx + cx) + 'px ' + cy + 'px';
+        videoWrap.style.transform = 'translateX(-50%) translate(' + dx + 'px,' + dy + 'px) scale(' + S + ')';
+      } else {
+        videoWrap.style.transform = '';
+      }
+      xfer.style.opacity = 1 - clamp((z - 0.55) / 0.35, 0, 1);
+      veil.style.opacity = clamp((z - 0.6) / 0.3, 0, 1);
+    }
+
+    return { apply: apply, video: xfer };
+  }
+
+  window.MonitorStage = { mount: mount };
+})();
