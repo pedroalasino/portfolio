@@ -30,6 +30,7 @@
       panelExperiencia && panelEducacion && progressEls.length === 3;
 
     /* ---------------- entrada pinned + scrub (solo desktop) ---------------- */
+    var mergedProj = null; /* Proyectos montado dentro de esta sección (desktop) */
     if (canAnimate) {
       gsap.registerPlugin(ScrollTrigger);
       layout.classList.add('js-pinned');
@@ -68,8 +69,17 @@
       /* el Stack se monta adentro: Quién soy (QS) + transición (TR) + Stack (ST),
          medidos en pantallas de scroll, todo en un solo pin */
       var stack = window.StackStage ? window.StackStage.mountMerged(layout, videoWrap) : null;
+      /* Proyectos sigue después del Stack: zoom al monitor (PZ) + un tramo por proyecto (PR) */
+      var proj = stack && window.ProyectosStage ? window.ProyectosStage.mountMerged(layout, videoWrap) : null;
       var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
-      var TOTAL = QS + TR + ST;
+      var PZ = proj ? 1.4 : 0, PR = proj ? proj.count * 0.85 : 0;
+      var TOTAL = QS + TR + ST + PZ + PR;
+      if (proj) {
+        var standaloneProj = document.getElementById('proyectos');
+        if (standaloneProj) standaloneProj.parentNode.removeChild(standaloneProj);
+      }
+      var zoomed = false;
+      mergedProj = proj;
 
       var tl = gsap.timeline({
         scrollTrigger: {
@@ -84,12 +94,34 @@
             var qsProgress = Math.min(1, screens / QS);
             syncTabs(qsProgress);
             if (qsProgress >= 0.995) forceEndState();
+            var z = 0;
+            if (proj) {
+              z = Math.max(0, Math.min(1, (screens - QS - TR - ST) / PZ));
+              var e = proj.apply(z, (screens - QS - TR - ST - PZ) / PR * proj.count);
+              /* la cámara entra a la pantalla del monitor */
+              if (stack.video && z > 0) {
+                stack.video.style.transform = 'scale(' + (1 + e * 6) + ')';
+                stack.video.style.opacity = 1 - Math.max(0, Math.min(1, (e - 0.75) / 0.25));
+                zoomed = true;
+              } else if (stack.video && zoomed) {
+                stack.video.style.transform = 'scale(1)';
+                stack.video.style.opacity = 1;
+                zoomed = false;
+              }
+              stack.layer.style.setProperty('--sfade', 1 - Math.min(1, e * 3));
+              /* el título tiene opacidad propia (lo anima la transición): se apaga aparte */
+              if (z > 0) stack.title.style.opacity = 1 - Math.min(1, e * 3);
+              else if (stack.title.style.opacity !== '' && screens > QS + TR) stack.title.style.opacity = 1;
+            }
             if (stack) {
               stack.apply((screens - QS - TR) / ST * stack.count);
-              stack.layer.style.pointerEvents = screens > QS + TR * 0.6 ? 'auto' : 'none';
+              stack.layer.style.pointerEvents = screens > QS + TR * 0.6 && z < 0.2 ? 'auto' : 'none';
             }
           },
-          onLeave: forceEndState
+          onLeave: function () {
+            forceEndState();
+            if (proj) proj.hide();
+          }
         }
       });
 
@@ -127,6 +159,17 @@
         /* el timeline tiene que durar lo mismo que el scroll total */
         tl.to({}, { duration: 0.01 }, TOTAL / QS - 0.01);
 
+        if (proj) {
+          proj.goTo = function (i) {
+            var st = tl.scrollTrigger;
+            var screens = QS + TR + ST + PZ + (i + 0.5) / proj.count * PR;
+            window.scrollTo({ top: st.start + (st.end - st.start) * (screens / TOTAL), behavior: 'smooth' });
+          };
+          /* links a #proyectos (menú, botón del hero) van al primer proyecto */
+          document.querySelectorAll('a[href="#proyectos"]:not([data-project-link])').forEach(function (a) {
+            a.addEventListener('click', function (e) { e.preventDefault(); proj.goTo(0); });
+          });
+        }
         stack.goTo = function (i) {
           var st = tl.scrollTrigger;
           var screens = QS + TR + (i + 0.85) / stack.count * ST;
@@ -195,6 +238,7 @@
     layout.querySelectorAll('[data-project-link]').forEach(function (row) {
       row.addEventListener('click', function (e) {
         e.preventDefault();
+        if (mergedProj) { mergedProj.goTo(mergedProj.indexOf(row.getAttribute('data-project-link'))); return; }
         var target = document.getElementById('proyectos');
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
