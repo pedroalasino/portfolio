@@ -80,27 +80,13 @@
       if (PZ) {
         screenEl = document.createElement('div');
         screenEl.className = 'monitor-zoom';
-        screenEl.innerHTML = '<span class="monitor-zoom__fill"></span>';
         layout.appendChild(screenEl);
       }
       var zoomed = false;
-      /* pantalla del monitor dentro del video (fracciones del cuadro) */
-      var MON = { x: 0.4906, y: 0.114, w: 0.117, h: 0.205 };
+      /* zoom directo: la cámara entra a la pantalla del monitor hasta llenarla;
+         al final todo se funde con el gris del sitio */
       function placeScreen(e) {
-        var lr = layout.getBoundingClientRect();
-        var vr = videoWrap.getBoundingClientRect();
-        var grow = 1 + e * 6;
-        var mw = vr.width * MON.w * grow, mh = vr.height * MON.h * grow;
-        var cx = vr.left - lr.left + vr.width * (MON.x + MON.w / 2);
-        var cy = vr.top - lr.top + vr.height * (MON.y + MON.h / 2);
-        var f = Math.max(0, Math.min(1, (e - 0.35) / 0.65)); /* la pantalla termina de ocupar todo */
-        screenEl.style.left = (cx - mw / 2) * (1 - f) + 'px';
-        screenEl.style.top = (cy - mh / 2) * (1 - f) + 'px';
-        screenEl.style.width = mw + (lr.width - mw) * f + 'px';
-        screenEl.style.height = mh + (lr.height - mh) * f + 'px';
-        screenEl.style.borderRadius = (4 * (1 - f)) + 'px';
-        screenEl.style.opacity = Math.min(1, e * 4);
-        screenEl.firstChild.style.opacity = Math.max(0, Math.min(1, (e - 0.2) / 0.6));
+        screenEl.style.opacity = Math.max(0, Math.min(1, (e - 0.65) / 0.25));
       }
 
       var tl = gsap.timeline({
@@ -123,8 +109,7 @@
               placeScreen(e);
               /* la cámara entra a la pantalla del monitor */
               if (stack.video && z > 0) {
-                stack.video.style.transform = 'scale(' + (1 + e * 6) + ')';
-                stack.video.style.opacity = 1 - Math.max(0, Math.min(1, (e - 0.75) / 0.25));
+                stack.video.style.transform = 'scale(' + (1 + e * 13) + ')';
                 zoomed = true;
               } else if (stack.video && zoomed) {
                 stack.video.style.transform = 'scale(1)';

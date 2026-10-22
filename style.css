@@ -1718,16 +1718,8 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 .stack-layer:not(.proj-layer) > * { opacity: var(--sfade, 1); }
 .stack-layer__video { transform-origin: 54.9% 21.7%; } /* centro de la pantalla del monitor */
 
-/* zoom final: la pantalla del monitor crece hasta llenar todo con el gris del sitio */
-.monitor-zoom {
-  position: absolute;
-  z-index: 3;
-  background: #10141a; /* pantalla encendida */
-  opacity: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.monitor-zoom__fill { position: absolute; inset: 0; background: var(--bg); opacity: 0; }
+/* zoom final: velo gris que cierra la entrada a la pantalla del monitor */
+.monitor-zoom { position: absolute; inset: 0; z-index: 3; background: var(--bg); opacity: 0; pointer-events: none; }
 .proyectos.proyectos--after-zoom { margin-top: -75vh; background: transparent; z-index: 2; }
 
 @media (max-width: 1199.98px) {
