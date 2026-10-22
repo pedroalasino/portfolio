@@ -1686,6 +1686,12 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 .stack-progress__seg.is-active .stack-progress__label,
 .stack-progress__seg:hover .stack-progress__label { opacity: 1; }
 
+/* bordes del video totalmente difuminados: no se nota el rectángulo */
+.stack-layout .quien-soy__video {
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
+}
+
 @media (max-width: 1199.98px) {
   .stack-col { min-height: 0; }
   .stack-layout .quien-soy__video-wrap { transform: none; }
