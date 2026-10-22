@@ -73,9 +73,6 @@
       var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
       var monitor = stack && window.MonitorStage ? window.MonitorStage.mount(layout, videoWrap) : null;
       var XF = monitor ? 1.6 : 0, PS = monitor ? 2 : 0, PZ = monitor ? 1.6 : 0;
-      /* Proyectos sube encima del final del zoom: sin pantalla gris vacía en el medio */
-      var projSection = document.getElementById('proyectos');
-      if (PZ && projSection) projSection.classList.add('proyectos--after-zoom');
       var TOTAL = QS + TR + ST + XF + PS + PZ;
       function part(screens, from, len) { return len ? Math.max(0, Math.min(1, (screens - from) / len)) : 0; }
 

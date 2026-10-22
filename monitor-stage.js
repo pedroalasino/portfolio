@@ -32,27 +32,28 @@
     return [a / SW, d / SW, 0, g / SW, b / SH, e / SH, 0, h / SH, 0, 0, 1, 0, x0, y0, 0, 1];
   }
 
-  var SCREEN_HTML =
-    '<div class="mon-screen__head">' +
-      '<div><span class="mon-screen__tag" data-p>PORTFOLIO</span><h2 class="mon-screen__title" data-p>Proyectos</h2></div>' +
-      '<div class="mon-screen__tabs" data-p><span class="is-on">AI Engineer 4</span><span>Full Stack 3</span></div>' +
-    '</div>' +
-    '<div class="mon-screen__body">' +
-      '<div>' +
-        '<div class="mon-screen__item is-on" data-p><img src="img/luigi-white.png" alt="" />01&nbsp; Luigi Bosca ↗<span>2025</span></div>' +
-        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/soberanolab.png" alt="" />02&nbsp; SoberanoLab<span>2025</span></div>' +
-        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/expolajas.png" alt="" />03&nbsp; Expolajas<span>2026</span></div>' +
-        '<div class="mon-screen__item" data-p><img src="img/proyectos/logos/salvatierra.png" alt="" />04&nbsp; Salvatierra<span>2025</span></div>' +
-        '<p class="mon-screen__desc" data-p>Agentes, asistentes y sistemas con IA, con backend propio en Python y FastAPI.</p>' +
-      '</div>' +
-      '<div class="mon-screen__card" data-p>' +
-        '<video muted loop playsinline preload="none" poster="img/proyectos/luigi-bosca.jpg">' +
-          '<source src="img/proyectos/luigi-bosca.webm" type="video/webm" /><source src="img/proyectos/luigi-bosca.mp4" type="video/mp4" />' +
-        '</video>' +
-        '<div class="mon-screen__info"><h3>Capacitación de IA<br>aplicada a empresas</h3><p>Seis agentes configurables en vivo para los equipos de Luigi Bosca.</p></div>' +
-      '</div>' +
-    '</div>' +
-    '<span class="mon-screen__glow"></span>';
+  /* la pantalla muestra la sección Proyectos real (copiada) en versión oscura */
+  function buildScreen(screen) {
+    var src = document.querySelector('#proyectos .container');
+    if (!src) return [];
+    var copy = src.cloneNode(true);
+    [copy].concat([].slice.call(copy.querySelectorAll('[id]'))).forEach(function (el) { el.removeAttribute('id'); });
+    copy.querySelectorAll('.reveal').forEach(function (el) { el.classList.remove('reveal'); });
+    copy.querySelectorAll('[style]').forEach(function (el) { el.removeAttribute('style'); });
+    copy.querySelectorAll('.proyectos__preview-logo, .proyectos__preview-info h3, .proyectos__preview-info p, .proyectos__preview-ctas')
+      .forEach(function (el) { el.classList.add('is-visible'); });
+    copy.querySelectorAll('a, button').forEach(function (el) { el.setAttribute('tabindex', '-1'); });
+    screen.appendChild(copy);
+    var glow = document.createElement('span');
+    glow.className = 'mon-screen__glow';
+    screen.appendChild(glow);
+    /* piezas que se van armando, en orden de lectura */
+    return [].concat(
+      [copy.querySelector('.proyectos__tag'), copy.querySelector('.proyectos__title'), copy.querySelector('.proyectos__tabs')],
+      [].slice.call(copy.querySelectorAll('.proyectos__list > *')),
+      [copy.querySelector('.proyectos__cat-desc'), copy.querySelector('.proyectos__stack'), copy.querySelector('.proyectos__preview')]
+    ).filter(Boolean);
+  }
 
   function mount(layout, videoWrap) {
     var xfer = document.createElement('video');
@@ -71,10 +72,16 @@
 
     var screen = document.createElement('div');
     screen.className = 'mon-screen';
-    screen.innerHTML = SCREEN_HTML;
     box.appendChild(screen);
-    var pieces = [].slice.call(screen.querySelectorAll('[data-p]'));
-    var cardVideo = screen.querySelector('video');
+    var pieces = buildScreen(screen);
+    pieces.forEach(function (el) { el.style.opacity = 0; });
+    var cardVideo = screen.querySelector('video.proyectos__preview-video');
+    if (cardVideo) {
+      cardVideo.muted = true;
+      cardVideo.loop = true;
+      cardVideo.removeAttribute('autoplay');
+    }
+    var projSection = document.getElementById('proyectos');
 
     var veil = document.createElement('div');
     veil.className = 'monitor-zoom';
@@ -88,7 +95,12 @@
       if (on !== active) {
         active = on;
         box.style.opacity = on ? 1 : 0;
-        if (!on) { videoWrap.style.transform = ''; screen.style.opacity = 0; veil.style.opacity = 0; }
+        if (!on) {
+          videoWrap.style.transform = '';
+          screen.style.opacity = 0;
+          veil.style.opacity = 0;
+          if (projSection) projSection.classList.remove('is-shown');
+        }
       }
       if (!on) return;
 
@@ -120,8 +132,8 @@
         el.style.transform = 'translateY(' + (1 - r) * 40 + 'px)';
       });
       if (cardVideo) {
-        var showCard = ps > 0.5 && pz < 1;
-        if (showCard && cardVideo.paused) { var pr = cardVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        var showCard = ps > 0.5 && pz < 0.95;
+        if (showCard && cardVideo.paused && cardVideo.getAttribute('src')) { var pr = cardVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
         else if (!showCard && !cardVideo.paused) cardVideo.pause();
       }
 
@@ -139,6 +151,8 @@
       }
       xfer.style.opacity = 1 - clamp((z - 0.55) / 0.35, 0, 1);
       veil.style.opacity = clamp((z - 0.6) / 0.3, 0, 1);
+      /* al terminar el zoom, la sección Proyectos real ya está en pantalla */
+      if (projSection) projSection.classList.toggle('is-shown', z > 0.92);
     }
 
     return { apply: apply, video: xfer };
