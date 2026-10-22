@@ -5,6 +5,9 @@
    cambia el resumen y a la derecha van saliendo, una por una, las
    notificaciones de cada herramienta. En pantallas chicas se cambia
    de categoría con las pestañas de abajo.
+   En desktop no tiene pin propio: quien-soy.js monta el Stack dentro
+   de Quién soy (StackStage.mountMerged) para que las dos sean una sola
+   transición continua. En pantallas chicas queda como sección aparte.
    ============================================================ */
 (function () {
   var ICON_BASE = 'img/icons/'; /* logos self-hosted (simple-icons 13.21) */
@@ -125,17 +128,14 @@
     return span;
   }
 
-  function init() {
-    var section = document.getElementById('habilidades');
-    var layout = document.getElementById('stack-layout');
-    if (!section || !layout) return;
-
+  /* arma columnas + barra de progreso dentro de `layout`.
+     scrubbed: true = el scroll maneja todo (notificaciones de a una). */
+  function build(layout, scrubbed) {
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var pinned = !!(window.gsap && window.ScrollTrigger) && window.innerWidth >= 1200 && !reduced;
     var n = CATS.length;
     var activeIndex = -1;
     var notifEls = [];
-    var scrollTrig = null;
+    var stage = { goTo: null };
 
     /* ---------------- columnas ---------------- */
     var colLeft = document.createElement('div');
@@ -153,7 +153,9 @@
       seg.type = 'button';
       seg.className = 'stack-progress__seg';
       seg.innerHTML = '<span class="stack-progress__bar"><i></i></span><span class="stack-progress__label">' + cat.num + ' ' + cat.tab + '</span>';
-      seg.addEventListener('click', function () { goTo(i); });
+      seg.addEventListener('click', function () {
+        if (stage.goTo) stage.goTo(i); else apply(i + 0.99);
+      });
       progress.appendChild(seg);
       return seg;
     });
@@ -230,54 +232,79 @@
     /* notificación k de la categoría: sale cuando el tramo avanza (0..1) */
     function showNotifs(local) {
       notifEls.forEach(function (el, k) {
-        var r = pinned ? clamp((local - (0.04 + k * 0.12)) / 0.1, 0, 1) : 1;
+        var r = scrubbed ? clamp((local - (0.04 + k * 0.12)) / 0.1, 0, 1) : 1;
         var e = 1 - Math.pow(1 - r, 3);
         el.style.opacity = e;
         el.style.transform = 'translateX(' + ((1 - e) * 70) + 'px) scale(' + (0.92 + 0.08 * e) + ')';
       });
     }
 
+    /* pos: 0..n (categoría actual + avance dentro de ella) */
     function apply(pos) {
-      var idx = Math.min(n - 1, Math.floor(pos));
+      pos = clamp(pos, 0, n - 0.001);
+      var idx = Math.floor(pos);
       setActive(idx);
       showNotifs(pos - idx);
       segs.forEach(function (seg, i) {
-        seg.querySelector('i').style.transform = 'scaleX(' + (pinned ? clamp(pos - i, 0, 1) : (i === idx ? 1 : 0)) + ')';
+        seg.querySelector('i').style.transform = 'scaleX(' + (scrubbed ? clamp(pos - i, 0, 1) : (i === idx ? 1 : 0)) + ')';
       });
     }
 
-    function goTo(idx) {
-      if (scrollTrig) {
-        var y = scrollTrig.start + (scrollTrig.end - scrollTrig.start) * ((idx + 0.85) / n);
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      } else {
-        apply(idx + 0.99);
-      }
-    }
-
-    /* ---------------- desktop: sección fija + scroll recorre las categorías ---------------- */
-    if (pinned) {
-      gsap.registerPlugin(ScrollTrigger);
-      layout.classList.add('js-pinned');
-      scrollTrig = ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: function () { return '+=' + Math.round(window.innerHeight * n * 0.9); },
-        pin: true,
-        invalidateOnRefresh: true,
-        onUpdate: function (self) { apply(Math.min(self.progress * n, n - 0.001)); }
-      });
-      apply(Math.min(scrollTrig.progress * n, n - 0.001));
-      var video = document.getElementById('stack-video');
-      if (video) video.addEventListener('loadedmetadata', function () { ScrollTrigger.refresh(); });
-    } else {
-      apply(0.99);
-    }
+    stage.apply = apply;
+    stage.count = n;
+    return stage;
   }
 
+  /* desktop: el Stack vive dentro de Quién soy (una sola sección fija) */
+  function mountMerged(qsLayout, qsVideoWrap) {
+    var standalone = document.getElementById('habilidades');
+    var layer = document.createElement('div');
+    layer.className = 'stack-layer stack-layout js-pinned';
+    var title = document.createElement('h2');
+    title.className = 'quien-soy__title stack-layer__title';
+    title.textContent = 'Stack';
+    layer.appendChild(title);
+    qsLayout.appendChild(layer);
+
+    var srcVideo = document.getElementById('stack-video');
+    var video = srcVideo ? srcVideo.cloneNode(true) : null;
+    if (video) {
+      video.removeAttribute('id');
+      video.classList.add('stack-layer__video');
+      qsVideoWrap.appendChild(video);
+    }
+    if (standalone) standalone.parentNode.removeChild(standalone);
+
+    var stage = build(layer, true);
+    /* el link "Habilidades" del menú lleva al tramo del Stack */
+    document.querySelectorAll('a[href="#habilidades"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (!stage.goTo) return;
+        e.preventDefault();
+        stage.goTo(0);
+      });
+    });
+    stage.layer = layer;
+    stage.title = title;
+    stage.video = video;
+    stage.apply(0);
+    return stage;
+  }
+
+  window.StackStage = { mountMerged: mountMerged };
+
+  /* pantallas chicas (o sin GSAP): sección propia, se cambia con los tramos */
+  function init() {
+    var layout = document.getElementById('stack-layout');
+    if (!layout) return; /* ya montado dentro de Quién soy */
+    build(layout, false).apply(0.99);
+  }
+
+  /* después de Quién soy: si ya montó el Stack adentro, acá no hay nada que hacer */
+  function initLater() { setTimeout(init, 0); }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', initLater);
   } else {
-    init();
+    initLater();
   }
 })();

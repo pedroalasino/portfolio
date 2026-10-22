@@ -1692,6 +1692,27 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
           mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
 }
 
+
+/* Stack montado dentro de Quién soy (desktop): misma grilla, encima */
+.stack-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 150px 90px 100px;
+  perspective: 1400px;
+  pointer-events: none;
+}
+.stack-layer .stack-progress { bottom: 40px; }
+.stack-layer__video {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 72%, transparent 100%);
+}
+
 @media (max-width: 1199.98px) {
   .stack-col { min-height: 0; }
   .stack-layout .quien-soy__video-wrap { transform: none; }

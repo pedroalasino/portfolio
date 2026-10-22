@@ -56,7 +56,7 @@
       syncTabs(0);
 
       function forceEndState() {
-        gsap.set(titleEl, { opacity: 1, y: 0 });
+        if (!stack) gsap.set(titleEl, { opacity: 1, y: 0 }); /* con Stack, el título lo maneja la transición */
         gsap.set(leftItems, { opacity: 1, x: 0, rotateY: 0 });
         gsap.set(tabsEl, { opacity: 1, x: 0, rotateY: 0 });
         gsap.set(experienceRows, { opacity: 0, y: -30 });
@@ -65,17 +65,29 @@
         syncTabs(1);
       }
 
+      /* el Stack se monta adentro: Quién soy (QS) + transición (TR) + Stack (ST),
+         medidos en pantallas de scroll, todo en un solo pin */
+      var stack = window.StackStage ? window.StackStage.mountMerged(layout, videoWrap) : null;
+      var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
+      var TOTAL = QS + TR + ST;
+
       var tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: function () { return '+=' + Math.round(window.innerHeight * 4); },
+          end: function () { return '+=' + Math.round(window.innerHeight * TOTAL); },
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
           onUpdate: function (self) {
-            syncTabs(self.progress);
-            if (self.progress >= 0.995) forceEndState();
+            var screens = self.progress * TOTAL;
+            var qsProgress = Math.min(1, screens / QS);
+            syncTabs(qsProgress);
+            if (qsProgress >= 0.995) forceEndState();
+            if (stack) {
+              stack.apply((screens - QS - TR) / ST * stack.count);
+              stack.layer.style.pointerEvents = screens > QS + TR * 0.6 ? 'auto' : 'none';
+            }
           },
           onLeave: forceEndState
         }
@@ -94,11 +106,43 @@
       tl.to(educationRows, { opacity: 1, x: 0, rotateY: 0, duration: 0.12, stagger: 0.035, ease: 'none' }, 0.72);
       tl.to(seg2, { scaleX: 1, duration: 0.26, ease: 'none' }, 0.72);
 
+      /* transición a Stack: Quién soy sale, cambia el título, el video se
+         funde con el del Stack y entran las columnas nuevas */
+      if (stack) {
+        var colRight = layout.querySelector('.quien-soy__col--right');
+        var qsProgressEl = document.getElementById('quien-soy-progress');
+        var t0 = 1.02; /* unidades del timeline: 1 = las 4 pantallas de Quién soy */
+        gsap.set(stack.layer, { opacity: 0 });
+        gsap.set(stack.title, { opacity: 0, y: 30 });
+        if (stack.video) gsap.set(stack.video, { opacity: 0, scale: 1.06 });
+
+        tl.to(colLeft, { opacity: 0, x: -80, rotateY: 20, duration: 0.1, ease: 'none' }, t0);
+        tl.to(colRight, { opacity: 0, x: 80, rotateY: -20, duration: 0.1, ease: 'none' }, t0);
+        tl.to(titleEl, { opacity: 0, y: -30, duration: 0.07, ease: 'none' }, t0);
+        if (qsProgressEl) tl.to(qsProgressEl, { opacity: 0, duration: 0.06, ease: 'none' }, t0);
+        if (videoEl) tl.to(videoEl, { opacity: 0, duration: 0.14, ease: 'none' }, t0 + 0.04);
+        if (stack.video) tl.to(stack.video, { opacity: 1, scale: 1, duration: 0.16, ease: 'none' }, t0 + 0.04);
+        tl.to(stack.layer, { opacity: 1, duration: 0.08, ease: 'none' }, t0 + 0.1);
+        tl.to(stack.title, { opacity: 1, y: 0, duration: 0.08, ease: 'none' }, t0 + 0.1);
+        /* el timeline tiene que durar lo mismo que el scroll total */
+        tl.to({}, { duration: 0.01 }, TOTAL / QS - 0.01);
+
+        stack.goTo = function (i) {
+          var st = tl.scrollTrigger;
+          var screens = QS + TR + (i + 0.85) / stack.count * ST;
+          window.scrollTo({ top: st.start + (st.end - st.start) * (screens / TOTAL), behavior: 'smooth' });
+        };
+        if (stack.video) {
+          var pr = stack.video.play();
+          if (pr && pr.catch) pr.catch(function () {});
+        }
+      }
+
       /* clic en pestañas -> scroll suave al tramo correspondiente */
       function scrollToFraction(frac) {
         var st = tl.scrollTrigger;
         if (!st) return;
-        var y = st.start + (st.end - st.start) * frac;
+        var y = st.start + (st.end - st.start) * frac * QS / TOTAL;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
       tabExperiencia.addEventListener('click', function () { scrollToFraction(0.45); });
