@@ -305,7 +305,7 @@ body::before {
    ========================================================================== */
 .hero {
   position: relative;
-  min-height: min(118vh, 980px); /* más alto: se ven más las piernas del robot */
+  min-height: min(135vh, 1120px); /* más alto: se ven más las piernas del robot y el carrusel queda más abajo */
   display: flex;
   align-items: flex-start;
   padding-top: 32vh;
