@@ -1721,6 +1721,8 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 /* zoom final: velo gris que cierra la entrada a la pantalla del monitor */
 .monitor-zoom { position: absolute; inset: 0; z-index: 3; background: var(--bg); opacity: 0; pointer-events: none; }
 .proyectos.proyectos--after-zoom { margin-top: -75vh; background: transparent; z-index: 2; }
+/* el video ampliado no se sale de la sección fija */
+.quien-soy__layout.js-pinned { overflow: hidden; }
 
 @media (max-width: 1199.98px) {
   .stack-col { min-height: 0; }

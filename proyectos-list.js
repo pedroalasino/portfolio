@@ -321,8 +321,15 @@
         [catDesc, section.querySelector('.proyectos__stack')]
       ).filter(Boolean);
       var preview = document.getElementById('proyectos-preview');
+      /* en desktop Quién soy + Stack terminan con el zoom al monitor (quien-soy.js) */
+      var afterZoom = !!(document.getElementById('quien-soy-layout') && document.getElementById('stack-video'));
+      if (afterZoom) section.classList.add('proyectos--after-zoom');
       var tl = gsap.timeline({
-        scrollTrigger: { trigger: section, start: 'top 90%', end: 'top 10%', scrub: 0.6 }
+        /* si viene después del zoom al monitor, arranca recién cuando el zoom terminó
+           (la sección sube 75vh encima del final del pin) */
+        scrollTrigger: afterZoom
+          ? { trigger: section, start: 'top 24%', end: 'top -45%', scrub: 0.6 }
+          : { trigger: section, start: 'top 90%', end: 'top 10%', scrub: 0.6 }
       });
       tl.fromTo(pieces, { opacity: 0, y: 50, rotateX: -25 },
         { opacity: 1, y: 0, rotateX: 0, duration: 0.3, stagger: 0.06, ease: 'none' }, 0);
