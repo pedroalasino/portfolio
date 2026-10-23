@@ -1718,8 +1718,6 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 .stack-layer:not(.proj-layer) > * { opacity: var(--sfade, 1); }
 .stack-layer__video { transform-origin: 54.9% 21.7%; } /* centro de la pantalla del monitor */
 
-/* zoom final: velo gris que cierra la entrada a la pantalla del monitor */
-.monitor-zoom { position: absolute; inset: 0; z-index: 3; background: var(--bg); opacity: 0; pointer-events: none; }
 
 /* transición de cámara + pantalla del monitor (monitor-stage.js) */
 .mon-box { position: absolute; top: 0; left: 50%; height: 100%; aspect-ratio: 16 / 9; translate: -50% 0; opacity: 0; }
@@ -1729,31 +1727,33 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
   width: 1600px; height: 900px;
   transform-origin: 0 0;
   box-sizing: border-box;
-  padding: 60px 0 0;
+  padding: 140px 0 0; /* igual que .proyectos */
   background: #0d0f12;
   color: #F2F2F0;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
 }
-/* la sección Proyectos copiada, en negro */
-.mon-screen .container { max-width: 1340px; margin: 0 auto; padding: 0 40px; }
-.mon-screen .proyectos__tag { color: rgba(242, 242, 240, .55); }
-.mon-screen .proyectos__title { color: #F2F2F0; }
-.mon-screen .proyectos__tabs { background: rgba(255, 255, 255, .08); }
-.mon-screen .proyectos__tab { color: rgba(242, 242, 240, .75); }
-.mon-screen .proyectos__tab.is-active { background: #F2F2F0; color: #0a0a0a; }
-.mon-screen .proyectos__item { border-bottom-color: rgba(255, 255, 255, .1); }
-.mon-screen .proyectos__list { border-top-color: rgba(255, 255, 255, .1); }
-.mon-screen .proyectos__name { color: rgba(242, 242, 240, .45); }
-.mon-screen .proyectos__item.is-active .proyectos__name { color: #F2F2F0; }
-.mon-screen .proyectos__num, .mon-screen .proyectos__year { color: rgba(242, 242, 240, .4); }
-.mon-screen .proyectos__cat-desc { color: rgba(242, 242, 240, .8); }
-.mon-screen .proyectos__stack-label { color: rgba(242, 242, 240, .55); }
-.mon-screen .proyectos__stack-pills span { color: #F2F2F0; border-color: rgba(242, 242, 240, .35); background: transparent; }
-.mon-screen .proyectos__preview { box-shadow: none; }
+/* Proyectos en negro: la sección real y su copia en la pantalla del monitor son idénticas */
+.mon-screen .container { position: relative; max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; } /* igual que .proyectos .container */
+.mon-screen .proyectos__tag, .proyectos--dark .proyectos__tag { color: rgba(242, 242, 240, .55); }
+.mon-screen .proyectos__title, .proyectos--dark .proyectos__title { color: #F2F2F0; }
+.mon-screen .proyectos__tabs, .proyectos--dark .proyectos__tabs { background: rgba(255, 255, 255, .08); }
+.mon-screen .proyectos__tab, .proyectos--dark .proyectos__tab { color: rgba(242, 242, 240, .75); }
+.mon-screen .proyectos__tab.is-active, .proyectos--dark .proyectos__tab.is-active { background: #F2F2F0; color: #0a0a0a; }
+.mon-screen .proyectos__item, .proyectos--dark .proyectos__item { border-bottom-color: rgba(255, 255, 255, .1); }
+.mon-screen .proyectos__list, .proyectos--dark .proyectos__list { border-top-color: rgba(255, 255, 255, .1); }
+.mon-screen .proyectos__name, .proyectos--dark .proyectos__name { color: rgba(242, 242, 240, .45); }
+.mon-screen .proyectos__item.is-active .proyectos__name, .proyectos--dark .proyectos__item.is-active .proyectos__name { color: #F2F2F0; }
+.mon-screen .proyectos__num, .mon-screen .proyectos__year, .proyectos--dark .proyectos__num, .proyectos--dark .proyectos__year { color: rgba(242, 242, 240, .4); }
+.mon-screen .proyectos__cat-desc, .proyectos--dark .proyectos__cat-desc { color: rgba(242, 242, 240, .8); }
+.mon-screen .proyectos__stack-label, .proyectos--dark .proyectos__stack-label { color: rgba(242, 242, 240, .55); }
+.mon-screen .proyectos__stack-pills span, .proyectos--dark .proyectos__stack-pills span { color: #F2F2F0; border-color: rgba(242, 242, 240, .35); background: transparent; }
+.mon-screen .proyectos__preview, .proyectos--dark .proyectos__preview { box-shadow: none; }
 .mon-screen__glow { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255, 255, 255, .07), transparent 45%); }
-.proyectos.proyectos--after-zoom { margin-top: -100vh; background: transparent; z-index: 2; }
+.proyectos.proyectos--dark { background: #0d0f12; color: #F2F2F0; }
+.proyectos.proyectos--after-zoom { margin-top: -100vh; background: transparent; z-index: 2; transition: background-color .45s ease; }
+.proyectos.proyectos--after-zoom.is-shown { background: #0d0f12; }
 /* aparece de una al terminar el zoom (monitor-stage.js), sin tener que seguir bajando */
 .proyectos.proyectos--after-zoom > .container { opacity: 0; transition: opacity .45s ease; }
 .proyectos.proyectos--after-zoom.is-shown > .container { opacity: 1; }
