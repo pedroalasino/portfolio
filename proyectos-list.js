@@ -15,7 +15,7 @@
           logo: 'img/luigi-white.png',
           title: 'Capacitación de IA aplicada a empresas',
           desc: 'Plataforma con motor de IA propio y seis agentes configurables, implementada en vivo para los equipos de Luigi Bosca en Buenos Aires y Mendoza.',
-          images: ['img/proyectos/luigi-bosca.mp4'], /* cliente estrella: va primero */
+          images: ['img/proyectos/luigi-bosca-vvz.mp4'], /* cliente estrella: va primero */
           ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
         },
         {
@@ -73,7 +73,7 @@
           logo: 'img/proyectos/logos/intbiz.png',
           title: 'Sitio corporativo internacional',
           desc: 'Sitio bilingüe para una consultora de negocios e IA con clientes como Coca-Cola y TN.',
-          images: ['img/proyectos/intbiz.webp'],
+          images: ['img/proyectos/intbiz-zzs.jpg'],
           ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
         }
       ]
