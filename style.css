@@ -1115,6 +1115,12 @@ footer.site-footer {
   overflow: visible;
 }
 .quien-soy__row-logo img { border-radius: 10px; }
+/* Educación: cada logo llena un círculo completo, sin espacios negros;
+   el escudo del colegio va sin círculo, como los de Experiencia */
+[data-panel="educacion"] .quien-soy__row-logo { border-radius: 50%; overflow: hidden; }
+[data-panel="educacion"] .quien-soy__row-logo img { border-radius: 0; object-fit: cover; }
+[data-panel="educacion"] .quien-soy__row-logo:has(img[src*="sanpedro"]) { border-radius: 10px; overflow: visible; }
+[data-panel="educacion"] .quien-soy__row-logo img[src*="sanpedro"] { object-fit: contain; }
 .quien-soy__row-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
 .quien-soy__row-title {
   font-weight: 700;
