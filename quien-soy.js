@@ -72,8 +72,31 @@
          arma Proyectos (PS) y la cámara entra a la pantalla (PZ) */
       var QS = 4, TR = stack ? 1 : 0, ST = stack ? stack.count * 0.9 : 0;
       var monitor = stack && window.MonitorStage ? window.MonitorStage.mount(layout, videoWrap) : null;
-      var XF = monitor ? 1.6 : 0, PS = monitor ? 2 : 0, PZ = monitor ? 1.6 : 0;
-      var TOTAL = QS + TR + ST + XF + PS + PZ;
+      /* el armado de la pantalla y el zoom no dependen del scroll: cuando termina el
+         video se reproducen solos y la página queda en Proyectos (AUTO = un margen corto) */
+      var XF = monitor ? 1.6 : 0, AUTO = monitor ? 0.4 : 0;
+      var TOTAL = QS + TR + ST + XF + AUTO;
+      var auto = { raf: 0, done: false };
+      function stopAuto() {
+        if (auto.raf) cancelAnimationFrame(auto.raf);
+        auto.raf = 0;
+        auto.done = false;
+      }
+      function runAuto() {
+        if (auto.raf || auto.done) return;
+        var start = performance.now(), DUR = 2400;
+        function step(now) {
+          var t = Math.min(1, (now - start) / DUR);
+          monitor.apply(1, Math.min(1, t / 0.45), Math.max(0, (t - 0.45) / 0.55));
+          if (t < 1) { auto.raf = requestAnimationFrame(step); return; }
+          auto.raf = 0;
+          auto.done = true;
+          /* la sección Proyectos queda en pantalla, arriba de todo */
+          var st = tl.scrollTrigger;
+          if (st && window.scrollY < st.end) window.scrollTo(0, st.end + 1);
+        }
+        auto.raf = requestAnimationFrame(step);
+      }
       function part(screens, from, len) { return len ? Math.max(0, Math.min(1, (screens - from) / len)) : 0; }
 
       var tl = gsap.timeline({
@@ -93,7 +116,14 @@
             if (monitor) {
               var end = QS + TR + ST;
               xf = part(screens, end, XF);
-              monitor.apply(xf, part(screens, end + XF, PS), part(screens, end + XF + PS, PZ));
+              if (xf < 0.999) {
+                stopAuto();
+                monitor.apply(xf, 0, 0);
+              } else if (auto.done) {
+                monitor.apply(1, 1, 1);
+              } else {
+                runAuto(); /* terminó el video: se abre Proyectos */
+              }
               /* el video del escritorio pasa la posta al de la transición */
               if (stack.video) stack.video.style.visibility = xf > 0 ? 'hidden' : '';
               var fade = Math.min(1, xf * 4);
