@@ -1106,15 +1106,15 @@ footer.site-footer {
   transition: transform .3s cubic-bezier(.3,.7,.3,1);
 }
 .quien-soy__row-logo img { width: 100%; height: 100%; object-fit: contain; }
-/* logos de Experiencia y Educación: tal cual, sin círculo negro ni recorte
-   (el escudo del colegio se ve completo). Las notificaciones del Stack siguen con círculo. */
-.quien-soy__row-logo:not(.stack-notif__logo) {
+/* todos los logos de las tarjetas (Experiencia, Educación y Stack) tal cual,
+   sin círculo de fondo ni recorte (el escudo del colegio se ve completo) */
+.quien-soy__row-logo {
   background: transparent;
   border: none;
   border-radius: 10px;
   overflow: visible;
 }
-.quien-soy__row-logo:not(.stack-notif__logo) img { border-radius: 10px; }
+.quien-soy__row-logo img { border-radius: 10px; }
 .quien-soy__row-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
 .quien-soy__row-title {
   font-weight: 700;
