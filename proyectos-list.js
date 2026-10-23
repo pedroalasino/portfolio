@@ -31,7 +31,7 @@
           logo: 'img/proyectos/logos/expolajas.png',
           title: 'Sistema laboral con IA',
           desc: 'Asistencia, turnos, liquidaciones y reportes de personal gestionados con IA.',
-          images: ['img/proyectos/expolajas.webp'],
+          images: ['img/proyectos/expolajas.mp4'],
           ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
         },
         {
