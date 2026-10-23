@@ -23,7 +23,7 @@
           logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Motor de IA soberano',
           desc: 'SOBERAI: motor de IA que corre en tu propio equipo. Backend en FastAPI con API REST, agentes con RAG, memoria vectorial y voz.',
-          images: ['img/V2.mp4'],
+          images: ['img/proyectos/soberanolab.mp4'],
           ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
         },
         {
