@@ -65,7 +65,7 @@
           logo: 'img/proyectos/logos/housegur.png',
           title: 'Inversiones inmobiliarias tokenizadas',
           desc: 'Invertí desde €50 en propiedades de Madrid, Valencia y Alicante, con asistente IA.',
-          images: ['img/proyectos/housegur-home.jpg'],
+          images: ['img/proyectos/housegur-logo.jpg'],
           ctas: [{ label: 'Ver proyecto', href: 'https://moonlit-biscotti-90221b.netlify.app/' }]
         },
         {

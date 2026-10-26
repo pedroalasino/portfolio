@@ -1515,7 +1515,7 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
 }
 .proyectos__preview-img.is-visible { opacity: 1; }
 .proyectos__preview-img[src*="intbiz-zzs"] { object-position: center; } /* foto entera: pantalla y mesa */
-.proyectos__preview-img[src*="housegur-home"] { object-position: 81% center; } /* el edificio, sin el titular del sitio */
+.proyectos__preview-img[src*="housegur-logo"] { object-position: center top; } /* logo arriba, edificio abajo */
 .proyectos__preview:hover .proyectos__preview-img.is-visible { transform: translateY(-6%); }
 .proyectos__preview-placeholder {
   position: absolute;
