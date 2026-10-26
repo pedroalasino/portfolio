@@ -93,7 +93,7 @@
           auto.done = true;
           /* la sección Proyectos queda en pantalla, arriba de todo */
           var st = tl.scrollTrigger;
-          if (st && window.scrollY < st.end) window.scrollTo(0, st.end + 1);
+          if (st && st.direction > 0 && window.scrollY < st.end) window.scrollTo(0, st.end + 1);
         }
         auto.raf = requestAnimationFrame(step);
       }
@@ -119,7 +119,11 @@
               if (xf < 0.999) {
                 stopAuto();
                 monitor.apply(xf, 0, 0);
-              } else if (auto.done) {
+              } else if (auto.done || self.direction < 0) {
+                /* subiendo desde Proyectos: queda abierto, sin animación ni salto */
+                if (auto.raf) cancelAnimationFrame(auto.raf);
+                auto.raf = 0;
+                auto.done = true;
                 monitor.apply(1, 1, 1);
               } else {
                 runAuto(); /* terminó el video: se abre Proyectos */

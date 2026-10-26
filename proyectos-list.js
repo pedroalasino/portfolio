@@ -39,7 +39,7 @@
           logo: 'img/proyectos/logos/salvatierra.png',
           title: 'Asistente comercial con IA',
           desc: 'Guía a cada cliente en la elección del producto y lo acompaña en la compra.',
-          images: ['img/proyectos/salvatierra.webp'],
+          images: ['img/proyectos/salvatierra-app.jpg'],
           ctas: [{ label: 'Ver proyecto', href: 'https://boisterous-boba-b1d665.netlify.app/' }]
         }
       ]
@@ -65,7 +65,7 @@
           logo: 'img/proyectos/logos/housegur.png',
           title: 'Inversiones inmobiliarias tokenizadas',
           desc: 'Invertí desde €50 en propiedades de Madrid, Valencia y Alicante, con asistente IA.',
-          images: [],
+          images: ['img/proyectos/housegur-home.jpg'],
           ctas: [{ label: 'Ver proyecto', href: 'https://moonlit-biscotti-90221b.netlify.app/' }]
         },
         {
