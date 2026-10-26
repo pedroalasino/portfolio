@@ -24,7 +24,7 @@
           title: 'Motor de IA soberano',
           desc: 'SOBERAI: motor de IA que corre en tu propio equipo. Backend en FastAPI con API REST, agentes con RAG, memoria vectorial y voz.',
           images: ['img/proyectos/soberanolab.mp4'],
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://elegant-druid-1eeeec.netlify.app/' }]
         },
         {
           num: '03', name: 'Expolajas', year: '2026',
