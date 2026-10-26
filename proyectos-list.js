@@ -16,7 +16,7 @@
           title: 'Capacitación de IA aplicada a empresas',
           desc: 'Plataforma con motor de IA propio y seis agentes configurables, implementada en vivo para los equipos de Luigi Bosca en Buenos Aires y Mendoza.',
           images: ['img/proyectos/luigi-bosca-vvz.mp4'], /* cliente estrella: va primero */
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://tubular-alfajores-f38bff.netlify.app/' }]
         },
         {
           num: '02', name: 'SoberanoLab', year: '2025',
