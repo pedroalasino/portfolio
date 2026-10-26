@@ -7,7 +7,7 @@
   var CATEGORIES = {
     ai: {
       label: 'AI Engineer',
-      description: 'Agentes, asistentes y sistemas con IA, con backend propio en Python y FastAPI.',
+      description: 'Agentes, asistentes y sistemas con IA, todo motorizado con infraestructura de IA propia: backend en Python y FastAPI.',
       stack: ['Python', 'FastAPI', 'APIs REST', 'LLaMA 3', 'Ollama', 'RAG', 'Multi-agente', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n'],
       projects: [
         {
@@ -32,7 +32,7 @@
           title: 'Sistema laboral con IA',
           desc: 'Asistencia, turnos, liquidaciones y reportes de personal gestionados con IA.',
           images: ['img/proyectos/expolajas.mp4'],
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://beamish-youtiao-8a4648.netlify.app/' }]
         },
         {
           num: '04', name: 'Salvatierra', year: '2025',
@@ -40,7 +40,7 @@
           title: 'Asistente comercial con IA',
           desc: 'Guía a cada cliente en la elección del producto y lo acompaña en la compra.',
           images: ['img/proyectos/salvatierra.webp'],
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://boisterous-boba-b1d665.netlify.app/' }]
         }
       ]
     },
@@ -56,7 +56,7 @@
           desc: 'Tienda online de cortinas a medida con cotizador, pagos y pedidos por WhatsApp, y un asesor que mide la ventana con la cámara del celular y recomienda la cortina con su precio.',
           images: ['img/proyectos/lmasm-preview.webp'],
           ctas: [
-            { label: 'Ver e-commerce', href: 'https://lmasm.com' },
+            { label: 'Ver e-commerce', href: 'https://lmasm.com/inicio' },
             { label: 'Ver asesor RA', href: 'https://lmasmpegau.netlify.app/', secondary: true }
           ]
         },
@@ -66,7 +66,7 @@
           title: 'Inversiones inmobiliarias tokenizadas',
           desc: 'Invertí desde €50 en propiedades de Madrid, Valencia y Alicante, con asistente IA.',
           images: [],
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://moonlit-biscotti-90221b.netlify.app/' }]
         },
         {
           num: '03', name: 'INTBIZ', year: '2024',
@@ -74,7 +74,7 @@
           title: 'Sitio corporativo internacional',
           desc: 'Sitio bilingüe para una consultora de negocios e IA con clientes como Coca-Cola y TN.',
           images: ['img/proyectos/intbiz-zzs.jpg'],
-          ctas: [{ label: 'Ver proyecto', href: 'https://darling-medovik-a3365a.netlify.app/' }]
+          ctas: [{ label: 'Ver proyecto', href: 'https://extraordinary-duckanoo-881294.netlify.app/' }]
         }
       ]
     }
