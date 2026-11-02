@@ -8,7 +8,7 @@
     ai: {
       label: 'AI Engineer',
       description: 'Agentes, asistentes y sistemas con IA, todo motorizado con infraestructura de IA propia: backend en Python y FastAPI.',
-      stack: ['Python', 'FastAPI', 'APIs REST', 'LLaMA 3', 'Ollama', 'RAG', 'Multi-agente', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n'],
+      stack: ['Python', 'FastAPI', 'APIs REST', 'LLaMA 3', 'Ollama', 'RAG', 'Multi-agente', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n', 'Gemini API', 'Pydantic', 'LangGraph', 'LangSmith'],
       projects: [
         {
           num: '01', name: 'Luigi Bosca', year: '2025',
@@ -41,6 +41,30 @@
           desc: 'Guía a cada cliente en la elección del producto y lo acompaña en la compra.',
           images: ['img/proyectos/salvatierra-app.jpg'],
           ctas: [{ label: 'Ver proyecto', href: 'https://boisterous-boba-b1d665.netlify.app/' }]
+        },
+        {
+          num: '05', name: 'Clasificador de tickets', year: '2026',
+          logo: '',
+          title: 'Triaje de atención al cliente con LLMs',
+          desc: 'Convierte reclamos en datos estructurados con categoría, prioridad, sentimiento y derivación a una persona. Incluye validación con Pydantic, reintentos, modelo de respaldo y una prueba básica de prompt injection.',
+          images: [],
+          ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/tickets.py' }]
+        },
+        {
+          num: '06', name: 'Analizador de CVs', year: '2026',
+          logo: '',
+          title: 'Preselección con revisión humana',
+          desc: 'Extrae datos de CVs, separa experiencia total y relevante, y recomienda avanzar, revisar o no avanzar. Excluye datos sensibles y deja la decisión final a una persona.',
+          images: [],
+          ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/cvs.py' }]
+        },
+        {
+          num: '07', name: 'Comparador de oportunidades', year: '2026',
+          logo: '',
+          title: 'Ranking de vacantes con IA',
+          desc: 'Compara un perfil con vacantes reales y genera un ranking con encaje, requisitos faltantes y próximo paso. Es un prototipo en mejora.',
+          images: [],
+          ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/oportunidades.py' }]
         }
       ]
     },
