@@ -55,7 +55,7 @@
           logo: '',
           title: 'Triaje de atención al cliente con LLMs',
           desc: 'Convierte reclamos en datos estructurados con categoría, prioridad, sentimiento y derivación a una persona. Incluye validación con Pydantic, reintentos, modelo de respaldo y una prueba básica de prompt injection.',
-          images: [],
+          images: ['img/proyectos/tickets-terminal.jpg'],
           ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/tickets.py' }]
         },
         {
@@ -63,7 +63,7 @@
           logo: '',
           title: 'Preselección con revisión humana',
           desc: 'Extrae datos de CVs, separa experiencia total y relevante, y recomienda avanzar, revisar o no avanzar. Excluye datos sensibles y deja la decisión final a una persona.',
-          images: [],
+          images: ['img/proyectos/cvs-terminal.jpg'],
           ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/cvs.py' }]
         },
         {
@@ -71,7 +71,7 @@
           logo: '',
           title: 'Ranking de vacantes con IA',
           desc: 'Compara un perfil con vacantes reales y genera un ranking con encaje, requisitos faltantes y próximo paso. Es un prototipo en mejora.',
-          images: [],
+          images: ['img/proyectos/oportunidades-terminal.jpg'],
           ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/oportunidades.py' }]
         }
       ]
