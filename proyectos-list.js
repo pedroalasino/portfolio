@@ -43,7 +43,15 @@
           ctas: [{ label: 'Ver proyecto', href: 'https://boisterous-boba-b1d665.netlify.app/' }]
         },
         {
-          num: '05', name: 'Clasificador de tickets', year: '2026',
+          num: '05', name: 'LMASM Deco', year: '2026',
+          logo: 'img/proyectos/logos/lmasm.png',
+          title: 'Asesor de cortinas con realidad aumentada',
+          desc: 'Mide la ventana con la cámara del celular y recomienda la cortina con su precio.',
+          images: ['img/proyectos/lmasm-preview.webp'],
+          ctas: [{ label: 'Ver asesor RA', href: 'https://lmasmpegau.netlify.app/' }]
+        },
+        {
+          num: '06', name: 'Clasificador de tickets', year: '2026',
           logo: '',
           title: 'Triaje de atención al cliente con LLMs',
           desc: 'Convierte reclamos en datos estructurados con categoría, prioridad, sentimiento y derivación a una persona. Incluye validación con Pydantic, reintentos, modelo de respaldo y una prueba básica de prompt injection.',
@@ -51,7 +59,7 @@
           ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/tickets.py' }]
         },
         {
-          num: '06', name: 'Analizador de CVs', year: '2026',
+          num: '07', name: 'Analizador de CVs', year: '2026',
           logo: '',
           title: 'Preselección con revisión humana',
           desc: 'Extrae datos de CVs, separa experiencia total y relevante, y recomienda avanzar, revisar o no avanzar. Excluye datos sensibles y deja la decisión final a una persona.',
@@ -59,7 +67,7 @@
           ctas: [{ label: 'Ver código', href: 'https://github.com/pedroalasino/clasificador-tickets/blob/main/cvs.py' }]
         },
         {
-          num: '07', name: 'Comparador de oportunidades', year: '2026',
+          num: '08', name: 'Comparador de oportunidades', year: '2026',
           logo: '',
           title: 'Ranking de vacantes con IA',
           desc: 'Compara un perfil con vacantes reales y genera un ranking con encaje, requisitos faltantes y próximo paso. Es un prototipo en mejora.',
@@ -76,13 +84,10 @@
         {
           num: '01', name: 'LMASM Deco', year: '2026',
           logo: 'img/proyectos/logos/lmasm.png',
-          title: 'E-commerce y asesor de cortinas con realidad aumentada',
-          desc: 'Tienda online de cortinas a medida con cotizador, pagos y pedidos por WhatsApp, y un asesor que mide la ventana con la cámara del celular y recomienda la cortina con su precio.',
-          images: ['img/proyectos/lmasm-preview.webp'],
-          ctas: [
-            { label: 'Ver e-commerce', href: 'https://lmasm.com/inicio' },
-            { label: 'Ver asesor RA', href: 'https://lmasmpegau.netlify.app/', secondary: true }
-          ]
+          title: 'E-commerce de cortinas a medida',
+          desc: 'Tienda online de cortinas a medida con cotizador, pagos y pedidos por WhatsApp.',
+          images: [],
+          ctas: [{ label: 'Ver e-commerce', href: 'https://lmasm.com/inicio' }]
         },
         {
           num: '02', name: 'HouseGur', year: '2025',
