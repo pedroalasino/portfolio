@@ -52,7 +52,7 @@
         },
         {
           num: '06', name: 'Clasificador de tickets', year: '2026',
-          logo: '',
+          logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Triaje de atención al cliente con LLMs',
           desc: 'Convierte reclamos en datos estructurados con categoría, prioridad, sentimiento y derivación a una persona. Incluye validación con Pydantic, reintentos, modelo de respaldo y una prueba básica de prompt injection.',
           images: ['img/proyectos/tickets-terminal.jpg'],
@@ -60,7 +60,7 @@
         },
         {
           num: '07', name: 'Analizador de CVs', year: '2026',
-          logo: '',
+          logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Preselección con revisión humana',
           desc: 'Extrae datos de CVs, separa experiencia total y relevante, y recomienda avanzar, revisar o no avanzar. Excluye datos sensibles y deja la decisión final a una persona.',
           images: ['img/proyectos/cvs-terminal.jpg'],
@@ -68,7 +68,7 @@
         },
         {
           num: '08', name: 'Comparador de oportunidades', year: '2026',
-          logo: '',
+          logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Ranking de vacantes con IA',
           desc: 'Compara un perfil con vacantes reales y genera un ranking con encaje, requisitos faltantes y próximo paso. Es un prototipo en mejora.',
           images: ['img/proyectos/oportunidades-terminal.jpg'],
