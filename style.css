@@ -1991,6 +1991,23 @@ a.quien-soy__row:hover .quien-soy__row-arrow { opacity: 1; transform: translateX
   background: rgba(255, 255, 255, .85);
   border-color: rgba(255, 255, 255, .85);
 }
+.work-together__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.work-together .btn-outline-light {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, .55);
+}
+.work-together .btn-outline-light:hover,
+.work-together .btn-outline-light:focus-visible {
+  background: rgba(255, 255, 255, .9);
+  color: #0A0A0A;
+  border-color: rgba(255, 255, 255, .9);
+}
 
 /* ==========================================================================
    CONTACTO / CTA FINAL
