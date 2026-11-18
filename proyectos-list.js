@@ -8,15 +8,18 @@
     ai: {
       label: 'AI Engineer',
       description: 'Agentes, asistentes y sistemas con IA, con backend propio en Python y FastAPI.',
-      stack: ['Python', 'FastAPI', 'APIs REST', 'LLaMA 3', 'Ollama', 'RAG', 'Multi-agente', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n'],
+      stack: ['Python', 'FastAPI', 'APIs REST', 'LangGraph', 'LangChain', 'LLaMA 3', 'Qwen', 'Ollama', 'RAG', 'Embeddings', 'Multi-agente', 'MCP', 'Guardrails', 'Evals', 'pytest', 'Docker', 'GitHub Actions', 'Chroma', 'Qdrant', 'Whisper.cpp (STT)', 'Piper / Coqui (TTS)', 'n8n'],
       projects: [
         {
           num: '01', name: 'SoberanoLab', year: '2025',
           logo: 'img/proyectos/logos/soberanolab.png',
           title: 'Motor de IA soberano',
-          desc: 'SOBERAI: motor de IA que corre en tu propio equipo. Backend en FastAPI con API REST, agentes con RAG, memoria vectorial y voz.',
+          desc: 'SOBERAI: motor de IA propio en Ollama, sin terceros. Agentes con LangGraph, RAG híbrido, guardrails, API con streaming, evaluación automática, tests, Docker y CI.',
           images: ['img/V2.mp4'],
-          ctas: [{ label: 'Ver proyecto', href: '#contacto' }]
+          ctas: [
+            { label: 'Ver código', href: 'https://github.com/pedroalasino/soberanolab-/tree/main/soberai' },
+            { label: 'Hablemos', href: '#contacto', secondary: true }
+          ]
         },
         {
           num: '02', name: 'Luigi Bosca', year: '2025',
